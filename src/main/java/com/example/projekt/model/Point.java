@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Point {
-    private int x;
-    private int y;
+    private double x;
+    private double y;
 }
