@@ -5,6 +5,7 @@ import com.example.projekt.model.Data;
 import com.example.projekt.model.Point;
 import com.example.projekt.model.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,9 +21,9 @@ public class CalculationController {
     }
 
     @PostMapping("/calculations/interpolation")
-    public double Interpolate(@RequestBody Data data) {
+    public ResponseEntity<Double> Interpolate(@RequestBody Data data) {
         double result = calculator.Calculate(data);
         System.out.println(result);
-        return result;
+        return ResponseEntity.ok(result);
     }
 }
