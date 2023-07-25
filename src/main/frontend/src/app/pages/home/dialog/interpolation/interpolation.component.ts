@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, NgModel } from '@angular/forms';
-import { Data, Point } from '../calculation.interface';
+import { Data } from '../calculation.interface';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ResultDataService } from 'src/app/shared/result-data.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-interpolation',
@@ -21,7 +22,8 @@ export class InterpolationComponent implements OnInit {
   resultFromServer: number = 0;
   form: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router, private resultDataService: ResultDataService) {
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router,
+    private resultDataService: ResultDataService, public dialogRef: MatDialogRef<InterpolationComponent>) {
     this.form = this.formBuilder.group({
       pointsNumber: [0, [Validators.required, Validators.min(0), Validators.max(50)]],
       searchedValue: [0, [Validators.required]],
@@ -68,6 +70,7 @@ export class InterpolationComponent implements OnInit {
       }
     );
 
+    this.dialogRef.close();
     this.router.navigate(['/result']);
   }
 
