@@ -23,7 +23,6 @@ public class CalculationController {
     @PostMapping("/calculations/interpolation")
     public ResponseEntity<Double> Interpolate(@RequestBody Data data) {
         double result = calculator.Calculate(data);
-        System.out.println(result);
         return ResponseEntity.ok(result);
     }
 }
