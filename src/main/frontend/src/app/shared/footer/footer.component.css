@@ -1,0 +1,28 @@
+.footer {
+  background-color: var(--secondary-color);
+  padding: 20px 10px;
+  position: fixed;
+  height: 90px;
+  border-top: 1px black solid;
+}
+
+h1 {
+  color: white;
+  font-size: 16px;
+}
+
+a {
+  color: white;
+  padding: 0px 7px;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+a:hover {
+  color: var(--primary-color);
+}
+
+i {
+
+  padding: 0px 2px;
+}

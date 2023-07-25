@@ -1,0 +1,20 @@
+.active-link {
+  color: var(--primary-color);
+}
+
+.title {
+  font-size: 24px;
+}
+
+ul {
+  font-size: 16px;
+}
+
+.soft-green {
+  background-color: rgb(225, 245, 225);
+  border-bottom: 1px black solid;
+}
+
+.navbar {
+  position: sticky;
+}

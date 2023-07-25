@@ -1,0 +1,19 @@
+<div id="dialog-menu">
+  <form (ngSubmit)="Submit()" id="dialog-form">
+    <div id="dialog-points" class="dialog-input">
+      <label class="dialog-label">Ilość punktów</label>
+      <input type="number" name="pointsNumber" [(ngModel)]="data.pointsNumber" (input)="UpdatePoints($event)"/>
+    </div>
+    <div id="dialog-searched" class="dialog-input">
+      <label class="dialog-label">Szukana wartość</label>
+      <input type="number" name="searchedValue" [(ngModel)]="data.searchedValue"/>
+    </div>
+    <div class="dialog-input" *ngFor="let point of PointsRange()">
+      <label class="dialog-label">x{{point}}</label>
+      <input type="number" [(ngModel)]="data.points[point].x" name="x{{point}}"/>
+      <label class="dialog-label">y{{point}}</label>
+      <input type="number" [(ngModel)]="data.points[point].y" name="y{{point}}"/>
+    </div>
+    <input type="submit" value="Oblicz"/>
+  </form>
+</div>
