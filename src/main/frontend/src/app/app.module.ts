@@ -20,6 +20,8 @@ import { InterpolationComponent } from './pages/home/dialog/interpolation/interp
 import { AproximationComponent } from './pages/home/dialog/aproximation/aproximation.component';
 import { IntegralComponent } from './pages/home/dialog/integral/integral.component';
 import { GaussComponent } from './pages/home/dialog/gauss/gauss.component';
+import { ErrorHandler } from '@angular/core';
+import { MainErrorHandler } from './error.handler';
 
 
 @NgModule({
@@ -51,6 +53,9 @@ import { GaussComponent } from './pages/home/dialog/gauss/gauss.component';
   exports: [
     MatButtonModule,
     MatDialogModule
+  ],
+  providers: [
+    { provide: ErrorHandler, useClass: MainErrorHandler },
   ],
   bootstrap: [AppComponent, HomeComponent]
 })

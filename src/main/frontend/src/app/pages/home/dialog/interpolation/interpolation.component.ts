@@ -62,16 +62,14 @@ export class InterpolationComponent implements OnInit {
     this.http.post<number>('http://localhost:8080/calculations/interpolation', data).subscribe(
       (response: number) => {
         console.log("Interpolated value:", response);
-
-        this.resultDataService.setResult(response);
+        this.resultFromServer = response;
       },
       (error: any) => {
         console.error("Error:", error);
       }
     );
-
-    this.dialogRef.close();
     this.router.navigate(['/result']);
+    this.dialogRef.close();
   }
 
 }

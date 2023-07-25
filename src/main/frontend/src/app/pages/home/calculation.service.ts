@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Data } from './dialog/calculation.interface';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CalculationService {
-  constructor(private http: HttpClient) {}
+  private apiUrl = 'http://localhost:8080/result';
 
-  calculateSumAndProcess(data: Data) {
-    return this.http.post<number>('/api/calculate-sum-and-process', data);
+  constructor(private http: HttpClient) { }
+
+  GetCalculationResult(): Observable<{ result: number }> {
+    return this.http.get<{ result: number }>(this.apiUrl);
   }
 }

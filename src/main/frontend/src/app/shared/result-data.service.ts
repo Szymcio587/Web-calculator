@@ -5,16 +5,16 @@ import { Injectable } from '@angular/core';
 })
 export class ResultDataService {
 
-  private result: number = 0;
+  private static result: number = 0;
 
   constructor() { }
 
   setResult(result: number) {
-    this.result = result;
+    ResultDataService.result = result;
   }
 
   getResult(): number {
-    return this.result;
+    return ResultDataService.result;
   }
 
 }
