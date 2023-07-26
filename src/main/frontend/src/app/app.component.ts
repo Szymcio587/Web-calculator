@@ -9,6 +9,5 @@ export class AppComponent implements OnInit {
   title = 'frontend';
 
   ngOnInit(): void {
-    console.log("check");
   }
 }

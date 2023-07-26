@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, NgModel } from '@angular/forms';
-import { Data } from '../calculation.interface';
+import { Data } from 'src/app/shared/data.interface';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ResultDataService } from 'src/app/shared/result-data.service';
@@ -18,15 +18,9 @@ export class InterpolationComponent implements OnInit {
     searchedValue: 0,
     points: []
   };
-  form: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router,
     private resultDataService: ResultDataService, public dialogRef: MatDialogRef<InterpolationComponent>) {
-    this.form = this.formBuilder.group({
-      pointsNumber: [0, [Validators.required, Validators.min(0), Validators.max(50)]],
-      searchedValue: [0, [Validators.required]],
-      points: this.formBuilder.array([])
-    });
   }
 
   ngOnInit(): void {
@@ -49,9 +43,6 @@ export class InterpolationComponent implements OnInit {
   }
 
   Submit() {
-    console.log("Number of points: ", this.data.pointsNumber);
-    console.log("Searched value: ", this.data.searchedValue);
-    console.log("Points: ", this.data.points);
     const data: Data = {
       points: this.data.points,
       searchedValue: this.data.searchedValue,
@@ -59,8 +50,7 @@ export class InterpolationComponent implements OnInit {
     };
     this.http.post<number>('http://localhost:8080/calculations/interpolation', data).subscribe(
       (response: number) => {
-        console.log("Interpolated value:", response);
-        this.resultDataService.SetResult(response);
+        this.resultDataService.SetResult(response, data);
         this.router.navigate(['/result']);
       },
       (error: any) => {
