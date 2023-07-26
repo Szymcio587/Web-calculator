@@ -3,7 +3,6 @@ package com.example.projekt.controllers;
 import com.example.projekt.calculations.InterpolationCalculator;
 import com.example.projekt.model.Data;
 import com.example.projekt.model.Point;
-import com.example.projekt.model.Result;
 import com.example.projekt.service.CalculationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,24 +28,21 @@ public class CalculationController {
     }
 
     @PostMapping("/calculations/interpolation")
-    public ResponseEntity<String> ReceiveInterpolationData(@RequestBody Data data) {
-        System.out.println(data.getSearchedValue());
-        calculationService.CacheData(data);
-        return ResponseEntity.ok("Data received succesfully");
+    public ResponseEntity<Double> ReceiveInterpolationData(@RequestBody Data data) {
+        System.out.println("Receive: " + data.getSearchedValue());
+        //calculationService.CacheData(data);
+        double result = calculationService.CalculateInterpolation(data);
+        return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/result")
-    public ResponseEntity<Map<String, Double>> SendInterpolationResult() {
+/*    @GetMapping("/result")
+    public ResponseEntity<Double> SendInterpolationResult() {
         Data cachedData = calculationService.GetCachedData();
         if (cachedData == null) {
             return ResponseEntity.badRequest().body(null);
         }
-        System.out.println(cachedData.getSearchedValue());
+        System.out.println("Send: " + cachedData.getSearchedValue());
         double result = calculationService.CalculateInterpolation(cachedData);
-
-        Map<String, Double> resultMap = new HashMap<>();
-        resultMap.put("result", 5.0);
-
-        return ResponseEntity.ok(resultMap);
-    }
+        return ResponseEntity.ok(result);
+    }*/
 }

@@ -18,8 +18,6 @@ export class InterpolationComponent implements OnInit {
     searchedValue: 0,
     points: []
   };
-
-  resultFromServer: number = 0;
   form: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router,
@@ -62,13 +60,14 @@ export class InterpolationComponent implements OnInit {
     this.http.post<number>('http://localhost:8080/calculations/interpolation', data).subscribe(
       (response: number) => {
         console.log("Interpolated value:", response);
-        this.resultFromServer = response;
+        this.resultDataService.SetResult(response);
+        this.router.navigate(['/result']);
       },
       (error: any) => {
         console.error("Error:", error);
       }
     );
-    this.router.navigate(['/result']);
+
     this.dialogRef.close();
   }
 

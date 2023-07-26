@@ -9,11 +9,13 @@ export class ResultDataService {
 
   constructor() { }
 
-  setResult(result: number) {
+  SetResult(result: number) {
     ResultDataService.result = result;
+    console.log("SetResult: " + ResultDataService.result);
   }
 
-  getResult(): number {
+  GetResult(): number {
+    console.log("GetResult: " + ResultDataService.result);
     return ResultDataService.result;
   }
 
