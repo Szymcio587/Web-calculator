@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class InterpolationCalculatorTest {
@@ -22,6 +21,8 @@ public class InterpolationCalculatorTest {
 
     @Mock
     private Data data;
+
+    private List<Point> points;
 
     @Test
     public void TestCalculateWithEmptyPoints() {
@@ -33,7 +34,7 @@ public class InterpolationCalculatorTest {
 
     @Test
     public void TestCalculateWithOnePoint() {
-        List<Point> points = new ArrayList<>();
+        points = new ArrayList<>();
         points.add(new Point(2, 5));
         data = new Data(1, 2, points);
 
@@ -42,11 +43,16 @@ public class InterpolationCalculatorTest {
         assertEquals(5.0, result, 0.0001);
     }
 
-/*    @Test
+    @Test
     public void TestCalculateWithMultiplePoints() {
+        points = new ArrayList<>();
+        points.add(new Point(1, 1));
+        points.add(new Point(2, 4));
+        points.add(new Point(5, 25));
+        data = new Data(3, 3, points);
 
         double result = interpolationCalculator.Calculate(data);
 
-        assertEquals(5.0, result, 0.0001);
-    }*/
+        assertEquals(9.0, result, 0.0001);
+    }
 }
