@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 public class InterpolationCalculator {
 
     public double Calculate(Data data) {
+        if(data == null)
+            return 0;
         int[] weights = new int[data.getPointsNumber()];
         double result = 0;
 
