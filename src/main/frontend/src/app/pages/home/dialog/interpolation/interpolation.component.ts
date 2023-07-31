@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators, NgModel } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray} from '@angular/forms';
 import { Data } from 'src/app/shared/data.interface';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
