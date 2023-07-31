@@ -58,6 +58,7 @@ export class ResultsComponent {
         {
           data: lineData,
           type: 'line',
+          smooth: true,
           lineStyle: {
             opacity: 0.5,
           },

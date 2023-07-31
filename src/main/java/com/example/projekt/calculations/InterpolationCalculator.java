@@ -17,12 +17,6 @@ public class InterpolationCalculator {
             weights[q] = 1;
         }
 
-/*        System.out.println(data.getSearchedValue());
-        for (int q = 0; q < data.getPointsNumber(); q++) {
-            System.out.println(data.getPoints().get(q).getX());
-            System.out.println(data.getPoints().get(q).getY());
-        }*/
-
         for (int q = 0; q < data.getPointsNumber(); q++)
             for (int w = 0; w < data.getPointsNumber(); w++)
                 if (q != w)
