@@ -1,7 +1,7 @@
+<div echarts [options]="chartOption" class="demo-chart"></div>
 <p>result: {{result}}</p>
 <p>data sent: {{data.pointsNumber}}<br/> {{data.searchedValue}} <br/></p>
 <li *ngFor="let point of data.points">
   X: {{ point.x }}, Y: {{ point.y }}
 </li>
-<div echarts [options]="chartOption" class="demo-chart"></div>
 

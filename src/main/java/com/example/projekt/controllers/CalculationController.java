@@ -29,20 +29,8 @@ public class CalculationController {
 
     @PostMapping("/calculations/interpolation")
     public ResponseEntity<Double> ReceiveInterpolationData(@RequestBody Data data) {
-        System.out.println("Receive: " + data.getSearchedValue());
-        //calculationService.CacheData(data);
         double result = calculationService.CalculateInterpolation(data);
+        System.out.println("Calculated: " + result);
         return ResponseEntity.ok(result);
     }
-
-/*    @GetMapping("/result")
-    public ResponseEntity<Double> SendInterpolationResult() {
-        Data cachedData = calculationService.GetCachedData();
-        if (cachedData == null) {
-            return ResponseEntity.badRequest().body(null);
-        }
-        System.out.println("Send: " + cachedData.getSearchedValue());
-        double result = calculationService.CalculateInterpolation(cachedData);
-        return ResponseEntity.ok(result);
-    }*/
 }

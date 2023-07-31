@@ -34,25 +34,40 @@ export class ResultsComponent {
     const xStep = (maxX - minX) / (numberOfLabels - 1);
     const xAxisLabels = Array.from({ length: numberOfLabels }, (_, i) => (minX + i * xStep).toFixed(2));
 
+    const lineData = this.Y.slice(0, this.Y.length - 1).map((y, index) => [this.X[index], y]);
+
     this.chartOption = {
       xAxis: {
         type: 'value',
         axisLabel: {
           formatter: (value: number) => xAxisLabels.find((label) => parseFloat(label) === value) || '',
-          margin: 10,
         },
       },
       yAxis: {
         type: 'value',
       },
-      grid: {
-        left: 50,
-        right: 20,
-      },
-      series: {
-        data: this.Y.map((y, index) => [this.X[index], y]),
-        type: 'scatter',
-      },
+      series: [
+        {
+          data: this.Y.map((y, index) => [this.X[index], y]),
+          type: 'scatter',
+          symbolSize: 10,
+          itemStyle: {
+            color: 'blue',
+          },
+        },
+        {
+          data: lineData,
+          type: 'line',
+          lineStyle: {
+            opacity: 0.5,
+          },
+          emphasis: {
+            lineStyle: {
+              opacity: 1,
+            },
+          },
+        },
+      ],
     };
   }
 }
