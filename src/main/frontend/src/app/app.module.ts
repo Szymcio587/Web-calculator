@@ -22,6 +22,7 @@ import { IntegralComponent } from './pages/home/dialog/integral/integral.compone
 import { GaussComponent } from './pages/home/dialog/gauss/gauss.component';
 import { ErrorHandler } from '@angular/core';
 import { MainErrorHandler } from './error.handler';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 
 @NgModule({
@@ -48,6 +49,9 @@ import { MainErrorHandler } from './error.handler';
     BrowserAnimationsModule,
     HttpClientModule,
     MatNativeDateModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts'),
+    }),
   ],
   exports: [
     MatButtonModule,

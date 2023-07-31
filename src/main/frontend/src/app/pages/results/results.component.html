@@ -3,4 +3,5 @@
 <li *ngFor="let point of data.points">
   X: {{ point.x }}, Y: {{ point.y }}
 </li>
+<div echarts [options]="chartOption" class="demo-chart"></div>
 
