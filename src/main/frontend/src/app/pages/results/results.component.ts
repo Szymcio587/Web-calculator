@@ -14,23 +14,44 @@ export class ResultsComponent {
 
   result: number = 0;
   data!: Data;
+  X: number[];
+  Y: number[];
 
   chartOption: EChartsOption;
 
   constructor(private resultDataService: ResultDataService) {
     this.result = this.resultDataService.GetResult();
     this.data = this.resultDataService.GetData();
+    this.X = this.data.points.map((point) => point.x);
+    this.Y = this.data.points.map((point) => point.y);
+    this.X.push(this.data.searchedValue);
+    this.Y.push(this.result);
+
+    const minX = Math.min(...this.X);
+    const maxX = Math.max(...this.X);
+
+    const numberOfLabels = 5;
+    const xStep = (maxX - minX) / (numberOfLabels - 1);
+    const xAxisLabels = Array.from({ length: numberOfLabels }, (_, i) => (minX + i * xStep).toFixed(2));
+
     this.chartOption = {
       xAxis: {
-        type: 'category',
-        data: this.data.points.map((point) => point.x),
+        type: 'value',
+        axisLabel: {
+          formatter: (value: number) => xAxisLabels.find((label) => parseFloat(label) === value) || '',
+          margin: 10,
+        },
       },
       yAxis: {
         type: 'value',
       },
+      grid: {
+        left: 50,
+        right: 20,
+      },
       series: {
-          data: this.data.points.map((point) => point.y),
-          type: 'line',
+        data: this.Y.map((y, index) => [this.X[index], y]),
+        type: 'scatter',
       },
     };
   }
