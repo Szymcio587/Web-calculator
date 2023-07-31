@@ -57,7 +57,6 @@ export class InterpolationComponent implements OnInit {
         console.error("Error:", error);
       }
     );
-
     this.dialogRef.close();
   }
 

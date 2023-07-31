@@ -48,7 +48,7 @@ import { MainErrorHandler } from './error.handler';
     BrowserAnimationsModule,
     HttpClientModule,
     MatNativeDateModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     MatButtonModule,
