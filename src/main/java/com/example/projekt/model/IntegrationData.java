@@ -12,7 +12,7 @@ import java.util.List;
 public class IntegrationData {
     private int degree;
     private List<Double> factors;
-    private double sections;
+    private int sections;
     private double Xp;
     private double Xk;
 }

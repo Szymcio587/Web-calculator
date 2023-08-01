@@ -28,7 +28,7 @@ export class IntegralComponent implements OnInit {
   ngOnInit(): void {}
 
   FactorsArray() {
-    const range = Array.from({ length: this.data.degree }, (_, index) => index);
+    const range = Array.from({ length: this.data.degree + 1}, (_, index) => index);
     return range.reverse();
   }
 

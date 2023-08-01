@@ -27,18 +27,14 @@ public class CalculationController {
     @PostMapping("/interpolation")
     public ResponseEntity<Double> TreatInterpolationData(@RequestBody InterpolationData interpolationData) {
         double result = calculationService.CalculateInterpolation(interpolationData);
-        System.out.println("Calculated: " + result);
+        System.out.println("CalculatedInterpolation: " + result);
         return ResponseEntity.ok(result);
     }
 
     @PostMapping("/integration")
     public ResponseEntity<Double> TreatIntegrationData(@RequestBody IntegrationData integrationData) {
-        System.out.println(integrationData.getDegree());
-        for(int i = 0; i < integrationData.getDegree(); i++)
-            System.out.println(integrationData.getFactors().get(i));
-        System.out.println(integrationData.getSections());
-        System.out.println(integrationData.getXp());
-        System.out.println(integrationData.getXk());
-        return ResponseEntity.ok(0.0);
+        double result = calculationService.CalculateIntegration(integrationData);
+        System.out.println("CalculatedIntegration: " + result);
+        return ResponseEntity.ok(result);
     }
 }
