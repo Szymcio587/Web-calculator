@@ -1,1 +1,25 @@
-<p>integral works!</p>
+<div id="dialog-menu">
+  <form (ngSubmit)="Submit()" id="dialog-form">
+    <div id="dialog-degree" class="dialog-input">
+      <label class="dialog-label">Stopień wielomianu</label>
+      <input type="number" name="pointsNumber" [(ngModel)]="data.degree" (input)="UpdateDegree($event)"/>
+    </div>
+    <div class="dialog-input" *ngFor="let factor of FactorsArray()">
+      <label class="dialog-label">Stopień: {{factor}}</label>
+      <input type="number" [(ngModel)]="data.factors[factor]" name="x{{factor}}"/>
+    </div>
+    <div id="dialog-sections" class="dialog-input">
+      <label class="dialog-label">Ilość podziałów przedziału</label>
+      <input type="number" name="searchedValue" [(ngModel)]="data.sections"/>
+    </div>
+    <div id="dialog-section-start" class="dialog-input">
+      <label class="dialog-label">Początek przedziału</label>
+      <input type="number" name="searchedValue" [(ngModel)]="data.Xp"/>
+    </div>
+    <div id="dialog-section-end" class="dialog-input">
+      <label class="dialog-label">Koniec przedziału</label>
+      <input type="number" name="searchedValue" [(ngModel)]="data.Xk"/>
+    </div>
+    <input type="submit" value="Oblicz"/>
+  </form>
+</div>

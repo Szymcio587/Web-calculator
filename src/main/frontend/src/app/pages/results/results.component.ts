@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ResultDataService } from 'src/app/shared/result-data.service';
-import { Data } from 'src/app/shared/data.interface';
+import { InterpolationData } from 'src/app/shared/data.interface';
 import { ChartType } from 'chart.js';
 import { Point } from 'src/app/shared/data.interface';
 import { EChartsOption } from 'echarts';
@@ -13,15 +13,15 @@ import { EChartsOption } from 'echarts';
 export class ResultsComponent {
 
   result: number = 0;
-  data!: Data;
+  data!: InterpolationData;
   X: number[];
   Y: number[];
 
   chartOption: EChartsOption;
 
   constructor(private resultDataService: ResultDataService) {
-    this.result = this.resultDataService.GetResult();
-    this.data = this.resultDataService.GetData();
+    this.result = this.resultDataService.GetInterpolationResult();
+    this.data = this.resultDataService.GetInterpolationData();
     this.X = this.data.points.map((point) => point.x);
     this.Y = this.data.points.map((point) => point.y);
     this.X.push(this.data.searchedValue);

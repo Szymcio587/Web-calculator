@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray} from '@angular/forms';
-import { Data } from 'src/app/shared/data.interface';
+import { FormBuilder} from '@angular/forms';
+import { InterpolationData } from 'src/app/shared/data.interface';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ResultDataService } from 'src/app/shared/result-data.service';
@@ -13,7 +13,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class InterpolationComponent implements OnInit {
 
-  data: Data = {
+  data: InterpolationData = {
     pointsNumber: 0,
     searchedValue: 0,
     points: []
@@ -43,14 +43,14 @@ export class InterpolationComponent implements OnInit {
   }
 
   Submit() {
-    const data: Data = {
+    const data: InterpolationData = {
       points: this.data.points,
       searchedValue: this.data.searchedValue,
       pointsNumber: this.data.pointsNumber,
     };
     this.http.post<number>('http://localhost:8080/calculations/interpolation', data).subscribe(
       (response: number) => {
-        this.resultDataService.SetResult(response, data);
+        this.resultDataService.SetInterpolationResult(response, data);
         this.router.navigate(['/result']);
       },
       (error: any) => {
