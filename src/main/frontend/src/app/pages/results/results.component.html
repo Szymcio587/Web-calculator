@@ -1,10 +1,19 @@
 <div class="my-container">
-  <div echarts [options]="chartOption" class="demo-chart"></div>
-  <p>result: {{result}}</p>
-  <p>interpolationData sent: {{data.pointsNumber}}<br/> {{data.searchedValue}} <br/></p>
-  <li *ngFor="let point of data.points">
-    X: {{ point.x }}, Y: {{ point.y }}
-  </li>
+  <div class="margin-left">
+    <div echarts [options]="chartOption" class="demo-chart"></div>
+    <div id="sent-data">
+      <h3>Wysłane wartości:</h3>
+      <p>Liczba punktów: {{data.pointsNumber}}</p>
+      <p>Poszukiwana wartość: {{data.searchedValue}}</p>
+      <p>Podane wartości dla znanych punktów:</p>
+      <li *ngFor="let point of data.points">
+        X: {{ point.x }}, Y: {{ point.y }}
+      </li>
+    </div>
+    <div id="result">
+      <h3>Obliczony wynik: {{result}}</h3>
+    </div>
+  </div>
 </div>
 
 
