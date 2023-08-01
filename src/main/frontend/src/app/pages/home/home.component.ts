@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import {MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { InterpolationComponent } from './dialog/interpolation/interpolation.component';
 import { AproximationComponent } from './dialog/aproximation/aproximation.component';
+import { IntegralComponent } from './dialog/integral/integral.component';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,8 @@ import { AproximationComponent } from './dialog/aproximation/aproximation.compon
 })
 export class HomeComponent implements OnInit {
 
-  dialogRef: MatDialogRef<InterpolationComponent> | null = null;
+  dialogInterpolation: MatDialogRef<InterpolationComponent> | null = null;
+  dialogIntegral: MatDialogRef<IntegralComponent> | null = null;
   @Inject(MAT_DIALOG_DATA) public data: any =  { };
 
   config: MatDialogConfig = {
@@ -32,13 +34,18 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  OpenInter(): void {
-    this.dialogRef = this.dialog.open(InterpolationComponent, this.config);
-    this.dialogRef.addPanelClass('dialog');
+  OpenInterpolation(): void {
+    this.dialogInterpolation = this.dialog.open(InterpolationComponent, this.config);
+    this.dialogInterpolation.addPanelClass('dialog');
   }
 
-  OpenApro(): void {
+  OpenAproximation(): void {
     this.dialog.open(AproximationComponent, this.config);
+ }
+
+ OpenIntegral(): void {
+  this.dialogIntegral = this.dialog.open(IntegralComponent, this.config);
+  this.dialogIntegral.addPanelClass('dialog');
  }
 
 }
