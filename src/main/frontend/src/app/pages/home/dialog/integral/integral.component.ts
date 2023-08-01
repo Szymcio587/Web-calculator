@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { IntegrationData } from 'src/app/shared/data.interface';
-import { FormBuilder} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ResultDataService } from 'src/app/shared/result-data.service';
@@ -21,9 +20,7 @@ export class IntegralComponent implements OnInit {
     Xk: 0
   };
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router,
-    private resultDataService: ResultDataService, public dialogRef: MatDialogRef<IntegralComponent>) {
-  }
+  constructor(private http: HttpClient, private router: Router,public dialogRef: MatDialogRef<IntegralComponent>) {}
 
   ngOnInit(): void {}
 
@@ -48,7 +45,7 @@ export class IntegralComponent implements OnInit {
     };
     this.http.post<number>('http://localhost:8080/calculations/integration', data).subscribe(
       (response: number) => {
-        this.resultDataService.SetIntegrationResult(response, data);
+        ResultDataService.SetIntegrationResult(response, data);
         this.router.navigate(['/result']);
       },
       (error: any) => {

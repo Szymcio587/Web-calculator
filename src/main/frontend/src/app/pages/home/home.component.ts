@@ -1,5 +1,4 @@
-import { Component, OnInit, SimpleChanges, Input, ViewChild, ElementRef, ViewContainerRef, ComponentFactoryResolver, ViewEncapsulation, Inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit, ViewContainerRef, ComponentFactoryResolver, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { InterpolationComponent } from './dialog/interpolation/interpolation.component';
 import { AproximationComponent } from './dialog/aproximation/aproximation.component';
@@ -29,8 +28,7 @@ export class HomeComponent implements OnInit {
       panelClass: 'unique'
   };
 
-  constructor(public dialog: MatDialog, private componentFactoryResolver: ComponentFactoryResolver,
-    private viewContainerRef: ViewContainerRef) {}
+  constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {}
 

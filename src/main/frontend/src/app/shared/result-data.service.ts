@@ -7,29 +7,27 @@ import { IntegrationData, InterpolationData } from './data.interface';
 export class ResultDataService {
 
   private static result: number = 0;
-  private static data: InterpolationData;
+  private static interpolationData: InterpolationData;
+  private static integrationData: IntegrationData;
 
   constructor() { }
 
-  SetInterpolationResult(result: number, data: InterpolationData) {
+  public static SetInterpolationResult(result: number, data: InterpolationData): void {
     ResultDataService.result = result;
-    ResultDataService.data = data;
-    console.log("SetResult: " + ResultDataService.result);
-    console.log("SetData: " + ResultDataService.data);
+    ResultDataService.interpolationData = data;
   }
 
-  SetIntegrationResult(result: number, data: IntegrationData) {
-
+  public static SetIntegrationResult(result: number, data: IntegrationData): void {
+    ResultDataService.result = result;
+    ResultDataService.integrationData = data;
   }
 
-  GetInterpolationResult(): number {
-    console.log("GetResult: " + ResultDataService.result);
+  public static GetInterpolationResult(): number {
     return ResultDataService.result;
   }
 
-  GetInterpolationData(): InterpolationData {
-    console.log("GetData: " + ResultDataService.data);
-    return ResultDataService.data;
+  public static GetInterpolationData(): InterpolationData {
+    return ResultDataService.interpolationData;
   }
 
 }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder} from '@angular/forms';
 import { InterpolationData } from 'src/app/shared/data.interface';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -19,9 +18,7 @@ export class InterpolationComponent implements OnInit {
     points: []
   };
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router,
-    private resultDataService: ResultDataService, public dialogRef: MatDialogRef<InterpolationComponent>) {
-  }
+  constructor(private http: HttpClient, private router: Router, public dialogRef: MatDialogRef<InterpolationComponent>) {}
 
   ngOnInit(): void {
     this.CreatePointsArray();
@@ -50,7 +47,7 @@ export class InterpolationComponent implements OnInit {
     };
     this.http.post<number>('http://localhost:8080/calculations/interpolation', data).subscribe(
       (response: number) => {
-        this.resultDataService.SetInterpolationResult(response, data);
+        ResultDataService.SetInterpolationResult(response, data);
         this.router.navigate(['/result']);
       },
       (error: any) => {
