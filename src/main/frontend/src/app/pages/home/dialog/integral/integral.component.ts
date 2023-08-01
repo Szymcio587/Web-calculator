@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IntegralData } from 'src/app/shared/data.interface';
+import { IntegrationData } from 'src/app/shared/data.interface';
 import { FormBuilder} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -13,7 +13,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class IntegralComponent implements OnInit {
 
-  data: IntegralData = {
+  data: IntegrationData = {
     degree: 0,
     factors: [],
     sections: 0,
@@ -25,13 +25,7 @@ export class IntegralComponent implements OnInit {
     private resultDataService: ResultDataService, public dialogRef: MatDialogRef<IntegralComponent>) {
   }
 
-  ngOnInit(): void {
-    this.CreateFactorsArray();
-  }
-
-  private CreateFactorsArray() {
-    //this.data.factors = Array.from({ length: this.data.pointsNumber }, () => ({ x: 0}));
-  }
+  ngOnInit(): void {}
 
   FactorsArray() {
     const range = Array.from({ length: this.data.degree }, (_, index) => index);
@@ -42,20 +36,19 @@ export class IntegralComponent implements OnInit {
     const inputElement = event.target as HTMLInputElement;
     const newNumber = +inputElement.value;
     this.data.degree = newNumber;
-    this.CreateFactorsArray();
   }
 
   Submit() {
-    const data: IntegralData = {
+    const data: IntegrationData = {
       degree: this.data.degree,
       factors: this.data.factors,
       sections: this.data.sections,
       Xp: this.data.Xp,
       Xk: this.data.Xk
     };
-    this.http.post<number>('http://localhost:8080/calculations/interpolation', data).subscribe(
+    this.http.post<number>('http://localhost:8080/calculations/integration', data).subscribe(
       (response: number) => {
-        this.resultDataService.SetIntegralResult(response, data);
+        this.resultDataService.SetIntegrationResult(response, data);
         this.router.navigate(['/result']);
       },
       (error: any) => {

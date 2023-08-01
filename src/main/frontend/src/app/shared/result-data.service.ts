@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IntegralData, InterpolationData } from './data.interface';
+import { IntegrationData, InterpolationData } from './data.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class ResultDataService {
     console.log("SetData: " + ResultDataService.data);
   }
 
-  SetIntegralResult(result: number, data: IntegralData) {
+  SetIntegrationResult(result: number, data: IntegrationData) {
 
   }
 

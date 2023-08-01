@@ -4,7 +4,7 @@ export interface InterpolationData {
   points: Point[];
 }
 
-export interface IntegralData {
+export interface IntegrationData {
   degree: number;
   factors: number[];
   sections: number;
