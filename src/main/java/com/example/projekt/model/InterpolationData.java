@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Data {
+public class InterpolationData {
     private int pointsNumber;
     private double searchedValue;
     private List<Point> points;

@@ -1,18 +1,15 @@
 package com.example.projekt.controllers;
 
-import com.example.projekt.calculations.InterpolationCalculator;
-import com.example.projekt.model.Data;
-import com.example.projekt.model.Point;
+import com.example.projekt.model.IntegrationData;
+import com.example.projekt.model.InterpolationData;
 import com.example.projekt.service.CalculationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @RestController
 @CrossOrigin(origins = "https://localhost:4200")
+@RequestMapping("/calculations")
 public class CalculationController {
 
     @Autowired
@@ -27,10 +24,21 @@ public class CalculationController {
         return ("Works!");
     }
 
-    @PostMapping("/calculations/interpolation")
-    public ResponseEntity<Double> ReceiveInterpolationData(@RequestBody Data data) {
-        double result = calculationService.CalculateInterpolation(data);
+    @PostMapping("/interpolation")
+    public ResponseEntity<Double> TreatInterpolationData(@RequestBody InterpolationData interpolationData) {
+        double result = calculationService.CalculateInterpolation(interpolationData);
         System.out.println("Calculated: " + result);
         return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/integration")
+    public ResponseEntity<Double> TreatIntegrationData(@RequestBody IntegrationData integrationData) {
+        System.out.println(integrationData.getDegree());
+        for(int i = 0; i < integrationData.getDegree(); i++)
+            System.out.println(integrationData.getFactors().get(i));
+        System.out.println(integrationData.getSections());
+        System.out.println(integrationData.getXp());
+        System.out.println(integrationData.getXk());
+        return ResponseEntity.ok(0.0);
     }
 }

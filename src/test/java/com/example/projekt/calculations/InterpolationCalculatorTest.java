@@ -1,6 +1,6 @@
 package com.example.projekt.calculations;
 
-import com.example.projekt.model.Data;
+import com.example.projekt.model.InterpolationData;
 import com.example.projekt.model.Point;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -20,14 +20,14 @@ public class InterpolationCalculatorTest {
     private InterpolationCalculator interpolationCalculator;
 
     @Mock
-    private Data data;
+    private InterpolationData interpolationData;
 
     private List<Point> points;
 
     @Test
     public void TestCalculateWithEmptyPoints() {
-        data = null;
-        double result = interpolationCalculator.Calculate(data);
+        interpolationData = null;
+        double result = interpolationCalculator.Calculate(interpolationData);
 
         assertEquals(0.0, result, 0.0001);
     }
@@ -36,9 +36,9 @@ public class InterpolationCalculatorTest {
     public void TestCalculateWithOnePoint() {
         points = new ArrayList<>();
         points.add(new Point(2, 5));
-        data = new Data(1, 2, points);
+        interpolationData = new InterpolationData(1, 2, points);
 
-        double result = interpolationCalculator.Calculate(data);
+        double result = interpolationCalculator.Calculate(interpolationData);
 
         assertEquals(5.0, result, 0.0001);
     }
@@ -49,9 +49,9 @@ public class InterpolationCalculatorTest {
         points.add(new Point(1, 1));
         points.add(new Point(2, 4));
         points.add(new Point(5, 25));
-        data = new Data(3, 3, points);
+        interpolationData = new InterpolationData(3, 3, points);
 
-        double result = interpolationCalculator.Calculate(data);
+        double result = interpolationCalculator.Calculate(interpolationData);
 
         assertEquals(9.0, result, 0.0001);
     }
