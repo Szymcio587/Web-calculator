@@ -11,17 +11,16 @@ import java.util.List;
 public class IntegrationCalculator {
 
     private double ValueInPoint(List<Double> factors, double q, int degree) {
-        double wynik = 0, wynik_cz = 1;
-        for (int i = degree - 1; i >= 0; i--) {
-            wynik_cz *= factors.get(i);
+        double result = 0, partial = 1;
+        for (int i = degree; i >= 0; i--) {
+            partial = factors.get(i);
             for (int j = i; j > 0; j--) {
-                wynik_cz *= q;
+                partial *= q;
             }
-            wynik += wynik_cz;
-            wynik_cz = 1;
+            result += partial;
+            partial = 1;
         }
-
-        return wynik;
+        return result;
     }
 
     public double Calculate(IntegrationData integrationData) {
