@@ -18,7 +18,6 @@ export class ResultsComponent {
   chartOption: EChartsOption;
 
   constructor() {
-    console.log(ResultDataService.GetInterpolationResult());
     this.result = ResultDataService.GetInterpolationResult();
     this.data = ResultDataService.GetInterpolationData();
     const newData: InterpolationData = {
@@ -27,7 +26,6 @@ export class ResultsComponent {
       points: []
     };
     ResultDataService.SetInterpolationResult(0, newData);
-    console.log(ResultDataService.GetInterpolationResult());
     this.X = this.data.points.map((point) => point.x);
     this.Y = this.data.points.map((point) => point.y);
     this.X.push(this.data.searchedValue);

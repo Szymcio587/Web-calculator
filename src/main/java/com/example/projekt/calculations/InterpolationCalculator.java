@@ -1,7 +1,11 @@
 package com.example.projekt.calculations;
 
 import com.example.projekt.model.InterpolationData;
+import com.example.projekt.model.Point;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class InterpolationCalculator {
@@ -31,5 +35,28 @@ public class InterpolationCalculator {
         }
 
         return result;
+    }
+
+    private static double CalculateCoefficient(List<Point> points, int j, double x) {
+        double coefficient = 1.0;
+        for (int i = 0; i < points.size(); i++) {
+            if (i != j) {
+                coefficient *= (x - points.get(i).getX()) / (points.get(j).getX() - points.get(i).getX());
+            }
+        }
+        return coefficient;
+    }
+
+    public static double[] InterpolatePolynomial(List<Point> points) {
+        int n = points.size();
+        double[] coefficients = new double[n];
+
+        for (int j = 0; j < n; j++) {
+            double y = points.get(j).getY();
+            double coefficient = CalculateCoefficient(points, j, 0);
+            coefficients[j] = y * coefficient;
+        }
+
+        return coefficients;
     }
 }

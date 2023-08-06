@@ -55,4 +55,22 @@ public class InterpolationCalculatorTest {
 
         assertEquals(9.0, result, 0.0001);
     }
+
+    @Test
+    public void TestLagrange() {
+        points = new ArrayList<>();
+        points.add(new Point(0, 1));
+        points.add(new Point(1, 2));
+        points.add(new Point(2, 5));
+        interpolationData = new InterpolationData(3, 3, points);
+
+        double[] coefficients = interpolationCalculator.InterpolatePolynomial(points);
+
+        System.out.print("Resulting polynomial coefficients: ");
+        for (int i = 0; i < coefficients.length; i++) {
+            System.out.print(String.format("%.1f ", coefficients[i]));
+        }
+
+        //assertEquals(9.0, result, 0.0001);
+    }
 }
