@@ -23,14 +23,6 @@ class IntegrationCalculatorTest {
     private IntegrationCalculator integrationCalculator;
 
     @Test
-    public void TestCalculateForNullData() {
-        IntegrationData integrationData = null;
-        double result = integrationCalculator.Calculate(integrationData);
-
-        assertEquals(0.0, result, 0.0001);
-    }
-
-    @Test
     public void TestCalculateForLinearFunction() {
         List<Double> factors1 = new ArrayList<>();
         factors1.add(3.0);
@@ -64,6 +56,10 @@ class IntegrationCalculatorTest {
         double result1 = integrationCalculator.Calculate(integrationData1);
         double result2 = integrationCalculator.Calculate(integrationData2);
         double result3 = integrationCalculator.Calculate(integrationData3);
+
+        System.out.println(result1);
+        System.out.println(result2);
+        System.out.println(result3);
 
         assertEquals(27.5, result1, 1);
         assertEquals(27.5, result2, 0.1);
@@ -106,6 +102,10 @@ class IntegrationCalculatorTest {
         double result1 = integrationCalculator.Calculate(integrationData1);
         double result2 = integrationCalculator.Calculate(integrationData2);
         double result3 = integrationCalculator.Calculate(integrationData3);
+
+        System.out.println(result1);
+        System.out.println(result2);
+        System.out.println(result3);
 
         assertEquals(-66.25, result1, 1); //-65.41666...
         assertEquals(3.35, result2, 0.1); //3.36

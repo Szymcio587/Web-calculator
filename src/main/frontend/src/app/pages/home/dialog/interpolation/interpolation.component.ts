@@ -45,7 +45,7 @@ export class InterpolationComponent implements OnInit {
       searchedValue: this.data.searchedValue,
       pointsNumber: this.data.pointsNumber,
     };
-    this.http.post<number>('http://localhost:8080/calculations/interpolation', data).subscribe(
+    this.http.post<number>('http://localhost:8081/calculations/interpolation', data).subscribe(
       (response: number) => {
         ResultDataService.SetInterpolationResult(response, data);
         this.router.navigate(['/result']);

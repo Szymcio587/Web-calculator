@@ -43,7 +43,7 @@ export class IntegralComponent implements OnInit {
       Xp: this.data.Xp,
       Xk: this.data.Xk
     };
-    this.http.post<number>('http://localhost:8080/calculations/integration', data).subscribe(
+    this.http.post<number>('http://localhost:8081/calculations/integration', data).subscribe(
       (response: number) => {
         ResultDataService.SetIntegrationResult(response, data);
         this.router.navigate(['/result']);

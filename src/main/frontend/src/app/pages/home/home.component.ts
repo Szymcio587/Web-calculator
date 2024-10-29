@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef, ComponentFactoryResolver, Inject } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, ComponentFactoryResolver, Inject, Renderer2, ElementRef } from '@angular/core';
 import {MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { InterpolationComponent } from './dialog/interpolation/interpolation.component';
 import { AproximationComponent } from './dialog/aproximation/aproximation.component';
@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   dialogInterpolation: MatDialogRef<InterpolationComponent> | null = null;
   dialogIntegral: MatDialogRef<IntegralComponent> | null = null;
   @Inject(MAT_DIALOG_DATA) public data: any =  { };
+  public isVisible: boolean[];
 
   config: MatDialogConfig = {
       disableClose: false,
@@ -28,7 +29,9 @@ export class HomeComponent implements OnInit {
       panelClass: 'unique'
   };
 
-  constructor(public dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private renderer: Renderer2, private el: ElementRef) {
+    this.isVisible = new Array(4).fill(false);
+  }
 
   ngOnInit(): void {}
 
@@ -45,5 +48,29 @@ export class HomeComponent implements OnInit {
   this.dialogIntegral = this.dialog.open(IntegralComponent, this.config);
   this.dialogIntegral.addPanelClass('dialog');
  }
+
+ Collapse(number: string): void {
+    const divElements = document.getElementsByClassName(`option ${number}`);
+    const space = document.getElementById(`space-taker-${number}`)
+    console.log(`Found ${divElements.length} elements with class ${number}, ${space?.id}`);
+    Array.from(divElements).forEach((div) => {
+      const currentVisibility = window.getComputedStyle(div).getPropertyValue('visibility');
+      if (currentVisibility === 'visible') {
+        this.renderer.setStyle(div, 'visibility', 'hidden');
+        this.renderer.setStyle(space, 'display', 'none');
+      } else {
+        this.renderer.setStyle(div, 'visibility', 'visible');
+        this.renderer.setStyle(space, 'display', 'block');
+      }
+    });
+
+    const numberValue = parseInt(number, 10) - 1;
+    if(this.isVisible.at(numberValue) == false)
+      this.isVisible[numberValue] = true;
+    else
+      this.isVisible[numberValue] = false;
+  }
+
+
 
 }

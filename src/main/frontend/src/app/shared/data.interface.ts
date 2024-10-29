@@ -12,6 +12,11 @@ export interface IntegrationData {
   Xk: number;
 }
 
+export interface Result {
+  result: number;
+  name: String;
+}
+
 export interface Point {
   x: number;
   y: number;

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { IntegrationData, InterpolationData } from './data.interface';
+import { IntegrationData, InterpolationData, Result } from './data.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResultDataService {
 
-  private static result: number = 0;
+  private static result: any;
   private static interpolationData: InterpolationData;
   private static integrationData: IntegrationData;
 

@@ -38,20 +38,48 @@
   left: 13px
 }
 
-#p1:hover{
+.minus {
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  width: 36px;
+  height: 36px;
+  border: 3px solid;
+  transform: scale(var(--ggs,1));
+  border-radius: 4px;
+  float: left;
+  top: 15px;
+  left: 15px;
+
+}
+.minus::after,
+.minus::before {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  width: 20px;
+  height: 4px;
+  background: currentColor;
+  border-radius: 5px;
+  top: 13px;
+  left: 5px
+}
+
+.plus:hover{
   color: var(--primary-color);
   cursor: pointer;
 }
-#p1:hover + #t1 {
+.plus:hover + .title {
   color: var(--primary-color);
   cursor: pointer;
 }
 
-#m1:hover{
+.minus:hover{
   color: var(--primary-color);
   cursor: pointer;
 }
-#m1:hover + #t1 {
+.minus:hover + .title {
   color: var(--primary-color);
   cursor: pointer;
 }
@@ -62,11 +90,26 @@
   margin-bottom: 25px;
   position: relative;
   background-color: var(--menu-color);
-  width: 70vw;
+  width: 1050px;
   height: 80px;
   border: 7px black solid;
   border-radius: 35px;
   color: white;
+}
+
+.space-taker {
+  display: block;
+  position: relative;
+  width: 1050px;
+  display: none;
+}
+
+#space-taker-1 {
+  margin-top:80px;
+}
+
+#space-taker-3 {
+  margin-top:160px;
 }
 
 .box:first-child {
@@ -77,6 +120,30 @@
   display: flex;
   justify-content: flex-start;
   height: 73px;
+}
+
+.option {
+  display: block;
+  position: relative;
+  background-color: var(--menu-color);
+  width: 987px;
+  left: 25px;
+  height: 40px;
+  border-left: 7px black solid;
+  border-right: 7px black solid;
+  border-bottom: 7px black solid;
+  color: white;
+  visibility: hidden;
+}
+
+.option > p {
+  margin-left: 5px;
+  font-weight: 500;
+}
+
+.option > p:hover {
+  color: var(--primary-color);
+  cursor: pointer;
 }
 
 .title {

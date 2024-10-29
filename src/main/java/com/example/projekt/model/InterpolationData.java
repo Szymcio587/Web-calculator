@@ -13,4 +13,13 @@ public class InterpolationData {
     private int pointsNumber;
     private double searchedValue;
     private List<Point> points;
+
+    @Override
+    public String toString() {
+        return "InterpolationData{" +
+                "pointsNumber=" + pointsNumber +
+                ", searchedValue=" + searchedValue +
+                ", points=" + points +
+                '}';
+    }
 }

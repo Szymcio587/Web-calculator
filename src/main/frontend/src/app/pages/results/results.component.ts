@@ -10,7 +10,7 @@ import { EChartsOption } from 'echarts';
 })
 export class ResultsComponent {
 
-  result: number = 0;
+  result: number;
   data!: InterpolationData;
   X: number[];
   Y: number[];
@@ -20,12 +20,7 @@ export class ResultsComponent {
   constructor() {
     this.result = ResultDataService.GetInterpolationResult();
     this.data = ResultDataService.GetInterpolationData();
-    const newData: InterpolationData = {
-      pointsNumber: 0,
-      searchedValue: 0,
-      points: []
-    };
-    ResultDataService.SetInterpolationResult(0, newData);
+
     this.X = this.data.points.map((point) => point.x);
     this.Y = this.data.points.map((point) => point.y);
     this.X.push(this.data.searchedValue);

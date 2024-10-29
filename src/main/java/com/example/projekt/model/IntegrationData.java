@@ -15,4 +15,15 @@ public class IntegrationData {
     private int sections;
     private double Xp;
     private double Xk;
+
+    @Override
+    public String toString() {
+        return "IntegrationData{" +
+                "degree=" + degree +
+                ", factors=" + factors +
+                ", sections=" + sections +
+                ", Xp=" + Xp +
+                ", Xk=" + Xk +
+                '}';
+    }
 }
