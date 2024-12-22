@@ -1,6 +1,6 @@
 package com.example.projekt.calculations;
 
-import com.example.projekt.model.InterpolationData;
+import com.example.projekt.model.data.InterpolationData;
 import com.example.projekt.model.Point;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

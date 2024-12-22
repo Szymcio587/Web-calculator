@@ -3,6 +3,7 @@ import {MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angula
 import { InterpolationComponent } from './dialog/interpolation/interpolation.component';
 import { AproximationComponent } from './dialog/aproximation/aproximation.component';
 import { IntegralComponent } from './dialog/integral/integral.component';
+import { SystemOfEquationsComponent } from './dialog/system-of-equations/system-of-equations.component';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +14,7 @@ export class HomeComponent implements OnInit {
 
   dialogInterpolation: MatDialogRef<InterpolationComponent> | null = null;
   dialogIntegral: MatDialogRef<IntegralComponent> | null = null;
+  dialogSystemOfEquations: MatDialogRef<SystemOfEquationsComponent> | null = null;
   @Inject(MAT_DIALOG_DATA) public data: any =  { };
   public isVisible: boolean[];
 
@@ -35,18 +37,19 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  OpenInterpolation(): void {
-    this.dialogInterpolation = this.dialog.open(InterpolationComponent, this.config);
+  OpenInterpolation(name: string): void {
+    this.dialogInterpolation = this.dialog.open(InterpolationComponent, {...this.config  , data: { name: name }});
     this.dialogInterpolation.addPanelClass('dialog');
   }
 
-  OpenAproximation(): void {
-    this.dialog.open(AproximationComponent, this.config);
+ OpenIntegral(name: string): void {
+  this.dialogIntegral = this.dialog.open(IntegralComponent,  {...this.config  , data: { name: name }});
+  this.dialogIntegral.addPanelClass('dialog');
  }
 
- OpenIntegral(): void {
-  this.dialogIntegral = this.dialog.open(IntegralComponent, this.config);
-  this.dialogIntegral.addPanelClass('dialog');
+ OpenSystemOfEquations(): void {
+  this.dialogSystemOfEquations = this.dialog.open(SystemOfEquationsComponent, this.config);
+  this.dialogSystemOfEquations.addPanelClass('dialog');
  }
 
  Collapse(number: string): void {

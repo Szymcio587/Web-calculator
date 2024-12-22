@@ -1,0 +1,30 @@
+<div class="my-container">
+  <div class="box">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <h2>Rejestracja</h2>
+      <div class="form-group">
+        <label for="username">Login:</label>
+        <input id="username" formControlName="username" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Hasło:</label>
+        <input id="password" type="password" formControlName="password" required>
+      </div>
+      <div class="form-group">
+        <label for="email">E-mail:</label>
+        <input id="email" type="email" formControlName="email" required>
+      </div>
+      <div class="form-group">
+        <label for="confirmEmail">Powtórz e-mail:</label>
+        <input id="confirmEmail" type="email" formControlName="confirmEmail" required>
+      </div>
+      <div class="form-buttons">
+        <button type="submit" [disabled]="registerForm.invalid" class="register-button">Zarejestruj</button>
+        <button type="button" class="back-button" routerLink="/">Wróć</button>
+      </div>
+    </form>
+    <div *ngIf="successMessage">{{ successMessage }}</div>
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+  </div>
+</div>
+

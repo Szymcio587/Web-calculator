@@ -1,10 +1,9 @@
 package com.example.projekt.calculations;
 
-import com.example.projekt.model.InterpolationData;
+import com.example.projekt.model.data.InterpolationData;
 import com.example.projekt.model.Point;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -25,10 +24,6 @@ public class InterpolationCalculator {
                 if (q != w)
                     weights[q] *= (interpolationData.getSearchedValue() - interpolationData.getPoints().get(w).getX()) /
                             (interpolationData.getPoints().get(q).getX() - interpolationData.getPoints().get(w).getX());
-
-/*        for (int q = 0; q < data.getPointsNumber(); q++) {
-            System.out.println(weights[q]);
-        }*/
 
         for (int q = 0; q < interpolationData.getPointsNumber(); q++) {
             result += interpolationData.getPoints().get(q).getY() * weights[q];

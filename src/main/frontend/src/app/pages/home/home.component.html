@@ -5,10 +5,10 @@
       <div class="title" id="t1">Interpolacja</div>
       <i class="fa-solid fa-plus"></i>
     </div>
-    <div class="option 1" id="rectangles" (click)="OpenInterpolation()">
-      <p>Metoda liniowa</p>
+    <div class="option 1" id="polynomial" (click)="OpenInterpolation('polynomial')">
+      <p>Metoda wielomianowa</p>
     </div>
-    <div class="option 1" id="rectangles" (click)="OpenInterpolation()">
+    <div class="option 1" id="trigonometric" (click)="OpenInterpolation('trigonometric')">
       <p>Metoda trygonometryczna</p>
     </div>
   </div>
@@ -17,11 +17,16 @@
 
   <div class="box">
     <div class="drop">
-      <div [ngClass]="{'minus': isVisible[1], 'plus': !isVisible[1]}" id="p2" (click)="OpenAproximation()"></div>
-      <div class="title" id="t2">Aproksymacja</div>
+      <div [ngClass]="{'minus': isVisible[1], 'plus': !isVisible[1]}" id="p2" (click)="Collapse('2')"></div>
+      <div class="title" id="t2">Układ równań</div>
       <i class="fa-solid fa-plus"></i>
     </div>
+    <div class="option 2" id="determinants" (click)="OpenSystemOfEquations()">
+      <p>Metoda wyznaczników</p>
+    </div>
   </div>
+
+  <div class="space-taker" id="space-taker-2"></div>
 
   <div class="box">
     <div class="drop">
@@ -29,36 +34,16 @@
       <div class="title" id="t3">Całkowanie</div>
       <i class="fa-solid fa-plus"></i>
     </div>
-    <div class="option 3" id="riemann" (click)="OpenIntegral()" >
-      <p>Metoda Riemanna</p>
-    </div>
-    <div class="option 3" id="trapezoids" (click)="OpenIntegral()">
+    <div class="option 3" id="trapezoidal" (click)="OpenIntegral('trapezoidal')">
       <p>Metoda trapezów</p>
     </div>
-    <div class="option 3" id="monte-carlo" (click)="OpenIntegral()">
-      <p>Metoda Monte-Carlo</p>
+    <div class="option 3" id="midpoint" (click)="OpenIntegral('midpoint')">
+      <p>Metoda punktu środkowego</p>
     </div>
-    <div class="option 3" id="simpson" (click)="OpenIntegral()">
+    <div class="option 3" id="simpson" (click)="OpenIntegral('simpson')">
       <p>Metoda Simpsona</p>
     </div>
   </div>
 
   <div class="space-taker" id="space-taker-3"></div>
-
-  <div class="box">
-    <div class="drop">
-      <div [ngClass]="{'minus': isVisible[3], 'plus': !isVisible[3]}" id="p4" (click)="OpenAproximation()"></div>
-      <div class="title" id="t4">Metoda Gaussa</div>
-      <i class="fa-solid fa-plus"></i>
-    </div>
-  </div>
-
-  <div class="box">
-    <div class="drop">
-      <div [ngClass]="{'minus': isVisible[4], 'plus': !isVisible[4]}" id="p5" (click)="OpenAproximation()"></div>
-      <div class="title" id="t5">Metoda Gaussa</div>
-      <i class="fa-solid fa-plus"></i>
-    </div>
-  </div>
-
 </div>

@@ -1,5 +1,6 @@
-package com.example.projekt.model;
+package com.example.projekt.model.data;
 
+import com.example.projekt.model.Point;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

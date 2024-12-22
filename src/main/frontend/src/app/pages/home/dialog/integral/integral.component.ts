@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { IntegrationData } from 'src/app/shared/data.interface';
+import { Component, OnInit, Inject } from '@angular/core';
+import { IntegrationData } from 'src/app/shared/data/data.interface';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { ResultDataService } from 'src/app/shared/result-data.service';
+import { ResultDataService } from 'src/app/shared/services/result/result-data.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-integral',
@@ -20,7 +21,14 @@ export class IntegralComponent implements OnInit {
     Xk: 0
   };
 
-  constructor(private http: HttpClient, private router: Router,public dialogRef: MatDialogRef<IntegralComponent>) {}
+  integralName = '';
+
+  constructor(private http: HttpClient, private router: Router,public dialogRef: MatDialogRef<IntegralComponent>,
+    @Inject(MAT_DIALOG_DATA) public dialogData: { name: string }
+  ) {
+    console.log('Received data:', dialogData.name);
+    this.integralName = dialogData.name;
+  }
 
   ngOnInit(): void {}
 
@@ -43,7 +51,7 @@ export class IntegralComponent implements OnInit {
       Xp: this.data.Xp,
       Xk: this.data.Xk
     };
-    this.http.post<number>('http://localhost:8081/calculations/integration', data).subscribe(
+    this.http.post<number>('http://localhost:8081/calculations/'+this.integralName+'_integration', data).subscribe(
       (response: number) => {
         ResultDataService.SetIntegrationResult(response, data);
         this.router.navigate(['/result']);

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatNativeDateModule} from '@angular/material/core';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -23,6 +23,9 @@ import { GaussComponent } from './pages/home/dialog/gauss/gauss.component';
 import { ErrorHandler } from '@angular/core';
 import { MainErrorHandler } from './error.handler';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { SystemOfEquationsComponent } from './pages/home/dialog/system-of-equations/system-of-equations.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 
 @NgModule({
@@ -38,7 +41,10 @@ import { NgxEchartsModule } from 'ngx-echarts';
     InterpolationComponent,
     AproximationComponent,
     IntegralComponent,
-    GaussComponent
+    GaussComponent,
+    SystemOfEquationsComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +55,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
     BrowserAnimationsModule,
     HttpClientModule,
     MatNativeDateModule,
+    ReactiveFormsModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts'),
     }),

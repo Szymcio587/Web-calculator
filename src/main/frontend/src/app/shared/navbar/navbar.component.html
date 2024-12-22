@@ -13,10 +13,10 @@
           <a class="nav-link" routerLink="methods" routerLinkActive="active-link">Metody</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled" routerLink="results" routerLinkActive="active-link">Wyniki</a>
+          <a class="nav-link" [class.disabled]="!(isLoggedIn | async)" routerLink="results" routerLinkActive="active-link">Wyniki</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="contact" routerLinkActive="active-link">Kontakt</a>
+          <a class="nav-link" [class.disabled]="!(isLoggedIn | async)" routerLink="/" routerLinkActive="active-link" (click)="onLogout()">Wyloguj</a>
         </li>
       </ul>
     </div>

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { InterpolationData } from 'src/app/shared/data.interface';
+import { Component, OnInit, Inject } from '@angular/core';
+import { InterpolationData, Response } from 'src/app/shared/data/data.interface';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { ResultDataService } from 'src/app/shared/result-data.service';
+import { ResultDataService } from 'src/app/shared/services/result/result-data.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-interpolation',
@@ -18,7 +19,14 @@ export class InterpolationComponent implements OnInit {
     points: []
   };
 
-  constructor(private http: HttpClient, private router: Router, public dialogRef: MatDialogRef<InterpolationComponent>) {}
+  interpolationName = '';
+
+  constructor(private http: HttpClient, private router: Router, public dialogRef: MatDialogRef<InterpolationComponent>,
+    @Inject(MAT_DIALOG_DATA) public dialogData: { name: string }
+  ) {
+    console.log('Received data:', dialogData.name);
+    this.interpolationName = dialogData.name;
+  }
 
   ngOnInit(): void {
     this.CreatePointsArray();
@@ -45,9 +53,11 @@ export class InterpolationComponent implements OnInit {
       searchedValue: this.data.searchedValue,
       pointsNumber: this.data.pointsNumber,
     };
-    this.http.post<number>('http://localhost:8081/calculations/interpolation', data).subscribe(
-      (response: number) => {
-        ResultDataService.SetInterpolationResult(response, data);
+    this.http.post<Response>('http://localhost:8081/calculations/'+this.interpolationName+'_interpolation', data).subscribe(
+      (response: Response) => {
+        ResultDataService.SetInterpolationData(data);
+        ResultDataService.SetResponse(response);
+        //ResultDataService.SetInterpolationResult(response, data);
         this.router.navigate(['/result']);
       },
       (error: any) => {

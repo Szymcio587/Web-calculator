@@ -1,0 +1,83 @@
+.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--menu-color);
+  width: 50%;
+  height: 50%;
+  border: 7px black solid;
+  border-radius: 35px;
+  color: white;
+}
+
+form {
+  width: 80%;
+  height: 80%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+}
+
+form h2 {
+  text-align: center;
+  color: black;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: black;
+  float: left;
+  margin-right: 15px;
+}
+
+input[type=\"text\"], input[type=\"password\"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px black solid;
+  border-radius: 7px;
+  box-sizing: border-box;
+}
+
+input[type=\"text\"]:focus, input[type=\"password\"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.login-button {
+  background-color: rgb(0, 0, 0);
+  color: white;
+}
+
+.login-button:hover {
+  background-color: #222;
+}
+
+.register-button {
+  background-color: black;
+  color: white;
+}
+
+.register-button:hover {
+  background-color: #222;
+}
