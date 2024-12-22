@@ -29,43 +29,43 @@ public class CalculationController {
     }
 
     @PostMapping("/polynomial_interpolation")
-    public ResponseEntity<InterpolationResult> TreatInterpolationData(@RequestBody InterpolationData interpolationData) {
+    public ResponseEntity<Double> TreatInterpolationData(@RequestBody InterpolationData interpolationData) {
         System.out.println("Received InterpolationData: " + interpolationData);
         double result = calculationService.CalculateInterpolation(interpolationData);
         System.out.println("Calculated interpolation: " + result);
-        return ResponseEntity.ok(new InterpolationResult(result , "Interpolation"));
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping("/trigonometric_interpolation")
-    public ResponseEntity<InterpolationResult> TreatTrigonometricInterpolationData(@RequestBody InterpolationData interpolationData) {
+    public ResponseEntity<Double> TreatTrigonometricInterpolationData(@RequestBody InterpolationData interpolationData) {
         System.out.println("Received InterpolationData: " + interpolationData);
         double result = calculationService.CalculateTrigonometricInterpolation(interpolationData);
         System.out.println("Calculated interpolation: " + result);
-        return ResponseEntity.ok(new InterpolationResult(result , "Interpolation"));
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping("/trapezoidal_integration")
-    public ResponseEntity<IntegrationResult> TreatTrapezoidalIntegrationData(@RequestBody IntegrationData integrationData) {
+    public ResponseEntity<Double> TreatTrapezoidalIntegrationData(@RequestBody IntegrationData integrationData) {
         System.out.println("Received IntegrationData: " + integrationData);
         double result = calculationService.CalculateTrapezoidalIntegration(integrationData);
         System.out.println("Calculated integration: " + result);
-        return ResponseEntity.ok(new IntegrationResult(result, "Integration"));
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping("/midpoint_integration")
-    public ResponseEntity<IntegrationResult> TreatMidpointIntegrationData(@RequestBody IntegrationData integrationData) {
+    public ResponseEntity<Double> TreatMidpointIntegrationData(@RequestBody IntegrationData integrationData) {
         System.out.println("Received IntegrationData: " + integrationData);
         double result = calculationService.CalculateMidpointIntegration(integrationData);
         System.out.println("Calculated integration: " + result);
-        return ResponseEntity.ok(new IntegrationResult(result, "Integration"));
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping("/simpson_integration")
-    public ResponseEntity<IntegrationResult> TreatSimpsonsIntegrationData(@RequestBody IntegrationData integrationData) {
+    public ResponseEntity<Double> TreatSimpsonsIntegrationData(@RequestBody IntegrationData integrationData) {
         System.out.println("Received IntegrationData: " + integrationData);
         double result = calculationService.CalculateSimpsonsIntegration(integrationData);
         System.out.println("Calculated integration: " + result);
-        return ResponseEntity.ok(new IntegrationResult(result, "Integration"));
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping("/solve_system")

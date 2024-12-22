@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IntegrationData, InterpolationData, Response } from '../../data/data.interface';
+import { IntegrationData, InterpolationData } from '../../data/data.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +8,9 @@ export class ResultDataService {
 
 
   private static result: any;
+  private static resultType: string;
   private static interpolationData: InterpolationData;
   private static integrationData: IntegrationData;
-  private static response: Response;
 
   constructor() { }
 
@@ -24,7 +24,11 @@ export class ResultDataService {
     ResultDataService.integrationData = data;
   }
 
-  public static GetInterpolationResult(): number {
+  public static SetResult(result: number) {
+    ResultDataService.result = result;
+  }
+
+  public static GetResult(): number {
     return ResultDataService.result;
   }
 
@@ -32,16 +36,20 @@ export class ResultDataService {
     return ResultDataService.interpolationData;
   }
 
+  public static GetIntegrationData(): IntegrationData {
+    return ResultDataService.integrationData;
+  }
+
   public static SetInterpolationData(data: InterpolationData): void {
     ResultDataService.interpolationData = data;
   }
 
-  public static SetResponse(response: Response) {
-    ResultDataService.response = response;
+  public static GetResultType() : string {
+    return this.resultType;
   }
 
-  public static GetResponse() : Response {
-    return ResultDataService.response;
+  public static SetResultType(resultType: string) {
+    ResultDataService.resultType = resultType;
   }
 
 }

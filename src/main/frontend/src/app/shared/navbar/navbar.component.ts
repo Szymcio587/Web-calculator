@@ -24,4 +24,8 @@ export class NavbarComponent {
     this.router.navigate(['/']);
   }
 
+  isLinkVisible(): boolean {
+    return this.router.url !== '/';
+  }
+
 }

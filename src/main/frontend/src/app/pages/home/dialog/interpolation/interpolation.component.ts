@@ -53,10 +53,10 @@ export class InterpolationComponent implements OnInit {
       searchedValue: this.data.searchedValue,
       pointsNumber: this.data.pointsNumber,
     };
-    this.http.post<Response>('http://localhost:8081/calculations/'+this.interpolationName+'_interpolation', data).subscribe(
-      (response: Response) => {
-        ResultDataService.SetInterpolationData(data);
-        ResultDataService.SetResponse(response);
+    this.http.post<number>('http://localhost:8081/calculations/'+this.interpolationName+'_interpolation', data).subscribe(
+      (result: number) => {
+        ResultDataService.SetInterpolationResult(result, data);
+        ResultDataService.SetResultType('Interpolation');
         //ResultDataService.SetInterpolationResult(response, data);
         this.router.navigate(['/result']);
       },
