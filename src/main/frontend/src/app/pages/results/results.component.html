@@ -1,5 +1,5 @@
 <div class="my-container">
-  <div class="margin-left">
+  <div class="left">
     <div echarts [options]="chartOption" class="demo-chart"></div>
     <div id="sent-data">
       <div *ngIf="this.type == 'Interpolation'">
@@ -23,6 +23,9 @@
     <div id="result">
       <h3>Obliczony wynik: {{result}}</h3>
     </div>
+  </div>
+  <div class="right">
+    <button type="button" class="register-button">Porównaj</button>
   </div>
 </div>
 
