@@ -25,7 +25,34 @@
     </div>
   </div>
   <div class="right">
-    <button type="button" class="register-button">Porównaj</button>
+    <div *ngIf="!newResult">
+      <button type="button" class="register-button" (click)="openInterpolationOptions()">Choose Interpolation</button>
+    </div>
+    <div *ngIf="newResult">
+      <div echarts [options]="newChartOption" class="demo-chart"></div>
+      <div id="sent-data">
+        <div *ngIf="this.type == 'Interpolation'">
+          <h3>Wysłane wartości:</h3>
+          <p>Liczba punktów: {{interpolationData.pointsNumber}}</p>
+          <p>Poszukiwana wartość: {{interpolationData.searchedValue}}</p>
+          <p>Podane wartości dla znanych punktów:</p>
+          <li *ngFor="let point of interpolationData.points">
+            X: {{ point.x }}, Y: {{ point.y }}
+          </li>
+        </div>
+        <div *ngIf="this.type == 'Integral'">
+          <h3>Wysłane wartości:</h3>
+          <p>Stopień wielomianu: {{integrationData.degree}}</p>
+          <p>Wartości współczynników: {{integrationData.factors}}</p>
+          <p>Liczba przedziałów: {{integrationData.sections}}</p>
+          <p>Punkt początkowy: {{integrationData.Xp}}</p>
+          <p>Punkt końcowy: {{integrationData.Xk}}</p>
+        </div>
+      </div>
+      <div id="result">
+        <h3>Obliczony wynik: {{newResult}}</h3>
+      </div>
+    </div>
   </div>
 </div>
 

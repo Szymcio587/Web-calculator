@@ -21,6 +21,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { SystemOfEquationsComponent } from './pages/home/dialog/system-of-equations/system-of-equations.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { InterpolationOptionsDialogComponent } from './pages/home/dialog/interpolation-options-dialog/interpolation-options-dialog.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { RegisterComponent } from './pages/register/register.component';
     IntegralComponent,
     SystemOfEquationsComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    InterpolationOptionsDialogComponent
   ],
   imports: [
     BrowserModule,
