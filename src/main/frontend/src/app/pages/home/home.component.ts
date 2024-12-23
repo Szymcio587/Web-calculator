@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewContainerRef, ComponentFactoryResolver, Inject, Renderer2, ElementRef } from '@angular/core';
 import {MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { InterpolationComponent } from './dialog/interpolation/interpolation.component';
-import { AproximationComponent } from './dialog/aproximation/aproximation.component';
 import { IntegralComponent } from './dialog/integral/integral.component';
 import { SystemOfEquationsComponent } from './dialog/system-of-equations/system-of-equations.component';
 
