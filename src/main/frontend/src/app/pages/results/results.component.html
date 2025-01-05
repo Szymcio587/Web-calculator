@@ -1,6 +1,6 @@
 <div class="my-container">
   <div class="left">
-    <div echarts [options]="chartOption" class="demo-chart"></div>
+    <div echarts [options]="chartOption" class="demo-chart" id="chart1"></div>
     <div id="sent-data">
       <div *ngIf="this.type == 'Interpolation'">
         <h3>Wysłane wartości:</h3>
@@ -29,7 +29,7 @@
       <button type="button" class="register-button" (click)="openInterpolationOptions()">Choose Interpolation</button>
     </div>
     <div *ngIf="newResult">
-      <div echarts [options]="newChartOption" class="demo-chart"></div>
+      <div echarts [options]="newChartOption" class="demo-chart" id="chart2"></div>
       <div id="sent-data">
         <div *ngIf="this.type == 'Interpolation'">
           <h3>Wysłane wartości:</h3>

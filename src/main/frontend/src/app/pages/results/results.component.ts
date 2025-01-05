@@ -212,7 +212,7 @@ export class ResultsComponent {
 
       const lineData = this.newY.slice(0, this.newY.length - 1).map((y, index) => [this.newX[index], y]);
 
-      this.chartOption = {
+      this.newChartOption = {
         xAxis: {
           type: 'value',
           axisLabel: {
@@ -276,7 +276,7 @@ export class ResultsComponent {
         silent: true,
       }));
 
-      this.chartOption = {
+      this.newChartOption = {
         xAxis: {
           type: 'value',
           axisLabel: {

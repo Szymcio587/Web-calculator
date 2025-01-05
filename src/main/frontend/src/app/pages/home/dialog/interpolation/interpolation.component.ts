@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ResultDataService } from 'src/app/shared/services/result/result-data.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UserService } from 'src/app/shared/services/user/user.service';
 
 @Component({
   selector: 'app-interpolation',
@@ -14,6 +15,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class InterpolationComponent implements OnInit {
 
   data: InterpolationData = {
+    username: '',
     pointsNumber: 0,
     searchedValue: 0,
     points: []
@@ -49,10 +51,12 @@ export class InterpolationComponent implements OnInit {
 
   Submit() {
     const data: InterpolationData = {
+      username: UserService.getUsername(),
       points: this.data.points,
       searchedValue: this.data.searchedValue,
       pointsNumber: this.data.pointsNumber,
     };
+    console.log(UserService.getUsername());
     this.http.post<number>('http://localhost:8081/calculations/'+this.interpolationName+'_interpolation', data).subscribe(
       (result: number) => {
         ResultDataService.SetInterpolationResult(result, data);

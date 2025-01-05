@@ -2,11 +2,10 @@ package com.example.projekt.controllers;
 
 import com.example.projekt.model.data.IntegrationData;
 import com.example.projekt.model.data.InterpolationData;
-import com.example.projekt.model.results.IntegrationResult;
-import com.example.projekt.model.results.InterpolationResult;
 import com.example.projekt.model.data.SystemOfEquationsData;
 import com.example.projekt.model.results.SystemOfEquationsResult;
 import com.example.projekt.service.CalculationService;
+import com.example.projekt.service.InterpolationDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +18,12 @@ public class CalculationController {
     @Autowired
     private final CalculationService calculationService;
 
-    public CalculationController(CalculationService calculationService) {
+    @Autowired
+    private final InterpolationDataService interpolationDataService;
+
+    public CalculationController(CalculationService calculationService, InterpolationDataService interpolationDataService) {
         this.calculationService = calculationService;
+        this.interpolationDataService = interpolationDataService;
     }
 
     @PostMapping("/")
@@ -31,6 +34,7 @@ public class CalculationController {
     @PostMapping("/polynomial_interpolation")
     public ResponseEntity<Double> TreatInterpolationData(@RequestBody InterpolationData interpolationData) {
         System.out.println("Received InterpolationData: " + interpolationData);
+        interpolationDataService.saveData(interpolationData);
         double result = calculationService.CalculateInterpolation(interpolationData);
         System.out.println("Calculated interpolation: " + result);
         return ResponseEntity.ok(result);
