@@ -4,6 +4,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { ResultsComponent } from './pages/results/results.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { ResultsHistoryComponent } from './pages/results-history/results-history.component';
+import { TheoryComponent } from './pages/theory/theory.component';
 
 
 
@@ -11,6 +13,8 @@ const routes: Routes = [
    {path:"", component:LoginComponent},
    {path:"home", component:HomeComponent},
    {path:"result", component:ResultsComponent},
+   {path:"results-history", component:ResultsHistoryComponent},
+   {path:"theory", component:TheoryComponent},
    {path:"register", component:RegisterComponent}
 ];
 

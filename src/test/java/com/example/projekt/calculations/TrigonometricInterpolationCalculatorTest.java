@@ -40,7 +40,7 @@ class TrigonometricInterpolationCalculatorTest {
 
         double result = trigonometricInterpolationCalculator.Calculate(interpolationData);
 
-        assertEquals(2.5, result, 0.0001);
+        assertEquals(5, result, 0.0001);
     }
 
     @Test
@@ -48,11 +48,13 @@ class TrigonometricInterpolationCalculatorTest {
         points = new ArrayList<>();
         points.add(new Point(1, 1));
         points.add(new Point(2, 4));
-        points.add(new Point(5, 25));
-        interpolationData = new InterpolationData(3, 3, points);
+        points.add(new Point(3, 1));
+        points.add(new Point(4, -2));
+        points.add(new Point(5, 1));
+        interpolationData = new InterpolationData(3, 5, points);
 
         double result = trigonometricInterpolationCalculator.Calculate(interpolationData);
 
-        assertEquals(-4.10598, result, 0.0001);
+        assertEquals(3.6666666, result, 0.0001);
     }
 }

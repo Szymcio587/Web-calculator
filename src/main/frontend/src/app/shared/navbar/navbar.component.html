@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg soft-green">
   <div class="container-fluid">
-    <a class="navbar-brand title" routerLink="">Strona Testowa</a>
+    <a class="navbar-brand title" routerLink="">Projekt Inżynierski</a>
     <button class="navbar-toggler" type="button" interpolationData-bs-toggle="collapse" interpolationData-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -10,10 +10,13 @@
           <a class="nav-link" *ngIf="isLinkVisible()" routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:true}">Menu główne</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" routerLink="/theory" routerLinkActive="active-link">Teoria</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" [class.disabled]="!(isLoggedIn | async)" routerLink="/home" routerLinkActive="active-link">Metody</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [class.disabled]="!(isLoggedIn | async)" routerLink="results" routerLinkActive="active-link">Wyniki</a>
+          <a class="nav-link" [class.disabled]="!(isLoggedIn | async)" routerLinkActive="active-link" (click)="getResults()">Historia</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" [class.disabled]="!(isLoggedIn | async)" routerLink="/" routerLinkActive="active-link" (click)="onLogout()">Wyloguj</a>

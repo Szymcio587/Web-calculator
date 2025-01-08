@@ -22,6 +22,9 @@ import { SystemOfEquationsComponent } from './pages/home/dialog/system-of-equati
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { InterpolationOptionsDialogComponent } from './pages/home/dialog/interpolation-options-dialog/interpolation-options-dialog.component';
+import { IntegrationOptionsDialogComponent } from './pages/home/dialog/integration-options-dialog/integration-options-dialog.component';
+import { ResultsHistoryComponent } from './pages/results-history/results-history.component';
+import { TheoryComponent } from './pages/theory/theory.component';
 
 
 @NgModule({
@@ -31,12 +34,17 @@ import { InterpolationOptionsDialogComponent } from './pages/home/dialog/interpo
     FooterComponent,
     HomeComponent,
     ResultsComponent,
+    TheoryComponent,
+    ResultsHistoryComponent,
     InterpolationComponent,
     IntegralComponent,
     SystemOfEquationsComponent,
     LoginComponent,
     RegisterComponent,
-    InterpolationOptionsDialogComponent
+    InterpolationOptionsDialogComponent,
+    IntegrationOptionsDialogComponent,
+    ResultsHistoryComponent,
+    TheoryComponent
   ],
   imports: [
     BrowserModule,

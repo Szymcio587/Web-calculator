@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "https://localhost:4200")
 @RequestMapping("/calculations")
 public class CalculationController {
 

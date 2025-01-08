@@ -61,7 +61,6 @@ export class InterpolationComponent implements OnInit {
       (result: number) => {
         ResultDataService.SetInterpolationResult(result, data);
         ResultDataService.SetResultType('Interpolation');
-        //ResultDataService.SetInterpolationResult(response, data);
         this.router.navigate(['/result']);
       },
       (error: any) => {
