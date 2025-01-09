@@ -10,12 +10,13 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-@Document(collection = "interpolation_data")
-public class InterpolationData {
+@Document(collection = "calculation_data")
+public class InterpolationData implements Savable{
 
     @Id
     private String id;
 
+    private String dataType;
     private String username;
     private int pointsNumber;
     private double searchedValue;
@@ -28,6 +29,7 @@ public class InterpolationData {
     }
 
     public InterpolationData(String username, int pointsNumber, double searchedValue, List<Point> points) {
+        this.dataType = "InterpolationData";
         this.username = username;
         this.pointsNumber = pointsNumber;
         this.searchedValue = searchedValue;

@@ -14,3 +14,7 @@ ul {
 .navbar {
   position: sticky;
 }
+
+#history {
+  cursor: pointer;
+}

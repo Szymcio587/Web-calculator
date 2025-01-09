@@ -1,7 +1,7 @@
 package com.example.projekt.controllers;
 
-import com.example.projekt.model.data.InterpolationData;
-import com.example.projekt.service.InterpolationDataService;
+import com.example.projekt.model.data.Savable;
+import com.example.projekt.service.DataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,14 +13,16 @@ import java.util.List;
 public class HistoryController {
 
     @Autowired
-    private final InterpolationDataService interpolationDataService;
+    private final DataService dataService;
 
-    public HistoryController(InterpolationDataService interpolationDataService) {
-        this.interpolationDataService = interpolationDataService;
+    public HistoryController(DataService dataService) {
+        this.dataService = dataService;
     }
 
     @PostMapping("")
-    public List<InterpolationData> TreatResultsHistorySearch(@RequestBody String username) {
-        return interpolationDataService.getDataByUserId(username);
+    public List<Savable> TreatResultsHistorySearch(@RequestBody String username) {
+        List<Savable> records = dataService.getDataByUserId(username);
+        System.out.println(records);
+        return records;
     }
 }

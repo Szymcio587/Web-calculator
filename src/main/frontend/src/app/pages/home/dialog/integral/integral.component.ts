@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ResultDataService } from 'src/app/shared/services/result/result-data.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UserService } from 'src/app/shared/services/user/user.service';
 
 @Component({
   selector: 'app-integral',
@@ -14,6 +15,8 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class IntegralComponent implements OnInit {
 
   data: IntegrationData = {
+    dataType: '',
+    username: '',
     degree: 0,
     factors: [],
     sections: 0,
@@ -45,6 +48,8 @@ export class IntegralComponent implements OnInit {
 
   Submit() {
     const data: IntegrationData = {
+      dataType: 'integrationData',
+      username: UserService.getUsername(),
       degree: this.data.degree,
       factors: this.data.factors,
       sections: this.data.sections,

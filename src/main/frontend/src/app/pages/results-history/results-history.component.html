@@ -1,3 +1,9 @@
 <div class="my-container">
+  <div *ngFor="let record of records">
+    <div *ngIf="isInterpolation(record)" class="box">
 
+    </div>
+    <div *ngIf="isIntegration(record)" class="box">
+    </div>
+  </div>
 </div>

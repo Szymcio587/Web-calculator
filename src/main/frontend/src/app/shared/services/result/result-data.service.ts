@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { IntegrationData, InterpolationData } from '../../data/data.interface';
+import { BaseData, IntegrationData, InterpolationData } from '../../data/data.interface';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,9 @@ export class ResultDataService {
   private static resultType: string;
   private static interpolationData: InterpolationData;
   private static integrationData: IntegrationData;
+  private static baseData: BaseData[];
+  private static baseDataSubject: BehaviorSubject<BaseData[]> = new BehaviorSubject<BaseData[]>([]);
+  public static baseData$: Observable<BaseData[]> = ResultDataService.baseDataSubject.asObservable();
 
   constructor() { }
 
@@ -50,6 +54,16 @@ export class ResultDataService {
 
   public static SetResultType(resultType: string) {
     ResultDataService.resultType = resultType;
+  }
+
+  public static SetBaseData(data: BaseData[]): void {
+    console.log(data);
+    ResultDataService.baseDataSubject.next(data);
+  }
+
+  public static GetBaseData(): BaseData[] {
+    console.log(ResultDataService.baseDataSubject.value);
+    return ResultDataService.baseDataSubject.value;
   }
 
 }

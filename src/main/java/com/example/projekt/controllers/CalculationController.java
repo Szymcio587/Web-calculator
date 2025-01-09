@@ -5,7 +5,7 @@ import com.example.projekt.model.data.InterpolationData;
 import com.example.projekt.model.data.SystemOfEquationsData;
 import com.example.projekt.model.results.SystemOfEquationsResult;
 import com.example.projekt.service.CalculationService;
-import com.example.projekt.service.InterpolationDataService;
+import com.example.projekt.service.DataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,11 +18,11 @@ public class CalculationController {
     private final CalculationService calculationService;
 
     @Autowired
-    private final InterpolationDataService interpolationDataService;
+    private final DataService dataService;
 
-    public CalculationController(CalculationService calculationService, InterpolationDataService interpolationDataService) {
+    public CalculationController(CalculationService calculationService, DataService dataService) {
         this.calculationService = calculationService;
-        this.interpolationDataService = interpolationDataService;
+        this.dataService = dataService;
     }
 
     @PostMapping("/")
@@ -33,7 +33,7 @@ public class CalculationController {
     @PostMapping("/polynomial_interpolation")
     public ResponseEntity<Double> TreatInterpolationData(@RequestBody InterpolationData interpolationData) {
         System.out.println("Received InterpolationData: " + interpolationData);
-        interpolationDataService.saveData(interpolationData);
+        dataService.saveInterpolationData(interpolationData);
         double result = calculationService.CalculateInterpolation(interpolationData);
         System.out.println("Calculated interpolation: " + result);
         return ResponseEntity.ok(result);
@@ -42,6 +42,7 @@ public class CalculationController {
     @PostMapping("/trigonometric_interpolation")
     public ResponseEntity<Double> TreatTrigonometricInterpolationData(@RequestBody InterpolationData interpolationData) {
         System.out.println("Received InterpolationData: " + interpolationData);
+        dataService.saveInterpolationData(interpolationData);
         double result = calculationService.CalculateTrigonometricInterpolation(interpolationData);
         System.out.println("Calculated interpolation: " + result);
         return ResponseEntity.ok(result);
@@ -50,6 +51,7 @@ public class CalculationController {
     @PostMapping("/trapezoidal_integration")
     public ResponseEntity<Double> TreatTrapezoidalIntegrationData(@RequestBody IntegrationData integrationData) {
         System.out.println("Received IntegrationData: " + integrationData);
+        dataService.saveIntegrationData(integrationData);
         double result = calculationService.CalculateTrapezoidalIntegration(integrationData);
         System.out.println("Calculated integration: " + result);
         return ResponseEntity.ok(result);
@@ -58,6 +60,7 @@ public class CalculationController {
     @PostMapping("/midpoint_integration")
     public ResponseEntity<Double> TreatMidpointIntegrationData(@RequestBody IntegrationData integrationData) {
         System.out.println("Received IntegrationData: " + integrationData);
+        dataService.saveIntegrationData(integrationData);
         double result = calculationService.CalculateMidpointIntegration(integrationData);
         System.out.println("Calculated integration: " + result);
         return ResponseEntity.ok(result);
@@ -66,6 +69,7 @@ public class CalculationController {
     @PostMapping("/simpson_integration")
     public ResponseEntity<Double> TreatSimpsonsIntegrationData(@RequestBody IntegrationData integrationData) {
         System.out.println("Received IntegrationData: " + integrationData);
+        dataService.saveIntegrationData(integrationData);
         double result = calculationService.CalculateSimpsonsIntegration(integrationData);
         System.out.println("Calculated integration: " + result);
         return ResponseEntity.ok(result);

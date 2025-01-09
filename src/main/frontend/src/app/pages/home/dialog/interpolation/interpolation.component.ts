@@ -15,6 +15,7 @@ import { UserService } from 'src/app/shared/services/user/user.service';
 export class InterpolationComponent implements OnInit {
 
   data: InterpolationData = {
+    dataType: '',
     username: '',
     pointsNumber: 0,
     searchedValue: 0,
@@ -51,6 +52,7 @@ export class InterpolationComponent implements OnInit {
 
   Submit() {
     const data: InterpolationData = {
+      dataType: 'InterpolationData',
       username: UserService.getUsername(),
       points: this.data.points,
       searchedValue: this.data.searchedValue,

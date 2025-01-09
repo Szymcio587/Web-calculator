@@ -38,3 +38,16 @@ button {
 button:hover {
   background-color: #222;
 }
+
+.box {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  position: relative;
+  background-color: var(--menu-color);
+  width: 1050px;
+  height: 40px;
+  border: 37px black solid;
+  border-radius: 20px;
+  color: white;
+}
