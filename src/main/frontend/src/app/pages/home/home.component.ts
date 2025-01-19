@@ -53,8 +53,7 @@ export class HomeComponent implements OnInit {
 
  Collapse(number: string): void {
     const divElements = document.getElementsByClassName(`option ${number}`);
-    const space = document.getElementById(`space-taker-${number}`)
-    console.log(`Found ${divElements.length} elements with class ${number}, ${space?.id}`);
+    const space = document.getElementById(`space-taker-${number}`);
     Array.from(divElements).forEach((div) => {
       const currentVisibility = window.getComputedStyle(div).getPropertyValue('visibility');
       if (currentVisibility === 'visible') {

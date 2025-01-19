@@ -50,6 +50,5 @@ public class CalculationService {
 
     public SystemOfEquationsResult CalculateSystemOfEquations(SystemOfEquationsData data) {
         return systemOfEquationsCalculator.calculate(data);
-
     }
 }

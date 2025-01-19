@@ -35,13 +35,6 @@ export class NavbarComponent {
   getResults() {
     this.http.post<BaseData[]>('http://localhost:8081/history', UserService.getUsername()).subscribe(
       (result: BaseData[]) => {
-        result.forEach((item) => {
-          if (item.dataType === 'InterpolationData') {
-            Object.setPrototypeOf(item, InterpolationData.prototype);
-          } else if (item.dataType === 'IntegrationData') {
-            Object.setPrototypeOf(item, IntegrationData.prototype);
-          }
-        });
         ResultDataService.SetBaseData(result);
         this.delay(1000);
         this.router.navigate(['/results-history']);

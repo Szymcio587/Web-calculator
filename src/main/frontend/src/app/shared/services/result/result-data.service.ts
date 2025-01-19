@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseData, IntegrationData, InterpolationData } from '../../data/data.interface';
+import { BaseData, IntegrationData, InterpolationData, SystemOfEquationsData } from '../../data/data.interface';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -9,9 +9,10 @@ export class ResultDataService {
 
 
   private static result: any;
-  private static resultType: string;
+  private static resultType: String;
   private static interpolationData: InterpolationData;
   private static integrationData: IntegrationData;
+  private static systemOfEquationsData: SystemOfEquationsData;
   private static baseData: BaseData[];
   private static baseDataSubject: BehaviorSubject<BaseData[]> = new BehaviorSubject<BaseData[]>([]);
   public static baseData$: Observable<BaseData[]> = ResultDataService.baseDataSubject.asObservable();
@@ -28,8 +29,9 @@ export class ResultDataService {
     ResultDataService.integrationData = data;
   }
 
-  public static SetResult(result: number) {
+  public static SetSystemOfEquationsResult(result: any, data: SystemOfEquationsData): void {
     ResultDataService.result = result;
+    ResultDataService.systemOfEquationsData = data;
   }
 
   public static GetResult(): number {
@@ -44,25 +46,23 @@ export class ResultDataService {
     return ResultDataService.integrationData;
   }
 
-  public static SetInterpolationData(data: InterpolationData): void {
-    ResultDataService.interpolationData = data;
+  public static GetSystemOfEquationsData(): SystemOfEquationsData {
+    return ResultDataService.systemOfEquationsData;
   }
 
-  public static GetResultType() : string {
+  public static GetResultType() : String {
     return this.resultType;
   }
 
-  public static SetResultType(resultType: string) {
+  public static SetResultType(resultType: String) {
     ResultDataService.resultType = resultType;
   }
 
   public static SetBaseData(data: BaseData[]): void {
-    console.log(data);
     ResultDataService.baseDataSubject.next(data);
   }
 
   public static GetBaseData(): BaseData[] {
-    console.log(ResultDataService.baseDataSubject.value);
     return ResultDataService.baseDataSubject.value;
   }
 

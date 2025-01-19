@@ -10,7 +10,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-@Document(collection = "calculation_data")
+@Document(collection = "interpolation_data")
 public class InterpolationData implements Savable{
 
     @Id

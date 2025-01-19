@@ -19,14 +19,27 @@
         <p>Punkt początkowy: {{integrationData.Xp}}</p>
         <p>Punkt końcowy: {{integrationData.Xk}}</p>
       </div>
+      <div *ngIf="this.type == 'SystemOfEquations'">
+        <h3>Wysłane wartości:</h3>
+        <p>{{systemOfEquationsData.coefficients[0][0]}}x + {{systemOfEquationsData.coefficients[0][1]}}y = {{systemOfEquationsData.constants[0]}}</p>
+        <p>{{systemOfEquationsData.coefficients[1][0]}}x + {{systemOfEquationsData.coefficients[1][1]}}y = {{systemOfEquationsData.constants[1]}}</p>
+      </div>
     </div>
     <div id="result">
-      <h3>Obliczony wynik: {{result}}</h3>
+      <div *ngIf="this.type == 'SystemOfEquations'">
+        <h3>Obliczone zmienne x i y = {{result}}</h3>
+      </div>
+      <div *ngIf="this.type != 'SystemOfEquations'">
+        <h3>Obliczony wynik: {{result}}</h3>
+      </div>
     </div>
   </div>
   <div class="right">
-    <div *ngIf="!newResult">
-      <button type="button" class="register-button" (click)="openInterpolationOptions()">Choose Interpolation</button>
+    <div *ngIf="!newResult && this.type == 'Interpolation'">
+      <button type="button" class="register-button" (click)="openInterpolationOptions()">Wybierz interpolacje</button>
+    </div>
+    <div *ngIf="!newResult && this.type == 'Integral'">
+      <button type="button" class="register-button" (click)="openIntegrationOptions()">Wybierz integracje</button>
     </div>
     <div *ngIf="newResult">
       <div echarts [options]="newChartOption" class="demo-chart" id="chart2"></div>

@@ -1,9 +1,27 @@
 <div class="my-container">
-  <div *ngFor="let record of records">
-    <div *ngIf="isInterpolation(record)" class="box">
-
+  <div *ngFor="let record of records" class="flex">
+    <div *ngIf="isInterpolation(record)">
+      <form (ngSubmit)="recalculate(record)" class="box">
+        <h6>Interpolacja:</h6>
+        <p>Liczba punktów: {{record.pointsNumber}}</p>
+        <p>Poszukiwana wartość: {{record.searchedValue}}</p>
+        <p>Podane wartości dla znanych punktów:</p>
+        <li *ngFor="let point of record.points">
+          X: {{ point.x }}, Y: {{ point.y }}
+        </li>
+        <button type="submit">Przelicz</button>
+      </form>
     </div>
-    <div *ngIf="isIntegration(record)" class="box">
+    <div *ngIf="isIntegration(record)">
+      <form (ngSubmit)="recalculate(record)" class="box">
+        <h6>Integracja:</h6>
+        <p>Stopień wielomianu: {{record.degree}}</p>
+        <p>Wartości współczynników: {{record.factors}}</p>
+        <p>Liczba przedziałów: {{record.sections}}</p>
+        <p>Punkt początkowy: {{record.Xp}}</p>
+        <p>Punkt końcowy: {{record.Xk}}</p>
+        <button type="submit">Przelicz</button>
+      </form>
     </div>
   </div>
 </div>

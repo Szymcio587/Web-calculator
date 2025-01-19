@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ResultDataService } from 'src/app/shared/services/result/result-data.service';
-import { IntegrationData, InterpolationData, Response } from 'src/app/shared/data/data.interface';
+import { IntegrationData, InterpolationData, Response, SystemOfEquationsData } from 'src/app/shared/data/data.interface';
 import type { LineSeriesOption, SeriesOption, EChartsOption } from 'echarts';
 import {MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { InterpolationComponent } from '../home/dialog/interpolation/interpolation.component';
@@ -8,6 +8,7 @@ import { IntegralComponent } from '../home/dialog/integral/integral.component';
 import { SystemOfEquationsComponent } from '../home/dialog/system-of-equations/system-of-equations.component';
 import { HttpClient } from '@angular/common/http';
 import { InterpolationOptionsDialogComponent } from '../home/dialog/interpolation-options-dialog/interpolation-options-dialog.component';
+import { IntegrationOptionsDialogComponent } from '../home/dialog/integration-options-dialog/integration-options-dialog.component';
 
 @Component({
   selector: 'app-results',
@@ -19,14 +20,16 @@ export class ResultsComponent {
   result!: number;
   interpolationData!: InterpolationData;
   integrationData!: IntegrationData;
+  systemOfEquationsData!: SystemOfEquationsData;
   X!: number[];
   Y!: number[];
-  type: string;
+  type: String;
   chartOption!: EChartsOption;
 
   newResult?: number;
   newInterpolationData!: InterpolationData;
   newIntegrationData!: IntegrationData;
+  newSystemOfEquationsData!: SystemOfEquationsData;
   newX!: number[];
   newY!: number[];
   newChartOption!: EChartsOption;
@@ -34,24 +37,19 @@ export class ResultsComponent {
   constructor(private dialog: MatDialog, private http: HttpClient) {
     console.log(ResultDataService.GetResult());
     console.log(ResultDataService.GetResultType());
-    console.log(ResultDataService.GetIntegrationData());
     this.type = ResultDataService.GetResultType();
     if(this.type == 'Interpolation') {
       this.result = ResultDataService.GetResult();
       this.interpolationData = ResultDataService.GetInterpolationData();
-
       this.X = this.interpolationData.points.map((point) => point.x);
       this.Y = this.interpolationData.points.map((point) => point.y);
       this.X.push(this.interpolationData.searchedValue);
       this.Y.push(this.result);
-
       const minX = Math.min(...this.X);
       const maxX = Math.max(...this.X);
-
       const numberOfLabels = 5;
       const xStep = (maxX - minX) / (numberOfLabels - 1);
       const xAxisLabels = Array.from({ length: numberOfLabels }, (_, i) => (minX + i * xStep).toFixed(2));
-
       const lineData = this.Y.slice(0, this.Y.length - 1).map((y, index) => [this.X[index], y]);
 
       this.chartOption = {
@@ -94,16 +92,12 @@ export class ResultsComponent {
       this.integrationData = ResultDataService.GetIntegrationData();
       const { xValues, yValues } = this.generatePolynomialData(this.integrationData.factors, this.integrationData.Xp,
         this.integrationData.Xk, this.integrationData.sections);
-        console.log(xValues);
-        console.log(yValues);
       const minX = Math.min(...xValues);
       const maxX = Math.max(...xValues);
       const numberOfLabels = 5;
       const xStep = (maxX - minX) / (numberOfLabels - 1);
       const xAxisLabels = Array.from({ length: numberOfLabels }, (_, i) => (minX + i * xStep).toFixed(2));
-      console.log(xAxisLabels);
       const lineData = yValues.slice(0, yValues.length).map((y, index) => [xValues[index], y]);
-      console.log(lineData);
 
       const verticalLines: LineSeriesOption[] = lineData.map(([x, y]) => ({
         data: [
@@ -154,6 +148,11 @@ export class ResultsComponent {
         ] as SeriesOption[],
       };
     }
+    else if(this.type == 'SystemOfEquations') {
+      this.result = ResultDataService.GetResult();
+      console.log(this.result);
+      this.systemOfEquationsData = ResultDataService.GetSystemOfEquationsData();
+    }
   }
 
   generatePolynomialData(coefficients: number[], start: number, end: number, parts: number): { xValues: number[], yValues: number[] } {
@@ -180,9 +179,32 @@ export class ResultsComponent {
     });
   }
 
+  openIntegrationOptions(): void {
+    const dialogRef = this.dialog.open(IntegrationOptionsDialogComponent);
+
+    dialogRef.afterClosed().subscribe((result: string) => {
+      if (result) {
+        this.callIntegration(result);
+      }
+    });
+  }
+
   private callInterpolation(type: string): void {
     const interpolationEndpoint = type === 'polynomial' ? '/polynomial_interpolation' : '/trigonometric_interpolation';
     const url = `http://localhost:8081/calculations${interpolationEndpoint}`;
+    this.http.post<number>(url, this.interpolationData).subscribe(
+      (newResult: number) => {
+        this.setNewValues(newResult);
+      },
+      (error: any) => {
+        console.error('Error fetching interpolation:', error);
+      }
+    );
+  }
+
+  private callIntegration(type: string): void {
+    const integrationEndpoint = type === 'midpoint' ? '/midpoint_integration' : type === 'simpsons' ? 'simpsons_integration' : 'trapezoidal_integration';
+    const url = `http://localhost:8081/calculations${integrationEndpoint}`;
     this.http.post<number>(url, this.interpolationData).subscribe(
       (newResult: number) => {
         this.setNewValues(newResult);

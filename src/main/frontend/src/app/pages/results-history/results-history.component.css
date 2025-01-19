@@ -5,27 +5,18 @@
 
 .my-container {
   display: flex;
-  align-items: flex-start;
-  flex-direction: row;
-}
-
-.left {
-  width: 50%;
-}
-
-.right {
-  min-height: 100%;
-  width: 50%;
-  display: flex;
   align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: baseline;
 }
 
 p {
-  line-height: 50%;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 button {
+  height: 35px;
   padding: 10px 15px;
   border: none;
   border-radius: 4px;
@@ -33,6 +24,7 @@ button {
   font-size: 14px;
   background-color: rgb(0, 0, 0);
   color: white;
+  margin-left: 5px;
 }
 
 button:hover {
@@ -40,14 +32,23 @@ button:hover {
 }
 
 .box {
-  display: block;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  display: flex;
   position: relative;
   background-color: var(--menu-color);
-  width: 1050px;
-  height: 40px;
-  border: 37px black solid;
+  width: 1200px;
+  height: 50px;
+  border: 7px black solid;
   border-radius: 20px;
   color: white;
+  margin-bottom: 20px;
+}
+
+.flex {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+}
+
+h6 {
+  margin-left: 10px;
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { InterpolationData, Response } from 'src/app/shared/data/data.interface';
+import { InterpolationData } from 'src/app/shared/data/data.interface';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ResultDataService } from 'src/app/shared/services/result/result-data.service';
@@ -27,7 +27,6 @@ export class InterpolationComponent implements OnInit {
   constructor(private http: HttpClient, private router: Router, public dialogRef: MatDialogRef<InterpolationComponent>,
     @Inject(MAT_DIALOG_DATA) public dialogData: { name: string }
   ) {
-    console.log('Received data:', dialogData.name);
     this.interpolationName = dialogData.name;
   }
 
@@ -58,7 +57,6 @@ export class InterpolationComponent implements OnInit {
       searchedValue: this.data.searchedValue,
       pointsNumber: this.data.pointsNumber,
     };
-    console.log(UserService.getUsername());
     this.http.post<number>('http://localhost:8081/calculations/'+this.interpolationName+'_interpolation', data).subscribe(
       (result: number) => {
         ResultDataService.SetInterpolationResult(result, data);

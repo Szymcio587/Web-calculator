@@ -28,9 +28,7 @@ export class UserService {
   loginUser(username: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login`, { username, password }).pipe(
       tap((response) => {
-        console.log(response);
         if (response.status === 'loggedIn') {
-          console.log(username);
           UserService.username = username;
           this.isLoggedInSubject.next(true);
         }

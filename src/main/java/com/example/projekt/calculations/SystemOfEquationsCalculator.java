@@ -3,19 +3,25 @@ package com.example.projekt.calculations;
 
 import com.example.projekt.model.data.SystemOfEquationsData;
 import com.example.projekt.model.results.SystemOfEquationsResult;
+import com.example.projekt.service.UtilityService;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
+@AllArgsConstructor
 public class SystemOfEquationsCalculator {
+
+    @Autowired
+    private final UtilityService utilityService;
 
     public SystemOfEquationsResult calculate(SystemOfEquationsData data) {
         int size = data.getCoefficients().size();
         List<List<Double>> coefficients = data.getCoefficients();
         List<Double> constants = data.getConstants();
 
-        // Check for consistent number of equations and variables
         if (coefficients.size() != size || constants.size() != size) {
             throw new IllegalArgumentException("Invalid system of equations.");
         }
@@ -28,7 +34,7 @@ public class SystemOfEquationsCalculator {
         List<Double> solutions = new java.util.ArrayList<>(size);
         for (int i = 0; i < size; i++) {
             List<List<Double>> modifiedMatrix = replaceColumn(coefficients, constants, i);
-            solutions.add(calculateDeterminant(modifiedMatrix) / determinant);
+            solutions.add(utilityService.Round(calculateDeterminant(modifiedMatrix) / determinant));
         }
 
         return new SystemOfEquationsResult(solutions, "SystemOfEquations");

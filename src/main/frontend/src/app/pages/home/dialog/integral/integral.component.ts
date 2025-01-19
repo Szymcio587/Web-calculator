@@ -29,7 +29,6 @@ export class IntegralComponent implements OnInit {
   constructor(private http: HttpClient, private router: Router,public dialogRef: MatDialogRef<IntegralComponent>,
     @Inject(MAT_DIALOG_DATA) public dialogData: { name: string }
   ) {
-    console.log('Received data:', dialogData.name);
     this.integralName = dialogData.name;
   }
 
@@ -59,8 +58,6 @@ export class IntegralComponent implements OnInit {
     this.http.post<number>('http://localhost:8081/calculations/'+this.integralName+'_integration', data).subscribe(
       (result: number) => {
         ResultDataService.SetIntegrationResult(result, data);
-        console.log(result);
-        console.log(data);
         ResultDataService.SetResultType('Integral');
         this.router.navigate(['/result']);
       },

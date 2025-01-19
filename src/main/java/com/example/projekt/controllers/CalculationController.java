@@ -6,12 +6,18 @@ import com.example.projekt.model.data.SystemOfEquationsData;
 import com.example.projekt.model.results.SystemOfEquationsResult;
 import com.example.projekt.service.CalculationService;
 import com.example.projekt.service.DataService;
+import com.example.projekt.service.UtilityService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 @RestController
 @RequestMapping("/calculations")
+@AllArgsConstructor
 public class CalculationController {
 
     @Autowired
@@ -20,10 +26,8 @@ public class CalculationController {
     @Autowired
     private final DataService dataService;
 
-    public CalculationController(CalculationService calculationService, DataService dataService) {
-        this.calculationService = calculationService;
-        this.dataService = dataService;
-    }
+    @Autowired
+    private final UtilityService utilityService;
 
     @PostMapping("/")
     public String Test() {
@@ -36,7 +40,7 @@ public class CalculationController {
         dataService.saveInterpolationData(interpolationData);
         double result = calculationService.CalculateInterpolation(interpolationData);
         System.out.println("Calculated interpolation: " + result);
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(utilityService.Round(result));
     }
 
     @PostMapping("/trigonometric_interpolation")
@@ -45,7 +49,7 @@ public class CalculationController {
         dataService.saveInterpolationData(interpolationData);
         double result = calculationService.CalculateTrigonometricInterpolation(interpolationData);
         System.out.println("Calculated interpolation: " + result);
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(utilityService.Round(result));
     }
 
     @PostMapping("/trapezoidal_integration")
@@ -54,7 +58,7 @@ public class CalculationController {
         dataService.saveIntegrationData(integrationData);
         double result = calculationService.CalculateTrapezoidalIntegration(integrationData);
         System.out.println("Calculated integration: " + result);
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(utilityService.Round(result));
     }
 
     @PostMapping("/midpoint_integration")
@@ -63,7 +67,7 @@ public class CalculationController {
         dataService.saveIntegrationData(integrationData);
         double result = calculationService.CalculateMidpointIntegration(integrationData);
         System.out.println("Calculated integration: " + result);
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(utilityService.Round(result));
     }
 
     @PostMapping("/simpson_integration")
@@ -72,14 +76,15 @@ public class CalculationController {
         dataService.saveIntegrationData(integrationData);
         double result = calculationService.CalculateSimpsonsIntegration(integrationData);
         System.out.println("Calculated integration: " + result);
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(utilityService.Round(result));
     }
 
-    @PostMapping("/solve_system")
+    @PostMapping("/system_of_equations")
     public ResponseEntity<SystemOfEquationsResult> TreatSystemOfEquations(@RequestBody SystemOfEquationsData systemOfEquationsData) {
         System.out.println("Received SystemOfEquationsData: " + systemOfEquationsData);
         SystemOfEquationsResult result = calculationService.CalculateSystemOfEquations(systemOfEquationsData);
         System.out.println("Calculated system of equations: " + result);
         return ResponseEntity.ok(result);
     }
+
 }

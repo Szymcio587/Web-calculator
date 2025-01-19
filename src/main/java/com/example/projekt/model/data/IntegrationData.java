@@ -1,5 +1,6 @@
 package com.example.projekt.model.data;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Id;
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -8,7 +9,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-@Document(collection = "calculation_data")
+@Document(collection = "integration_data")
 public class IntegrationData implements Savable{
     @Id
     private String id;
@@ -19,6 +20,10 @@ public class IntegrationData implements Savable{
     private int degree;
     private List<Double> factors;
     private int sections;
+    @JsonProperty("Xp")
+    private double Xp;
+    @JsonProperty("Xk")
+    private double Xk;
 
     public IntegrationData(String username, int degree, List<Double> factors, int sections, double xp, double xk) {
         this.dataType = "IntegrationData";
@@ -26,12 +31,9 @@ public class IntegrationData implements Savable{
         this.degree = degree;
         this.factors = factors;
         this.sections = sections;
-        Xp = xp;
-        Xk = xk;
+        this.Xp = xp;
+        this.Xk = xk;
     }
-
-    private double Xp;
-    private double Xk;
 
     @Override
     public String toString() {
