@@ -13,7 +13,6 @@ export class ResultDataService {
   private static interpolationData: InterpolationData;
   private static integrationData: IntegrationData;
   private static systemOfEquationsData: SystemOfEquationsData;
-  private static baseData: BaseData[];
   private static baseDataSubject: BehaviorSubject<BaseData[]> = new BehaviorSubject<BaseData[]>([]);
   public static baseData$: Observable<BaseData[]> = ResultDataService.baseDataSubject.asObservable();
 

@@ -50,6 +50,24 @@
   <p>Więcej informacji znajdziesz na stronie: <a href="https://pl.wikipedia.org/wiki/Interpolacja_wielomianowa" class="link">Interpolacja wielomianowa - Wikipedia</a>.</p>
 </section>
 
+<section>
+  <h2>Interpolacja wielomianowa</h2>
+  <p>Interpolacja wielomianowa to metoda, która polega na znalezieniu wielomianu przechodzącego przez zbiór zadanych punktów. Jest szczególnie przydatna w sytuacjach, gdy dysponujemy ograniczoną liczbą próbek i chcemy uzyskać funkcję, która może aproksymować dane. Jednym z najczęściej stosowanych podejść jest wykorzystanie wielomianu Lagrange'a. Jego konstrukcja opiera się na wagach zależnych od punktów interpolacji.</p>
+  <img src="../../../assets/images/p.png" alt="Przykład interpolacji wielomianowej" width="500px" height="300px">
+  <p>Wielomian Lagrange'a umożliwia dokładne odwzorowanie funkcji w zadanych punktach, ale może być wrażliwy na tzw. efekt Rungego, szczególnie gdy liczba punktów jest duża.</p>
+  <p>Więcej informacji znajdziesz na stronie: <a href="https://pl.wikipedia.org/wiki/Interpolacja_wielomianowa" class="link">Interpolacja wielomianowa - Wikipedia</a>.</p>
+  <p>Więcej informacji znajdziesz na stronie: <a href="https://eia.pg.edu.pl/documents/184139/40421150/TI_LAB_5_Material_pomocniczy_a.pdf" class="link">Interpolacja wielomianowa - Politechnika Gdańska (pdf)</a>.</p>
+</section>
+
+<section>
+  <h2>Interpolacja wielomianowa</h2>
+  <p>Interpolacja wielomianowa to metoda, która polega na znalezieniu wielomianu przechodzącego przez zbiór zadanych punktów. Jest szczególnie przydatna w sytuacjach, gdy dysponujemy ograniczoną liczbą próbek i chcemy uzyskać funkcję, która może aproksymować dane. Jednym z najczęściej stosowanych podejść jest wykorzystanie wielomianu Lagrange'a. Jego konstrukcja opiera się na wagach zależnych od punktów interpolacji.</p>
+  <p>Wielomian Lagrange'a umożliwia dokładne odwzorowanie funkcji w zadanych punktach, ale może być wrażliwy na tzw. efekt Rungego, szczególnie gdy liczba punktów jest duża.</p>
+  <p>Więcej informacji znajdziesz na stronie: <a href="https://pl.wikipedia.org/wiki/Interpolacja_wielomianowa" class="link">Interpolacja wielomianowa - Wikipedia</a>.</p>
+  <p>Więcej informacji znajdziesz na stronie: <a href="https://eia.pg.edu.pl/documents/184139/40421150/TI_LAB_5_Material_pomocniczy_a.pdf" class="link">Interpolacja wielomianowa - Politechnika Gdańska (pdf)</a>.</p>
+</section>
+
+<!-- Początek teorii -->
 <h1>Metody Numeryczne</h1>
 
 <section>
@@ -74,7 +92,7 @@
   <p>Metoda punktu środkowego to jedna z najprostszych metod numerycznego całkowania. Zakłada, że wartość funkcji w środku przedziału jest reprezentatywna dla całej szerokości przedziału. Przy założeniu, że funkcja jest "gładka" i zmienia się w sposób przewidywalny, metoda ta daje zadowalające wyniki dla prostych przypadków. Jej wzór wygląda następująco:</p>
 
   <p>Pomimo swojej prostoty, metoda ta może być mało dokładna w przypadku funkcji o znaczących zmianach w danym przedziale, dlatego jest często stosowana jako metoda porównawcza.</p>
-  <img src="example-midpoint.png" alt="Przykład metody punktu środkowego">
+  <img src="../../../assets/images/midpoint.png" alt="Przykład interpolacji wielomianowej" width="500px" height="300px">
   <p>Więcej informacji znajdziesz na stronie: <a href="https://en.wikipedia.org/wiki/Midpoint_method" class="link">Całkowanie numeryczne - Wikipedia</a>.</p>
 </section>
 
@@ -83,7 +101,7 @@
   <p>Metoda Simpsona to bardziej zaawansowana metoda numerycznego całkowania, która aproksymuje funkcję za pomocą paraboli. Podejście to znacząco zwiększa dokładność w porównaniu do prostszych metod, takich jak trapezy czy punkt środkowy. Szczególnie dobrze sprawdza się przy funkcjach "gładkich" i zmiennych w sposób ciągły:</p>
 
   <p>Metoda Simpsona dzieli obszar na podprzedziały, a następnie stosuje formułę paraboliczną do każdego z nich. Jest to jedna z najpopularniejszych metod całkowania w inżynierii i naukach ścisłych.</p>
-  <img src="example-simpson.png" alt="Przykład metody Simpsona">
+  <img src="../../../assets/images/simpson.png" alt="Przykład interpolacji wielomianowej" width="500px" height="300px">
   <p>Więcej informacji znajdziesz na stronie: <a href="https://en.wikipedia.org/wiki/Simpson%27s_rule" class="link">Reguła Simpsona - Wikipedia</a>.</p>
 </section>
 
@@ -92,16 +110,14 @@
   <p>Metoda trapezów to klasyczne podejście do numerycznego całkowania, w którym obszar pod wykresem funkcji jest aproksymowany za pomocą trapezów. Przy podziale przedziału całkowania na małe części metoda ta może osiągać wysoką dokładność. Wzór podstawowy jest następujący:</p>
 
   <p>Metoda trapezów jest szeroko stosowana ze względu na swoją prostotę i intuicyjność, a także na możliwość łatwego rozszerzenia jej na wiele podprzedziałów.</p>
-  <img src="example-trapezoid.png" alt="Przykład metody trapezów">
+  <img src="../../../assets/images/trapezoidal.png" alt="Przykład interpolacji wielomianowej" width="500px" height="300px">
   <p>Więcej informacji znajdziesz na stronie: <a href="https://en.wikipedia.org/wiki/Trapezoidal_rule" class="link">Metoda trapezów - Wikipedia</a>.</p>
 </section>
 
 <section>
   <h2>Rozwiązywanie układów równań metodą Gaussa</h2>
   <p>Metoda Gaussa to algorytm służący do rozwiązywania układów równań liniowych poprzez eliminację zmiennych. Proces ten polega na przekształceniu macierzy układu do postaci trójkątnej, co umożliwia łatwe wyznaczenie wartości poszczególnych zmiennych. Wzór ogólny dla rozwiązania układu wygląda tak:</p>
-
   <p>Algorytm Gaussa jest szeroko stosowany w matematyce, fizyce i inżynierii ze względu na swoją efektywność i możliwość zastosowania w różnych typach problemów. W praktyce może być modyfikowany, aby poprawić stabilność obliczeń.</p>
-  <img src="example-gauss.png" alt="Przykład metody Gaussa">
   <p>Więcej informacji znajdziesz na stronie: <a href="https://en.wikipedia.org/wiki/Gaussian_elimination" class="link">Eliminacja Gaussa - Wikipedia</a>.</p>
 </section>
 </div>

@@ -1,1 +1,6 @@
-<p>integration-options-dialog works!</p>
+<h1 mat-dialog-title>Wybierz rodzaj całkowania</h1>
+<div mat-dialog-content>
+  <button mat-button (click)="chooseOption('trapezoidal')">Całkowanie metodą trapezów</button>
+  <button mat-button (click)="chooseOption('simpson')">Całkowanie metodą Simpsona</button>
+  <button mat-button (click)="chooseOption('midpoint')">Całkowanie metodą punktu środkowego</button>
+</div>

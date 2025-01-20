@@ -6,6 +6,7 @@ import { ResultDataService } from 'src/app/shared/services/result/result-data.se
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserService } from 'src/app/shared/services/user/user.service';
+import { INTERPOLATION, INTERPOLATION_DATA } from 'src/app/shared/data/data.constants';
 
 @Component({
   selector: 'app-interpolation',
@@ -51,7 +52,7 @@ export class InterpolationComponent implements OnInit {
 
   Submit() {
     const data: InterpolationData = {
-      dataType: 'InterpolationData',
+      dataType: INTERPOLATION_DATA,
       username: UserService.getUsername(),
       points: this.data.points,
       searchedValue: this.data.searchedValue,
@@ -60,7 +61,7 @@ export class InterpolationComponent implements OnInit {
     this.http.post<number>('http://localhost:8081/calculations/'+this.interpolationName+'_interpolation', data).subscribe(
       (result: number) => {
         ResultDataService.SetInterpolationResult(result, data);
-        ResultDataService.SetResultType('Interpolation');
+        ResultDataService.SetResultType(INTERPOLATION);
         this.router.navigate(['/result']);
       },
       (error: any) => {

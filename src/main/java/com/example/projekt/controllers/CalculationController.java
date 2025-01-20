@@ -5,6 +5,7 @@ import com.example.projekt.model.data.InterpolationData;
 import com.example.projekt.model.data.SystemOfEquationsData;
 import com.example.projekt.model.results.SystemOfEquationsResult;
 import com.example.projekt.service.CalculationService;
+import com.example.projekt.service.ChatService;
 import com.example.projekt.service.DataService;
 import com.example.projekt.service.UtilityService;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,9 @@ public class CalculationController {
     @Autowired
     private final UtilityService utilityService;
 
+    @Autowired
+    private final ChatService chatService;
+
     @PostMapping("/")
     public String Test() {
         return ("Works!");
@@ -40,6 +44,9 @@ public class CalculationController {
         dataService.saveInterpolationData(interpolationData);
         double result = calculationService.CalculateInterpolation(interpolationData);
         System.out.println("Calculated interpolation: " + result);
+        String prompt = "Explain in details the process of calculating polynomial interpolation with this given set of data: " + interpolationData + " and with this final result achieved during calculations: " + result;
+        System.out.println(prompt);
+        System.out.println(chatService.getChatGptResponse(prompt));
         return ResponseEntity.ok(utilityService.Round(result));
     }
 
@@ -82,6 +89,7 @@ public class CalculationController {
     @PostMapping("/system_of_equations")
     public ResponseEntity<SystemOfEquationsResult> TreatSystemOfEquations(@RequestBody SystemOfEquationsData systemOfEquationsData) {
         System.out.println("Received SystemOfEquationsData: " + systemOfEquationsData);
+        dataService.saveSystemOfEquationsData(systemOfEquationsData);
         SystemOfEquationsResult result = calculationService.CalculateSystemOfEquations(systemOfEquationsData);
         System.out.println("Calculated system of equations: " + result);
         return ResponseEntity.ok(result);

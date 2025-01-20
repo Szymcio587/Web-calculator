@@ -36,5 +36,12 @@ public class InterpolationData implements Savable{
         this.points = points;
     }
 
-
+    @Override
+    public String toString() {
+        return "InterpolationData{" +
+                "pointsNumber=" + pointsNumber +
+                ", searchedValue=" + searchedValue +
+                ", points=" + points +
+                '}';
+    }
 }

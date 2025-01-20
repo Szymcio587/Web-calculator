@@ -1,14 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ResultDataService } from 'src/app/shared/services/result/result-data.service';
-import { IntegrationData, InterpolationData, Response, SystemOfEquationsData } from 'src/app/shared/data/data.interface';
+import { IntegrationData, InterpolationData, SystemOfEquationsData } from 'src/app/shared/data/data.interface';
 import type { LineSeriesOption, SeriesOption, EChartsOption } from 'echarts';
-import {MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { InterpolationComponent } from '../home/dialog/interpolation/interpolation.component';
-import { IntegralComponent } from '../home/dialog/integral/integral.component';
-import { SystemOfEquationsComponent } from '../home/dialog/system-of-equations/system-of-equations.component';
+import {MatDialog} from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { InterpolationOptionsDialogComponent } from '../home/dialog/interpolation-options-dialog/interpolation-options-dialog.component';
 import { IntegrationOptionsDialogComponent } from '../home/dialog/integration-options-dialog/integration-options-dialog.component';
+import { INTEGRATION, INTERPOLATION, SYSTEM_OF_EQUATIONS } from 'src/app/shared/data/data.constants';
 
 @Component({
   selector: 'app-results',
@@ -38,7 +36,7 @@ export class ResultsComponent {
     console.log(ResultDataService.GetResult());
     console.log(ResultDataService.GetResultType());
     this.type = ResultDataService.GetResultType();
-    if(this.type == 'Interpolation') {
+    if(this.type == INTERPOLATION) {
       this.result = ResultDataService.GetResult();
       this.interpolationData = ResultDataService.GetInterpolationData();
       this.X = this.interpolationData.points.map((point) => point.x);
@@ -87,7 +85,7 @@ export class ResultsComponent {
         ],
       };
     }
-    else if(this.type == 'Integral') {
+    else if(this.type == INTEGRATION) {
       this.result = ResultDataService.GetResult();
       this.integrationData = ResultDataService.GetIntegrationData();
       const { xValues, yValues } = this.generatePolynomialData(this.integrationData.factors, this.integrationData.Xp,
@@ -148,7 +146,7 @@ export class ResultsComponent {
         ] as SeriesOption[],
       };
     }
-    else if(this.type == 'SystemOfEquations') {
+    else if(this.type == SYSTEM_OF_EQUATIONS) {
       this.result = ResultDataService.GetResult();
       console.log(this.result);
       this.systemOfEquationsData = ResultDataService.GetSystemOfEquationsData();
@@ -203,9 +201,9 @@ export class ResultsComponent {
   }
 
   private callIntegration(type: string): void {
-    const integrationEndpoint = type === 'midpoint' ? '/midpoint_integration' : type === 'simpsons' ? 'simpsons_integration' : 'trapezoidal_integration';
+    const integrationEndpoint = type === 'midpoint' ? '/midpoint_integration' : type === 'simpson' ? '/simpson_integration' : '/trapezoidal_integration';
     const url = `http://localhost:8081/calculations${integrationEndpoint}`;
-    this.http.post<number>(url, this.interpolationData).subscribe(
+    this.http.post<number>(url, this.integrationData).subscribe(
       (newResult: number) => {
         this.setNewValues(newResult);
       },
@@ -216,7 +214,7 @@ export class ResultsComponent {
   }
 
   private setNewValues(result: number) {
-    if(this.type == 'Interpolation') {
+    if(this.type == INTERPOLATION) {
       this.newResult = result;
       this.newInterpolationData = ResultDataService.GetInterpolationData();
 
@@ -269,7 +267,7 @@ export class ResultsComponent {
         ],
       };
     }
-    else if(this.type == 'Integral') {
+    else if(this.type == INTEGRATION) {
       this.newResult = result;
       this.integrationData = ResultDataService.GetIntegrationData();
       const { xValues, yValues } = this.generatePolynomialData(this.integrationData.factors, this.integrationData.Xp,

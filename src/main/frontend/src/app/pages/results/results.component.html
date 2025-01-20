@@ -11,7 +11,7 @@
           X: {{ point.x }}, Y: {{ point.y }}
         </li>
       </div>
-      <div *ngIf="this.type == 'Integral'">
+      <div *ngIf="this.type == 'Integration'">
         <h3>Wysłane wartości:</h3>
         <p>Stopień wielomianu: {{integrationData.degree}}</p>
         <p>Wartości współczynników: {{integrationData.factors}}</p>
@@ -27,7 +27,7 @@
     </div>
     <div id="result">
       <div *ngIf="this.type == 'SystemOfEquations'">
-        <h3>Obliczone zmienne x i y = {{result}}</h3>
+        <h3>Obliczone zmienne x,y = {{result}}</h3>
       </div>
       <div *ngIf="this.type != 'SystemOfEquations'">
         <h3>Obliczony wynik: {{result}}</h3>
@@ -38,7 +38,7 @@
     <div *ngIf="!newResult && this.type == 'Interpolation'">
       <button type="button" class="register-button" (click)="openInterpolationOptions()">Wybierz interpolacje</button>
     </div>
-    <div *ngIf="!newResult && this.type == 'Integral'">
+    <div *ngIf="!newResult && this.type == 'Integration'">
       <button type="button" class="register-button" (click)="openIntegrationOptions()">Wybierz integracje</button>
     </div>
     <div *ngIf="newResult">
@@ -53,7 +53,7 @@
             X: {{ point.x }}, Y: {{ point.y }}
           </li>
         </div>
-        <div *ngIf="this.type == 'Integral'">
+        <div *ngIf="this.type == 'Integration'">
           <h3>Wysłane wartości:</h3>
           <p>Stopień wielomianu: {{integrationData.degree}}</p>
           <p>Wartości współczynników: {{integrationData.factors}}</p>

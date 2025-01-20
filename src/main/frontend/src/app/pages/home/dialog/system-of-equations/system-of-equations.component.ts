@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { SYSTEM_OF_EQUATIONS_DATA } from 'src/app/shared/data/data.constants';
 import { SystemOfEquationsData, SystemOfEquationsResponse } from 'src/app/shared/data/data.interface';
 import { ResultDataService } from 'src/app/shared/services/result/result-data.service';
 import { UserService } from 'src/app/shared/services/user/user.service';
@@ -28,7 +29,7 @@ export class SystemOfEquationsComponent implements OnInit {
 
   Submit() {
     const data: SystemOfEquationsData = {
-      dataType: 'SystemOfEquationsData',
+      dataType: SYSTEM_OF_EQUATIONS_DATA,
       username: UserService.getUsername(),
       coefficients: this.data.coefficients,
       constants: this.data.constants
