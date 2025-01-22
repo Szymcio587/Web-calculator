@@ -26,11 +26,17 @@
       </div>
     </div>
     <div id="result">
+      <div *ngIf="this.type == 'Interpolation'">
+        <h3>Wyniki</h3>
+        <p>Obliczona wartość dla szukanego punktu: {{interpolationResult.result}}</p>
+        <p>Wyznaczony wzór funkcji:</p> <div style="display: inline-block;" [innerHTML]="polynomialString"></div>
+        <p *ngIf="interpolationData.isTest" class="chatResponse">Wytłumaczenie:<br>{{interpolationResult.prompt}}</p>
+      </div>
+      <div *ngIf="this.type == 'Integration'">
+        <h3>Obliczony wynik: {{result}}</h3>
+      </div>
       <div *ngIf="this.type == 'SystemOfEquations'">
         <h3>Obliczone zmienne x,y = {{result}}</h3>
-      </div>
-      <div *ngIf="this.type != 'SystemOfEquations'">
-        <h3>Obliczony wynik: {{result}}</h3>
       </div>
     </div>
   </div>

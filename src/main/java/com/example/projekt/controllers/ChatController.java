@@ -15,7 +15,7 @@ public class ChatController {
 
     @PostMapping("/prompt")
     public ChatResponse sendPrompt(@RequestBody ChatRequest request) {
-        String response = chatGptService.getChatGptResponse(request.getPrompt());
+        String response = chatGptService.GetChatGptResponse(request.getPrompt());
         return new ChatResponse(response);
     }
 }

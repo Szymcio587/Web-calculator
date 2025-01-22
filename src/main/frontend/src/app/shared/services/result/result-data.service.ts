@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseData, IntegrationData, InterpolationData, SystemOfEquationsData } from '../../data/data.interface';
+import { BaseData, IntegrationData, InterpolationData, InterpolationResult, SystemOfEquationsData } from '../../data/data.interface';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -11,6 +11,7 @@ export class ResultDataService {
   private static result: any;
   private static resultType: String;
   private static interpolationData: InterpolationData;
+  private static interpolationResult: InterpolationResult;
   private static integrationData: IntegrationData;
   private static systemOfEquationsData: SystemOfEquationsData;
   private static baseDataSubject: BehaviorSubject<BaseData[]> = new BehaviorSubject<BaseData[]>([]);
@@ -18,8 +19,8 @@ export class ResultDataService {
 
   constructor() { }
 
-  public static SetInterpolationResult(result: number, data: InterpolationData): void {
-    ResultDataService.result = result;
+  public static SetInterpolationResult(result: InterpolationResult, data: InterpolationData): void {
+    ResultDataService.interpolationResult = result;
     ResultDataService.interpolationData = data;
   }
 
@@ -35,6 +36,10 @@ export class ResultDataService {
 
   public static GetResult(): number {
     return ResultDataService.result;
+  }
+
+  public static GetInterpolationResult(): InterpolationResult {
+    return ResultDataService.interpolationResult;
   }
 
   public static GetInterpolationData(): InterpolationData {

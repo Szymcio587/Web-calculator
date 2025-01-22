@@ -8,9 +8,9 @@ import java.math.RoundingMode;
 @Service
 public class UtilityService {
 
-    public double Round(double number) {
+    public static double Round(double number, int precision) {
         BigDecimal bd = new BigDecimal(Double.toString(number));
-        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        bd = bd.setScale(precision, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
 }

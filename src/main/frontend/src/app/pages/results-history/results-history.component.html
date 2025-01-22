@@ -9,7 +9,9 @@
         <li *ngFor="let point of record.points">
           X: {{ point.x }}, Y: {{ point.y }}
         </li>
+        <p>Obliczony wynik: {{record.result}}</p>
         <button type="submit">Przelicz</button>
+        <button type="button" (click)="exportRecord(record, 'Interpolation')">Eksportuj</button>
       </form>
     </div>
     <div *ngIf="isIntegration(record)">
@@ -21,6 +23,16 @@
         <p>Punkt początkowy: {{record.Xp}}</p>
         <p>Punkt końcowy: {{record.Xk}}</p>
         <button type="submit">Przelicz</button>
+        <button type="button" (click)="exportRecord(record, 'Integration')">Eksportuj</button>
+      </form>
+    </div>
+    <div *ngIf="isSystemOfEquations(record)">
+      <form (ngSubmit)="recalculate(record)" class="box">
+        <h6>Układ równań:</h6>
+        <p>{{record.coefficients[0][0]}}x + {{record.coefficients[0][1]}}y = {{record.constants[0]}}</p>
+        <p>{{record.coefficients[1][0]}}x + {{record.coefficients[1][1]}}y = {{record.constants[1]}}</p>
+        <button type="submit">Przelicz</button>
+        <button type="button" (click)="exportRecord(record, 'SystemOfEquations')">Eksportuj</button>
       </form>
     </div>
   </div>

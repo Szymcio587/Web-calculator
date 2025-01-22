@@ -13,7 +13,7 @@
           <a class="nav-link" routerLink="/theory" routerLinkActive="active-link">Teoria</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [class.disabled]="!(isLoggedIn | async)" routerLink="/home" routerLinkActive="active-link">Metody</a>
+          <a class="nav-link" routerLink="/home" routerLinkActive="active-link">Metody</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" [class.disabled]="!(isLoggedIn | async)" routerLinkActive="active-link" (click)="getResults()" id="history">Historia</a>

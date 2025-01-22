@@ -1,86 +1,27 @@
 <div class="my-container">
 
+  <h1>Interpolacja</h1>
   <section>
-    <h2>Interpolacja wielomianowa</h2>
-    <p>Interpolacja wielomianowa polega na znalezieniu wielomianu, który przechodzi przez dane punkty. Jest szczególnie użyteczna, gdy mamy niewielką liczbę punktów i chcemy uzyskać funkcję opisującą dane. Najczęściej używa się wielomianu Lagrange'a, którego wzór wygląda następująco:</p>
-    <div class="formula">
-        L(x) = sum(i=0 to n) y_i * prod(j != i) (x - x_j) / (x_i - x_j)
-    </div>
-    <img src="../../shared/pictures/polynomial.png" alt="Przykład interpolacji wielomianowej">
-    <p>Więcej informacji znajdziesz na stronie: <a href="https://pl.wikipedia.org/wiki/Interpolacja_wielomianowa" class="link">Interpolacja wielomianowa - Wikipedia</a>.</p>
+    Metoda numeryczna polegająca na wyznaczaniu w danym przedziale <i>[a ,b]</i> tzw.
+    funkcji interpolującej, która przyjmuje w nim z góry zadane wartości, w ustalonych
+    punktach nazywanych węzłami. Metoda ta jest wykorzystywana przy całkowaniu numerycznym(m.in. metoda trapezów, metoda Simpsona), a także pozwala na lokalne
+    przybliżenie wartości dowolnej funkcji, co z kolei umożliwia np. łatwiejszą analizę złożonych modeli
+    fizycznych. Wśród metod numerycznych służących do wyznaczania wartości funkcji wyróżniamy m.in:
   </section>
-<section>
-  <h2>Interpolacja wielomianowa</h2>
-  <p>Interpolacja wielomianowa polega na znalezieniu wielomianu, który przechodzi przez dane punkty. Jest szczególnie użyteczna, gdy mamy niewielką liczbę punktów i chcemy uzyskać funkcję opisującą dane. Najczęściej używa się wielomianu Lagrange'a, którego wzór wygląda następująco:</p>
-  <div class="formula">
-      L(x) = sum(i=0 to n) y_i * prod(j != i) (x - x_j) / (x_i - x_j)
-  </div>
-  <img src="../../shared/pictures/polynomial.png" alt="Przykład interpolacji wielomianowej">
-  <p>Więcej informacji znajdziesz na stronie: <a href="https://pl.wikipedia.org/wiki/Interpolacja_wielomianowa" class="link">Interpolacja wielomianowa - Wikipedia</a>.</p>
-</section>
+
+  <section>
+    <h2>Interpolację wielomianową</h2>
+    <p>nazywana też interpolacją Lagrange’a – metoda numeryczna przybliżania funkcji tzw. wielomianem Lagrange’a stopnia <i>n</i> przyjmującą w <i>n + 1</i>
+    punktach, zwanych węzłami interpolacji, wartości takie same jak przybliżana funkcja</p>
+    <img src="../../../assets/images/p.png" alt="Ilustracja interpolacji wielomianowej" width="500px" height="300px">
+    <figcaption>Ilustracja interpolacji wielomianowej</figcaption>
+
+    <div [innerHTML]="lagrangePolynomial"></div>
+    W celu zobaczenia działania metody w praktyce <div class="examples" (click)="showExample()">kliknij tutaj</div>
+  </section>
 
 <section>
-  <p>Interpolacja wielomianowa to metoda, która polega na znalezieniu wielomianu przechodzącego przez zbiór zadanych punktów. Jest szczególnie przydatna w sytuacjach, gdy dysponujemy ograniczoną liczbą próbek i chcemy uzyskać funkcję, która może aproksymować dane. Jednym z najczęściej stosowanych podejść jest wykorzystanie wielomianu Lagrange'a. Jego konstrukcja opiera się na wagach zależnych od punktów interpolacji. Wzór jest podany poniżej:</p>
-  <p>Wielomian Lagrange'a umożliwia dokładne odwzorowanie funkcji w zadanych punktach, ale może być wrażliwy na tzw. efekt Rungego, szczególnie gdy liczba punktów jest duża.</p>
-  <img src="example-polynomial.png" alt="Przykład interpolacji wielomianowej">
-  <p>Więcej informacji znajdziesz na stronie: <a href="https://pl.wikipedia.org/wiki/Interpolacja_wielomianowa" class="link">Interpolacja wielomianowa - Wikipedia</a>.</p>
-</section>
-<section>
-  <p>Interpolacja wielomianowa to metoda, która polega na znalezieniu wielomianu przechodzącego przez zbiór zadanych punktów. Jest szczególnie przydatna w sytuacjach, gdy dysponujemy ograniczoną liczbą próbek i chcemy uzyskać funkcję, która może aproksymować dane. Jednym z najczęściej stosowanych podejść jest wykorzystanie wielomianu Lagrange'a. Jego konstrukcja opiera się na wagach zależnych od punktów interpolacji. Wzór jest podany poniżej:</p>
-  <p>Wielomian Lagrange'a umożliwia dokładne odwzorowanie funkcji w zadanych punktach, ale może być wrażliwy na tzw. efekt Rungego, szczególnie gdy liczba punktów jest duża.</p>
-  <img src="example-polynomial.png" alt="Przykład interpolacji wielomianowej">
-  <p>Więcej informacji znajdziesz na stronie: <a href="https://pl.wikipedia.org/wiki/Interpolacja_wielomianowa" class="link">Interpolacja wielomianowa - Wikipedia</a>.</p>
-</section>
-<section>
-  <p>Interpolacja wielomianowa to metoda, która polega na znalezieniu wielomianu przechodzącego przez zbiór zadanych punktów. Jest szczególnie przydatna w sytuacjach, gdy dysponujemy ograniczoną liczbą próbek i chcemy uzyskać funkcję, która może aproksymować dane. Jednym z najczęściej stosowanych podejść jest wykorzystanie wielomianu Lagrange'a. Jego konstrukcja opiera się na wagach zależnych od punktów interpolacji. Wzór jest podany poniżej:</p>
-  <p>Wielomian Lagrange'a umożliwia dokładne odwzorowanie funkcji w zadanych punktach, ale może być wrażliwy na tzw. efekt Rungego, szczególnie gdy liczba punktów jest duża.</p>
-  <img src="example-polynomial.png" alt="Przykład interpolacji wielomianowej">
-
-  <p>Więcej informacji znajdziesz na stronie: <a href="https://pl.wikipedia.org/wiki/Interpolacja_wielomianowa" class="link">Interpolacja wielomianowa - Wikipedia</a>.</p><p>Więcej informacji znajdziesz na stronie: <a href="https://pl.wikipedia.org/wiki/Interpolacja_wielomianowa" class="link">Interpolacja wielomianowa - Wikipedia</a>.</p>
-</section>
-<section>
-  <p>Wielomian Lagrange'a umożliwia dokładne odwzorowanie funkcji w zadanych punktach, ale może być wrażliwy na tzw. efekt Rungego, szczególnie gdy liczba punktów jest duża.</p>
-  <img src="example-polynomial.png" alt="Przykład interpolacji wielomianowej">
-  <p>Więcej informacji znajdziesz na stronie: <a href="https://pl.wikipedia.org/wiki/Interpolacja_wielomianowa" class="link">Interpolacja wielomianowa - Wikipedia</a>.</p>
-</section>
-<section>
-  <p>Interpolacja wielomianowa to metoda, która polega na znalezieniu wielomianu przechodzącego przez zbiór zadanych punktów. Jest szczególnie przydatna w sytuacjach, gdy dysponujemy ograniczoną liczbą próbek i chcemy uzyskać funkcję, która może aproksymować dane. Jednym z najczęściej stosowanych podejść jest wykorzystanie wielomianu Lagrange'a. Jego konstrukcja opiera się na wagach zależnych od punktów interpolacji. Wzór jest podany poniżej:</p>
-  <p>Wielomian Lagrange'a umożliwia dokładne odwzorowanie funkcji w zadanych punktach, ale może być wrażliwy na tzw. efekt Rungego, szczególnie gdy liczba punktów jest duża.</p>
-  <img src="example-polynomial.png" alt="Przykład interpolacji wielomianowej">
-  <p>Więcej informacji znajdziesz na stronie: <a href="https://pl.wikipedia.org/wiki/Interpolacja_wielomianowa" class="link">Interpolacja wielomianowa - Wikipedia</a>.</p>
-</section>
-
-<section>
-  <h2>Interpolacja wielomianowa</h2>
-  <p>Interpolacja wielomianowa to metoda, która polega na znalezieniu wielomianu przechodzącego przez zbiór zadanych punktów. Jest szczególnie przydatna w sytuacjach, gdy dysponujemy ograniczoną liczbą próbek i chcemy uzyskać funkcję, która może aproksymować dane. Jednym z najczęściej stosowanych podejść jest wykorzystanie wielomianu Lagrange'a. Jego konstrukcja opiera się na wagach zależnych od punktów interpolacji.</p>
-  <img src="../../../assets/images/p.png" alt="Przykład interpolacji wielomianowej" width="500px" height="300px">
-  <p>Wielomian Lagrange'a umożliwia dokładne odwzorowanie funkcji w zadanych punktach, ale może być wrażliwy na tzw. efekt Rungego, szczególnie gdy liczba punktów jest duża.</p>
-  <p>Więcej informacji znajdziesz na stronie: <a href="https://pl.wikipedia.org/wiki/Interpolacja_wielomianowa" class="link">Interpolacja wielomianowa - Wikipedia</a>.</p>
-  <p>Więcej informacji znajdziesz na stronie: <a href="https://eia.pg.edu.pl/documents/184139/40421150/TI_LAB_5_Material_pomocniczy_a.pdf" class="link">Interpolacja wielomianowa - Politechnika Gdańska (pdf)</a>.</p>
-</section>
-
-<section>
-  <h2>Interpolacja wielomianowa</h2>
-  <p>Interpolacja wielomianowa to metoda, która polega na znalezieniu wielomianu przechodzącego przez zbiór zadanych punktów. Jest szczególnie przydatna w sytuacjach, gdy dysponujemy ograniczoną liczbą próbek i chcemy uzyskać funkcję, która może aproksymować dane. Jednym z najczęściej stosowanych podejść jest wykorzystanie wielomianu Lagrange'a. Jego konstrukcja opiera się na wagach zależnych od punktów interpolacji.</p>
-  <p>Wielomian Lagrange'a umożliwia dokładne odwzorowanie funkcji w zadanych punktach, ale może być wrażliwy na tzw. efekt Rungego, szczególnie gdy liczba punktów jest duża.</p>
-  <p>Więcej informacji znajdziesz na stronie: <a href="https://pl.wikipedia.org/wiki/Interpolacja_wielomianowa" class="link">Interpolacja wielomianowa - Wikipedia</a>.</p>
-  <p>Więcej informacji znajdziesz na stronie: <a href="https://eia.pg.edu.pl/documents/184139/40421150/TI_LAB_5_Material_pomocniczy_a.pdf" class="link">Interpolacja wielomianowa - Politechnika Gdańska (pdf)</a>.</p>
-</section>
-
-<!-- Początek teorii -->
-<h1>Metody Numeryczne</h1>
-
-<section>
-  <h2>Interpolacja wielomianowa</h2>
-  <p>Interpolacja wielomianowa to metoda, która polega na znalezieniu wielomianu przechodzącego przez zbiór zadanych punktów. Jest szczególnie przydatna w sytuacjach, gdy dysponujemy ograniczoną liczbą próbek i chcemy uzyskać funkcję, która może aproksymować dane. Jednym z najczęściej stosowanych podejść jest wykorzystanie wielomianu Lagrange'a. Jego konstrukcja opiera się na wagach zależnych od punktów interpolacji.</p>
-  <img src="../../../assets/images/p.png" alt="Przykład interpolacji wielomianowej" width="500px" height="300px">
-  <p>Wielomian Lagrange'a umożliwia dokładne odwzorowanie funkcji w zadanych punktach, ale może być wrażliwy na tzw. efekt Rungego, szczególnie gdy liczba punktów jest duża.</p>
-  <p>Więcej informacji znajdziesz na stronie: <a href="https://pl.wikipedia.org/wiki/Interpolacja_wielomianowa" class="link">Interpolacja wielomianowa - Wikipedia</a>.</p>
-  <p>Więcej informacji znajdziesz na stronie: <a href="https://eia.pg.edu.pl/documents/184139/40421150/TI_LAB_5_Material_pomocniczy_a.pdf" class="link">Interpolacja wielomianowa - Politechnika Gdańska (pdf)</a>.</p>
-</section>
-
-<section>
-  <h2>Interpolacja trygonometryczna</h2>
+  <h2>Interpolację trygonometryczna</h2>
   <p>Interpolacja trygonometryczna to metoda stosowana głównie dla danych okresowych. Pozwala na odwzorowanie funkcji, które mają powtarzalny charakter, takich jak sygnały w elektronice czy dane związane z ruchem harmonicznym. Wzór interpolacyjny bazuje na funkcjach trygonometrycznych sinus i cosinus, co pozwala na dokładne opisanie właściwości danych:</p>
   <img src="../../../assets/images/trigonometric.png" alt="Przykład interpolacji wielomianowej" width="500px" height="300px">
   <p>Metoda ta jest niezwykle skuteczna przy analizie sygnałów i obliczeniach w dziedzinie częstotliwości, jednak wymaga znajomości współczynników Fourierowskich \(a_k\) i \(b_k\), które są obliczane na podstawie danych wejściowych.</p>

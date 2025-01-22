@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   dialogSystemOfEquations: MatDialogRef<SystemOfEquationsComponent> | null = null;
   @Inject(MAT_DIALOG_DATA) public data: any =  { };
   public isVisible: boolean[];
+  visibleTooltip: string | null = null;
 
   config: MatDialogConfig = {
       disableClose: false,
@@ -50,6 +51,10 @@ export class HomeComponent implements OnInit {
   this.dialogSystemOfEquations = this.dialog.open(SystemOfEquationsComponent, this.config);
   this.dialogSystemOfEquations.addPanelClass('dialog');
  }
+
+ toggleTooltip(option: string) {
+  this.visibleTooltip = this.visibleTooltip === option ? null : option;
+}
 
  Collapse(number: string): void {
     const divElements = document.getElementsByClassName(`option ${number}`);

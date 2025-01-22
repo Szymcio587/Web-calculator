@@ -1,6 +1,7 @@
 package com.example.projekt.model.data;
 
 import com.example.projekt.model.Point;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,17 +11,16 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-@Document(collection = "interpolation_data")
-public class InterpolationData implements Savable{
-
-    @Id
-    private String id;
+public class InterpolationData{
 
     private String dataType;
     private String username;
     private int pointsNumber;
     private double searchedValue;
     private List<Point> points;
+
+    @JsonProperty
+    private boolean isTest;
 
     public InterpolationData(int pointsNumber, double searchedValue, List<Point> points) {
         this.pointsNumber = pointsNumber;

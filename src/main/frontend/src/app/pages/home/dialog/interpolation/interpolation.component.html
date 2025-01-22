@@ -15,5 +15,9 @@
       <input type="number" [(ngModel)]="data.points[point].y" name="y{{point}}"/>
     </div>
     <input type="submit" value="Oblicz"/>
+    <div id="dialog-file-upload" class="dialog-input">
+      <label class="dialog-label">Dodaj plik</label>
+      <input type="file" (change)="LoadDataFromFile($event)" accept=".txt" style="width: 350px"/>
+    </div>
   </form>
 </div>

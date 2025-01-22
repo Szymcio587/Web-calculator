@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { InterpolationData } from 'src/app/shared/data/data.interface';
+import { InterpolationData, InterpolationResult } from 'src/app/shared/data/data.interface';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ResultDataService } from 'src/app/shared/services/result/result-data.service';
@@ -20,7 +20,8 @@ export class InterpolationComponent implements OnInit {
     username: '',
     pointsNumber: 0,
     searchedValue: 0,
-    points: []
+    points: [],
+    isTest: false
   };
 
   interpolationName = '';
@@ -50,6 +51,42 @@ export class InterpolationComponent implements OnInit {
     this.CreatePointsArray();
   }
 
+  LoadDataFromFile(event: Event) {
+    const fileInput = event.target as HTMLInputElement;
+    const file = fileInput.files?.[0];
+    if (!file) {
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const fileContent = e.target?.result as string;
+      this.ParseFileContent(fileContent);
+    };
+    reader.readAsText(file);
+  }
+
+  private ParseFileContent(content: string) {
+    try {
+      const lines = content.split('\n').map((line) => line.trim());
+      if (lines.length < 2) {
+        throw new Error('Invalid file format');
+      }
+
+      this.data.pointsNumber = parseInt(lines[0], 10);
+
+      this.data.searchedValue = parseFloat(lines[1]);
+
+      this.data.points = lines.slice(2).map((line) => {
+        const [x, y] = line.split(',').map((value) => parseFloat(value.trim()));
+        return { x, y };
+      });
+    } catch (error) {
+      console.error('Error parsing file:', error);
+      alert('Błędy rodzaj pliku. Przeczytaj podpowiedź zamieszczoną w tooltipie i wprowadź zmieniony plik.');
+    }
+  }
+
   Submit() {
     const data: InterpolationData = {
       dataType: INTERPOLATION_DATA,
@@ -57,9 +94,10 @@ export class InterpolationComponent implements OnInit {
       points: this.data.points,
       searchedValue: this.data.searchedValue,
       pointsNumber: this.data.pointsNumber,
+      isTest: false
     };
-    this.http.post<number>('http://localhost:8081/calculations/'+this.interpolationName+'_interpolation', data).subscribe(
-      (result: number) => {
+    this.http.post<InterpolationResult>('http://localhost:8081/calculations/'+this.interpolationName+'_interpolation', data).subscribe(
+      (result: InterpolationResult) => {
         ResultDataService.SetInterpolationResult(result, data);
         ResultDataService.SetResultType(INTERPOLATION);
         this.router.navigate(['/result']);

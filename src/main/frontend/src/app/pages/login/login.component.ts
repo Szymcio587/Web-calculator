@@ -21,7 +21,7 @@ export class LoginComponent {
         this.userService.loginUser(this.credentials.username, this.credentials.password).subscribe({
           next: (response) => {
             this.successMessage = response.message;
-            this.router.navigate(['/home']);
+            this.router.navigate(['/menu']);
           },
           error: (err) => {
               this.errorMessage = err.error?.message || 'Registration failed';
@@ -30,7 +30,7 @@ export class LoginComponent {
       }
       else if(this.buttonClicked == 'enter') {
         this.userService.logoutUser();
-        this.router.navigate(['/home']);
+        this.router.navigate(['/menu']);
       }
     }
 }

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from '../services/user/user.service';
 import { ResultDataService } from '../services/result/result-data.service';
-import { BaseData, IntegrationData, InterpolationData } from '../data/data.interface';
+import { BaseData } from '../data/data.interface';
 
 @Component({
   selector: 'app-navbar',
@@ -36,17 +36,12 @@ export class NavbarComponent {
     this.http.post<BaseData[]>('http://localhost:8081/history', UserService.getUsername()).subscribe(
       (result: BaseData[]) => {
         ResultDataService.SetBaseData(result);
-        this.delay(1000);
         this.router.navigate(['/results-history']);
       },
       (error: any) => {
         console.error("Error:", error);
       }
     );
-  }
-
-  delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 
 }

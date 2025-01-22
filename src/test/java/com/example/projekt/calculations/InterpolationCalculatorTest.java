@@ -59,12 +59,12 @@ public class InterpolationCalculatorTest {
     @Test
     public void TestLagrange() {
         points = new ArrayList<>();
-        points.add(new Point(0, 1));
-        points.add(new Point(1, 2));
-        points.add(new Point(2, 5));
+        points.add(new Point(0, 3));
+        points.add(new Point(3, -5));
+        points.add(new Point(4, 6));
         interpolationData = new InterpolationData(3, 3, points);
 
-        double[] coefficients = interpolationCalculator.InterpolatePolynomial(points);
+        double[] coefficients = interpolationCalculator.GenerateCoefficients(points);
 
         System.out.print("Resulting polynomial coefficients: ");
         for (int i = 0; i < coefficients.length; i++) {

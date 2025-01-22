@@ -5,11 +5,23 @@
       <div class="title" id="t1">Interpolacja</div>
       <i class="fa-solid fa-plus"></i>
     </div>
-    <div class="option 1" id="polynomial" (click)="OpenInterpolation('polynomial')">
-      <p>Metoda wielomianowa</p>
+    <div class="option 1" id="polynomial">
+      <p (click)="OpenInterpolation('polynomial')">Wielomianowa</p>
+      <div class="tooltip-container">
+        <i class="tooltip-icon" (click)="toggleTooltip('polynomial')">?</i>
+        <div class="tooltip-box" *ngIf="visibleTooltip === 'polynomial'">
+          Pozwala na interpolację dowolnego wielomianu. W danych wejściowych należy podać: liczbę węzłow, wartości tych węzłów oraz x dla którego szukana jest
+          wartość. Pozwala również na obsługę plików w formacie:
+          <br>ilość punktów
+          <br>szukana wartość
+          <br>x1 y1
+          <br>x2 y2
+          <br>...
+        </div>
+      </div>
     </div>
     <div class="option 1" id="trigonometric" (click)="OpenInterpolation('trigonometric')">
-      <p>Metoda trygonometryczna</p>
+      <p>Trygonometryczna</p>
     </div>
   </div>
 

@@ -2,6 +2,7 @@ package com.example.projekt.calculations;
 
 import com.example.projekt.model.data.InterpolationData;
 import com.example.projekt.model.Point;
+import com.example.projekt.service.UtilityService;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -32,26 +33,40 @@ public class InterpolationCalculator {
         return result;
     }
 
-    private static double CalculateCoefficient(List<Point> points, int j, double x) {
-        double coefficient = 1.0;
-        for (int i = 0; i < points.size(); i++) {
-            if (i != j) {
-                coefficient *= (x - points.get(i).getX()) / (points.get(j).getX() - points.get(i).getX());
-            }
-        }
-        return coefficient;
-    }
-
-    public static double[] InterpolatePolynomial(List<Point> points) {
+    public double[] GenerateCoefficients(List<Point> points) {
         int n = points.size();
         double[] coefficients = new double[n];
 
-        for (int j = 0; j < n; j++) {
-            double y = points.get(j).getY();
-            double coefficient = CalculateCoefficient(points, j, 0);
-            coefficients[j] = y * coefficient;
+        for (int i = 0; i < n; i++) {
+            double[] basis = calculateBase(points, i);
+
+            for (int j = 0; j < basis.length; j++) {
+                coefficients[j] += basis[j] * points.get(i).getY();
+            }
+        }
+
+        for (int i = 0; i < n; i++) {
+            coefficients[i] = UtilityService.Round(coefficients[i], 5);
         }
 
         return coefficients;
+    }
+
+    private double[] calculateBase(List<Point> points, int i) {
+        int n = points.size();
+        double[] base = new double[n];
+        base[0] = 1.0;
+
+        for (int j = 0; j < n; j++) {
+            if (j != i) {
+                double denominator = points.get(i).getX() - points.get(j).getX();
+                for (int k = n - 1; k > 0; k--) {
+                    base[k] = base[k - 1] / denominator - (base[k] * points.get(j).getX() / denominator);
+                }
+                base[0] = -base[0] * points.get(j).getX() / denominator;
+            }
+        }
+
+        return base;
     }
 }

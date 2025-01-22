@@ -32,7 +32,7 @@ export class RegisterComponent {
             this.successMessage = response.message;
             this.router.navigate(['/']);
           },
-          error: (err) => (this.errorMessage = err.error?.message || 'Registration failed'),
+          error: (err) => (this.errorMessage = err.error?.message || 'Rejestracja nie powiodła się'),
         });
     }
   }

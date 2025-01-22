@@ -4,6 +4,8 @@ import com.example.projekt.model.data.IntegrationData;
 import com.example.projekt.model.data.InterpolationData;
 import com.example.projekt.model.data.Savable;
 import com.example.projekt.model.data.SystemOfEquationsData;
+import com.example.projekt.model.database.InterpolationRecord;
+import com.example.projekt.model.results.InterpolationResult;
 import com.example.projekt.repositories.IntegrationDataRepository;
 import com.example.projekt.repositories.InterpolationDataRepository;
 import com.example.projekt.repositories.SystemOfEquationsRepository;
@@ -26,12 +28,11 @@ public class DataService {
         this.systemOfEquationsRepository = systemOfEquationsRepository;
     }
 
-    public void saveInterpolationData(InterpolationData interpolationData) {
+    public void saveInterpolation(InterpolationData interpolationData, InterpolationResult interpolationResult) {
         if(interpolationData.getUsername() == null || interpolationData.getUsername().isEmpty())
             return;
-        InterpolationData data = new InterpolationData(interpolationData.getUsername(), interpolationData.getPointsNumber(),
-                interpolationData.getSearchedValue(), interpolationData.getPoints());
-        interpolationDataRepository.save(data);
+        InterpolationRecord record = new InterpolationRecord(interpolationData, interpolationResult.getResult(), interpolationResult.getCoefficients());
+        interpolationDataRepository.save(record);
     }
 
     public void saveIntegrationData(IntegrationData integrationData) {

@@ -1,5 +1,6 @@
 package com.example.projekt.service;
 
+import com.example.projekt.model.data.InterpolationData;
 import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,7 +18,15 @@ public class ChatService {
     @Value("${openai.api.key}")
     private String apiKey;
 
-    public String getChatGptResponse(String prompt) {
+    public String GeneratePolynomialInterpolationResponse(InterpolationData interpolationData, double result) {
+        String prompt = "Wytłumacz w szczegółowy sposób proces obliczania interpolacji wielomianowej, mając podane następujące dane wejściowe: "
+                + interpolationData + " oraz zakładając, że obliczony rezultat wynosi: " + result + ". W odpowiedzi nie opisuj samej metody interpolacji, tylko krok po kroku" +
+                "sposób uzyskania wyznaczonego wyniku. Sformatuj tekst tak, aby był przystępny do przeczytania, a w szczególności pisz poszczególne podpunkty w jednej linii" +
+                " bez zbędnych wcięć w tekście";
+        return GetChatGptResponse(prompt);
+    }
+
+    public String GetChatGptResponse(String prompt) {
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)

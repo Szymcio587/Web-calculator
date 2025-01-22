@@ -25,6 +25,7 @@ import { InterpolationOptionsDialogComponent } from './pages/home/dialog/interpo
 import { IntegrationOptionsDialogComponent } from './pages/home/dialog/integration-options-dialog/integration-options-dialog.component';
 import { ResultsHistoryComponent } from './pages/results-history/results-history.component';
 import { TheoryComponent } from './pages/theory/theory.component';
+import { MenuComponent } from './pages/menu/menu.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { TheoryComponent } from './pages/theory/theory.component';
     InterpolationOptionsDialogComponent,
     IntegrationOptionsDialogComponent,
     ResultsHistoryComponent,
-    TheoryComponent
+    TheoryComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,

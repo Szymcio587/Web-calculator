@@ -34,7 +34,7 @@ public class SystemOfEquationsCalculator {
         List<Double> solutions = new java.util.ArrayList<>(size);
         for (int i = 0; i < size; i++) {
             List<List<Double>> modifiedMatrix = replaceColumn(coefficients, constants, i);
-            solutions.add(utilityService.Round(calculateDeterminant(modifiedMatrix) / determinant));
+            solutions.add(utilityService.Round(calculateDeterminant(modifiedMatrix) / determinant, 3));
         }
 
         return new SystemOfEquationsResult(solutions, "SystemOfEquations");

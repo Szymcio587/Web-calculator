@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { ResultDataService } from 'src/app/shared/services/result/result-data.service';
-import { IntegrationData, InterpolationData, SystemOfEquationsData } from 'src/app/shared/data/data.interface';
+import { IntegrationData, InterpolationData, InterpolationResult, SystemOfEquationsData } from 'src/app/shared/data/data.interface';
 import type { LineSeriesOption, SeriesOption, EChartsOption } from 'echarts';
 import {MatDialog} from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { InterpolationOptionsDialogComponent } from '../home/dialog/interpolation-options-dialog/interpolation-options-dialog.component';
 import { IntegrationOptionsDialogComponent } from '../home/dialog/integration-options-dialog/integration-options-dialog.component';
 import { INTEGRATION, INTERPOLATION, SYSTEM_OF_EQUATIONS } from 'src/app/shared/data/data.constants';
+import { MathjaxService } from 'src/app/shared/services/mathjax/mathjax.service';
 
 @Component({
   selector: 'app-results',
@@ -17,12 +18,14 @@ export class ResultsComponent {
 
   result!: number;
   interpolationData!: InterpolationData;
+  interpolationResult!: InterpolationResult;
   integrationData!: IntegrationData;
   systemOfEquationsData!: SystemOfEquationsData;
   X!: number[];
   Y!: number[];
   type: String;
   chartOption!: EChartsOption;
+  polynomialString: string = '';
 
   newResult?: number;
   newInterpolationData!: InterpolationData;
@@ -32,17 +35,17 @@ export class ResultsComponent {
   newY!: number[];
   newChartOption!: EChartsOption;
 
-  constructor(private dialog: MatDialog, private http: HttpClient) {
+  constructor(private dialog: MatDialog, private http: HttpClient, private mathjaxService: MathjaxService, private cdr: ChangeDetectorRef) {
     console.log(ResultDataService.GetResult());
     console.log(ResultDataService.GetResultType());
     this.type = ResultDataService.GetResultType();
     if(this.type == INTERPOLATION) {
-      this.result = ResultDataService.GetResult();
+      this.interpolationResult = ResultDataService.GetInterpolationResult();
       this.interpolationData = ResultDataService.GetInterpolationData();
       this.X = this.interpolationData.points.map((point) => point.x);
       this.Y = this.interpolationData.points.map((point) => point.y);
       this.X.push(this.interpolationData.searchedValue);
-      this.Y.push(this.result);
+      this.Y.push(this.interpolationResult.result);
       const minX = Math.min(...this.X);
       const maxX = Math.max(...this.X);
       const numberOfLabels = 5;
@@ -165,6 +168,27 @@ export class ResultsComponent {
     }
 
     return { xValues, yValues };
+  }
+
+  ngAfterViewInit() {
+    this.generatePolynomialString(this.interpolationData, this.interpolationResult);
+  }
+
+  generatePolynomialString(data: InterpolationData, result: InterpolationResult): void {
+    let terms = [];
+    for (let i = 0; i <= data.pointsNumber - 1; i++) {
+      const exponent = data.pointsNumber - i - 1;
+      const coefficient = result.coefficients[data.pointsNumber - i - 1];
+      if(coefficient != 0) {
+        const term = exponent > 0 ? `${coefficient}x^{${exponent}}` : `${coefficient}`;
+        terms.push(term);
+      }
+    }
+    const polynomial = `f(x) = ${terms.join(' + ')}`;
+    this.polynomialString = `$$ ${polynomial} $$`;
+
+    this.cdr.detectChanges();
+    this.mathjaxService.renderMath();
   }
 
   openInterpolationOptions(): void {

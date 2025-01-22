@@ -13,8 +13,7 @@
       <div class="form-buttons">
         <button type="submit" class="login-button" (click)="buttonClicked = 'login'">Zaloguj się</button>
         <button type="button" class="register-button" routerLink="/register">Zarejestruj się</button>
-        <button type="button" class="register-button" routerLink="/home">Kontynuuj jako gość</button>
-        <!-- <button type="button" class="register-button" (click)="buttonClicked = 'enter'">Kontynuuj jako gość</button> -->
+        <button type="button" class="register-button" routerLink="/menu">Kontynuuj jako gość</button>
       </div>
     </form>
     <div *ngIf="errorMessage">{{ errorMessage }}</div>

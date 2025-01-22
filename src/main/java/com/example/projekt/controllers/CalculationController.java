@@ -3,6 +3,7 @@ package com.example.projekt.controllers;
 import com.example.projekt.model.data.IntegrationData;
 import com.example.projekt.model.data.InterpolationData;
 import com.example.projekt.model.data.SystemOfEquationsData;
+import com.example.projekt.model.results.InterpolationResult;
 import com.example.projekt.model.results.SystemOfEquationsResult;
 import com.example.projekt.service.CalculationService;
 import com.example.projekt.service.ChatService;
@@ -39,24 +40,22 @@ public class CalculationController {
     }
 
     @PostMapping("/polynomial_interpolation")
-    public ResponseEntity<Double> TreatInterpolationData(@RequestBody InterpolationData interpolationData) {
+    public ResponseEntity<InterpolationResult> TreatInterpolationData(@RequestBody InterpolationData interpolationData) {
         System.out.println("Received InterpolationData: " + interpolationData);
-        dataService.saveInterpolationData(interpolationData);
-        double result = calculationService.CalculateInterpolation(interpolationData);
-        System.out.println("Calculated interpolation: " + result);
-        String prompt = "Explain in details the process of calculating polynomial interpolation with this given set of data: " + interpolationData + " and with this final result achieved during calculations: " + result;
-        System.out.println(prompt);
-        System.out.println(chatService.getChatGptResponse(prompt));
-        return ResponseEntity.ok(utilityService.Round(result));
+        InterpolationResult interpolationResult = calculationService.CalculateInterpolation(interpolationData);
+        if(!interpolationData.isTest())
+            dataService.saveInterpolation(interpolationData, interpolationResult);
+        System.out.println("Calculated interpolation: " + interpolationResult);
+        return ResponseEntity.ok(interpolationResult);
     }
 
     @PostMapping("/trigonometric_interpolation")
     public ResponseEntity<Double> TreatTrigonometricInterpolationData(@RequestBody InterpolationData interpolationData) {
         System.out.println("Received InterpolationData: " + interpolationData);
-        dataService.saveInterpolationData(interpolationData);
+        //dataService.saveInterpolationData(interpolationData);
         double result = calculationService.CalculateTrigonometricInterpolation(interpolationData);
         System.out.println("Calculated interpolation: " + result);
-        return ResponseEntity.ok(utilityService.Round(result));
+        return ResponseEntity.ok(utilityService.Round(result, 3));
     }
 
     @PostMapping("/trapezoidal_integration")
@@ -65,7 +64,7 @@ public class CalculationController {
         dataService.saveIntegrationData(integrationData);
         double result = calculationService.CalculateTrapezoidalIntegration(integrationData);
         System.out.println("Calculated integration: " + result);
-        return ResponseEntity.ok(utilityService.Round(result));
+        return ResponseEntity.ok(utilityService.Round(result, 3));
     }
 
     @PostMapping("/midpoint_integration")
@@ -74,7 +73,7 @@ public class CalculationController {
         dataService.saveIntegrationData(integrationData);
         double result = calculationService.CalculateMidpointIntegration(integrationData);
         System.out.println("Calculated integration: " + result);
-        return ResponseEntity.ok(utilityService.Round(result));
+        return ResponseEntity.ok(utilityService.Round(result, 3));
     }
 
     @PostMapping("/simpson_integration")
@@ -83,7 +82,7 @@ public class CalculationController {
         dataService.saveIntegrationData(integrationData);
         double result = calculationService.CalculateSimpsonsIntegration(integrationData);
         System.out.println("Calculated integration: " + result);
-        return ResponseEntity.ok(utilityService.Round(result));
+        return ResponseEntity.ok(utilityService.Round(result, 3));
     }
 
     @PostMapping("/system_of_equations")

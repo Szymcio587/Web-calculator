@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { BaseData, IntegrationData, InterpolationData, SystemOfEquationsData, SystemOfEquationsResponse } from 'src/app/shared/data/data.interface';
+import { BaseData, IntegrationData, InterpolationData, InterpolationRecord, InterpolationResult, SystemOfEquationsData, SystemOfEquationsResponse } from 'src/app/shared/data/data.interface';
 import { ResultDataService } from 'src/app/shared/services/result/result-data.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -21,7 +21,7 @@ export class ResultsHistoryComponent {
   ngOnInit(): void {
   }
 
-  isInterpolation(obj: any): obj is InterpolationData{
+  isInterpolation(obj: any): obj is InterpolationRecord{
     return obj.dataType == INTERPOLATION_DATA;
   }
 
@@ -34,11 +34,20 @@ export class ResultsHistoryComponent {
   }
 
   recalculate(record: any) {
-    if(record.dataType == INTEGRATION_DATA) {
-      this.http.post<number>('http://localhost:8081/calculations/midpoint_integration', record).subscribe(
-        (result: number) => {
-          ResultDataService.SetIntegrationResult(result, record);
-          ResultDataService.SetResultType(INTEGRATION);
+    if(record.dataType == INTERPOLATION_DATA) {
+      var tmp = record as InterpolationRecord
+      var data: InterpolationData = {
+        dataType: '',
+        pointsNumber: tmp.pointsNumber,
+        points: tmp.points,
+        searchedValue: tmp.searchedValue,
+        isTest: false,
+        username: tmp.username
+      }
+      this.http.post<InterpolationResult>('http://localhost:8081/calculations/polynomial_interpolation',data).subscribe(
+        (result: InterpolationResult) => {
+          ResultDataService.SetInterpolationResult(result, data);
+          ResultDataService.SetResultType(INTERPOLATION);
           this.router.navigate(['/result']);
         },
         (error: any) => {
@@ -46,11 +55,11 @@ export class ResultsHistoryComponent {
         }
       );
     }
-    else if(record.dataType == INTERPOLATION_DATA) {
-      this.http.post<number>('http://localhost:8081/calculations/polynomial_interpolation',record).subscribe(
+    else if(record.dataType == INTEGRATION_DATA) {
+      this.http.post<number>('http://localhost:8081/calculations/midpoint_integration', record).subscribe(
         (result: number) => {
-          ResultDataService.SetInterpolationResult(result, record);
-          ResultDataService.SetResultType(INTERPOLATION);
+          ResultDataService.SetIntegrationResult(result, record);
+          ResultDataService.SetResultType(INTEGRATION);
           this.router.navigate(['/result']);
         },
         (error: any) => {
@@ -70,5 +79,46 @@ export class ResultsHistoryComponent {
         }
       );
     }
+  }
+
+  exportRecord(record: any, type: string): void {
+    let content = '';
+
+    if (type === INTERPOLATION) {
+      var tmp = record as InterpolationRecord
+      content = `Interpolacja:\nLiczba punktów: ${record.pointsNumber}\nPoszukiwana wartość: ${record.searchedValue}\nPunkty:\n`;
+      record.points.forEach((point: any, index: number) => {
+        content += `  Punkt ${index + 1}: X = ${point.x}, Y = ${point.y}\n`;
+      });
+      content += `  Obliczony wynik: ${tmp.result}\n`;
+      content += `  Wzór funkcji: f(x) = `;
+      var length = tmp.coefficients.length;
+      for(var i = 0; i < length; i++) {
+        if(tmp.coefficients[length - i - 1] != 0) {
+          if(i = length - 1) {
+            content += `${tmp.coefficients[length - i - 1]}`;
+          }
+          else {
+            content += `${tmp.coefficients[length - i - 1]}x^${length - i - 1} + `;
+          }
+        }
+
+      }
+    } else if (type === INTEGRATION) {
+      content = `Integracja:\nStopień wielomianu: ${record.degree}\nWspółczynniki: ${record.factors.join(', ')}\nLiczba przedziałów: ${record.sections}\nPunkt początkowy: ${record.Xp}\nPunkt końcowy: ${record.Xk}`;
+    } else if (type === SYSTEM_OF_EQUATIONS) {
+      content = `Układ równań:\n`;
+      record.coefficients.forEach((row: number[], index: number) => {
+        content += row.map((coef, i) => `${coef}x${i + 1}`).join(' + ') + ` = ${record.constants[index]}\n`;
+      });
+    }
+
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${type}-record.txt`;
+    a.click();
+    window.URL.revokeObjectURL(url);
   }
 }

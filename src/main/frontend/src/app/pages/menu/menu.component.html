@@ -1,0 +1,19 @@
+<div class="my-container">
+  <div class="box">
+    <h1>Witaj na stronie głównej</h1>
+    <p>Na samej górze znajduje się pasek nawigacji, za pomocą którego będziesz mógł/mogła przemieszczać się pomiędzy różnymi sekcjami znajdującymi się na tej
+    stronie, takimi jak:</p>
+    <ul>
+      <li><a class="nav-link" routerLink="/theory" routerLinkActive="active-link">Teoria</a> - miejsce w którym znajdziesz informacje na temat wszystkich
+      znajdujących się tutaj metod, dokładne wyjaśnienie ich działania, a także będziesz miał/miała możliwość zapoznać się z przykładowym problemem danego typu</li>
+      <li><a class="nav-link" routerLink="/home" routerLinkActive="active-link">Metody</a> - Tutaj są umieszczone wszystkie metody dostępne do wykorzystania
+      w kalkulatorze. Po rozwinięciu każdego typu problemu wyświetlą się dostępne metody na rozwiązanie go, a także dodatkowy tooltip pomagający we wprowadzeniu
+      prawidłowych danych do obliczenia</li>
+      <li><a class="nav-link" [class.disabled]="!(isLoggedIn | async)" routerLinkActive="active-link" (click)="getResults()" id="history">Historia</a> -
+      W tym miejscu przechowaną zostane wszystkie wykonane obliczenia, z możliwością natychmiastowego powtórzenia operacji bądź też eksportowania wyników do
+      pliku tekstowego. Opcja ta jest dostępna tylko dla zalogowanych użytkowników</li>
+      <li><a class="nav-link" routerLink="/" routerLinkActive="active-link">Menu główne</a> - powrót do strony logowania bez bezpośredniego wylogowywania się
+      ze strony</li>
+    </ul>
+  </div>
+</div>

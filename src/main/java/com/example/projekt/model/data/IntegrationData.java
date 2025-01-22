@@ -20,6 +20,8 @@ public class IntegrationData implements Savable{
     private int degree;
     private List<Double> factors;
     private int sections;
+
+    private boolean isTest;
     @JsonProperty("Xp")
     private double Xp;
     @JsonProperty("Xk")

@@ -174,68 +174,55 @@
   transition: opacity 1s ease;
 }
 
-.main {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin-top: 15px;
-  margin-bottom: 13px;
-}
-
-.main > input {
-  height: 40px;
-  background-color: white;
-  border: 2px black solid;
-  border-radius: 20px;
-}
-
-.main > main::placeholder {
-  color: black;
-  font-style: italic;
-  letter-spacing: 0.5px;
-}
-
-.main > button {
-  width: 80px;
-  height: 40px;
-  background-color: #eeeeee;
-  border: 2px black solid;
-  border-radius: 20px;
-  color: black;
-  font-style: italic;
-  letter-spacing: 0.5px;
-}
-
 .inputs > button:hover {
   background-color: var(--primary-color);
 }
 
-.point {
-  display: flex;
+.tooltip-container {
   position: relative;
-  justify-content: space-around;
-  align-items: center;
-  float: left;
-  width: 630px;
-  height: 34px;
-  border: 5px black solid;
-  background-color: var(--menu-color);
-  color: white;
-  transition: opacity 1s ease;
-  margin-left: 25px;
+  margin-left: 10px;
 }
 
-.point > input {
+.tooltip-icon {
+  display: inline-block;
+  width: 20px;
   height: 20px;
-  background-color: white;
-  border: 2px black solid;
-  border-radius: 10px;
-  width: 150px;
+  line-height: 20px;
+  text-align: center;
+  border-radius: 50%;
+  background-color: black;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
 }
 
-.point > point::placeholder {
-  color: black;
-  font-style: italic;
-  letter-spacing: 0.5px;
+.tooltip-box {
+  position: absolute;
+  top: 25px;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 4px;
   font-size: 12px;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  max-width: 600px;
+  overflow: scroll;
+}
+
+.option {
+  display: flex;
+  align-items: flex-start;
+}
+
+.option p {
+  margin: 0;
+  margin-right: 8px;
+}
+
+.tooltip-container {
+  position: relative;
 }
