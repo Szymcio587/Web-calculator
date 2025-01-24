@@ -50,12 +50,13 @@ public class CalculationController {
     }
 
     @PostMapping("/trigonometric_interpolation")
-    public ResponseEntity<Double> TreatTrigonometricInterpolationData(@RequestBody InterpolationData interpolationData) {
+    public ResponseEntity<InterpolationResult> TreatTrigonometricInterpolationData(@RequestBody InterpolationData interpolationData) {
         System.out.println("Received InterpolationData: " + interpolationData);
-        //dataService.saveInterpolationData(interpolationData);
-        double result = calculationService.CalculateTrigonometricInterpolation(interpolationData);
-        System.out.println("Calculated interpolation: " + result);
-        return ResponseEntity.ok(utilityService.Round(result, 3));
+        InterpolationResult interpolationResult = calculationService.CalculateTrigonometricInterpolation(interpolationData);
+        if(!interpolationData.isTest())
+            dataService.saveInterpolation(interpolationData, interpolationResult);
+        System.out.println("Calculated interpolation: " + interpolationResult);
+        return ResponseEntity.ok(interpolationResult);
     }
 
     @PostMapping("/trapezoidal_integration")

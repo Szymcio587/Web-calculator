@@ -10,9 +10,9 @@
     </div>
     <div class="dialog-input" *ngFor="let point of PointsRange()">
       <label class="dialog-label">x{{point}}</label>
-      <input type="number" [(ngModel)]="data.points[point].x" name="x{{point}}"/>
+      <input type="text" [(ngModel)]="data.points[point].x" name="x{{point}}"/>
       <label class="dialog-label">y{{point}}</label>
-      <input type="number" [(ngModel)]="data.points[point].y" name="y{{point}}"/>
+      <input type="text" [(ngModel)]="data.points[point].y" name="y{{point}}"/>
     </div>
     <input type="submit" value="Oblicz"/>
     <div id="dialog-file-upload" class="dialog-input">

@@ -30,7 +30,8 @@
         <h3>Wyniki</h3>
         <p>Obliczona wartość dla szukanego punktu: {{interpolationResult.result}}</p>
         <p>Wyznaczony wzór funkcji:</p> <div style="display: inline-block;" [innerHTML]="polynomialString"></div>
-        <p *ngIf="interpolationData.isTest" class="chatResponse">Wytłumaczenie:<br>{{interpolationResult.prompt}}</p>
+        <p *ngIf="interpolationData.isTest" class="explanation">Wytłumaczenie:<br>{{interpolationResult.prompt}}</p>
+        <p *ngIf="!interpolationData.isTest" class="explanation"><br>{{interpolationResult.explanation}}</p>
       </div>
       <div *ngIf="this.type == 'Integration'">
         <h3>Obliczony wynik: {{result}}</h3>
@@ -41,8 +42,19 @@
     </div>
   </div>
   <div class="right">
-    <div *ngIf="!newResult && this.type == 'Interpolation'">
-      <button type="button" class="register-button" (click)="openInterpolationOptions()">Wybierz interpolacje</button>
+    <div *ngIf="!newResult && this.type == 'Interpolation'" class="flex">
+        <h3>Dodaj punkt:</h3>
+        <div>
+          <label for="x-coordinate">X:  </label>
+          <input id="x-coordinate" type="text" [(ngModel)]="xCoordinate" placeholder="x" />
+        </div>
+        <div>
+          <label for="y-coordinate">Y:  </label>
+          <input id="y-coordinate" type="text" [(ngModel)]="yCoordinate" placeholder="y" />
+        </div>
+        <button type="button" (click)="addPointFromInput()">Dodaj punkt</button>
+        <button type="button" class="register-button" (click)="openInterpolationOptions()">Wybierz interpolacje</button>
+
     </div>
     <div *ngIf="!newResult && this.type == 'Integration'">
       <button type="button" class="register-button" (click)="openIntegrationOptions()">Wybierz integracje</button>
@@ -74,5 +86,3 @@
     </div>
   </div>
 </div>
-
-

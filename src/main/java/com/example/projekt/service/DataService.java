@@ -31,7 +31,7 @@ public class DataService {
     public void saveInterpolation(InterpolationData interpolationData, InterpolationResult interpolationResult) {
         if(interpolationData.getUsername() == null || interpolationData.getUsername().isEmpty())
             return;
-        InterpolationRecord record = new InterpolationRecord(interpolationData, interpolationResult.getResult(), interpolationResult.getCoefficients());
+        InterpolationRecord record = new InterpolationRecord(interpolationData, interpolationResult.getResult(), interpolationResult.getCoefficients(), interpolationResult.getExplanation());
         interpolationDataRepository.save(record);
     }
 

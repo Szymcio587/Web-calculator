@@ -17,7 +17,6 @@ public class SimpsonsIntegrationCalculator {
                 partial *= q;
             }
             result += partial;
-            partial = 1;
         }
         return result;
     }
@@ -26,8 +25,8 @@ public class SimpsonsIntegrationCalculator {
         double width = (integrationData.getXk() - integrationData.getXp()) / integrationData.getSections();
         double result = 0;
 
-        for (int i = 0; i < integrationData.getSections(); i += 2) {
-            double x0 = integrationData.getXp() + i * width;
+        for (int q = 0; q < integrationData.getSections(); q += 2) {
+            double x0 = integrationData.getXp() + q * width;
             double x1 = x0 + width;
             double x2 = x1 + width;
 

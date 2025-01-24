@@ -12,12 +12,12 @@ import java.util.List;
 
 @Component
 @AllArgsConstructor
-public class SystemOfEquationsCalculator {
+public class GaussSystemOfEquationsCalculator {
 
     @Autowired
     private final UtilityService utilityService;
 
-    public SystemOfEquationsResult calculate(SystemOfEquationsData data) {
+    public SystemOfEquationsResult Calculate(SystemOfEquationsData data) {
         int size = data.getCoefficients().size();
         List<List<Double>> coefficients = data.getCoefficients();
         List<Double> constants = data.getConstants();
@@ -32,8 +32,8 @@ public class SystemOfEquationsCalculator {
         }
 
         List<Double> solutions = new java.util.ArrayList<>(size);
-        for (int i = 0; i < size; i++) {
-            List<List<Double>> modifiedMatrix = replaceColumn(coefficients, constants, i);
+        for (int q = 0; q < size; q++) {
+            List<List<Double>> modifiedMatrix = replaceColumn(coefficients, constants, q);
             solutions.add(utilityService.Round(calculateDeterminant(modifiedMatrix) / determinant, 3));
         }
 
@@ -43,9 +43,9 @@ public class SystemOfEquationsCalculator {
     private List<List<Double>> replaceColumn(List<List<Double>> matrix, List<Double> column, int colIndex) {
         int size = matrix.size();
         List<List<Double>> modifiedMatrix = new java.util.ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            List<Double> row = new java.util.ArrayList<>(matrix.get(i));
-            row.set(colIndex, column.get(i));
+        for (int q = 0; q < size; q++) {
+            List<Double> row = new java.util.ArrayList<>(matrix.get(q));
+            row.set(colIndex, column.get(q));
             modifiedMatrix.add(row);
         }
         return modifiedMatrix;
@@ -66,12 +66,12 @@ public class SystemOfEquationsCalculator {
     private List<List<Double>> minor(List<List<Double>> matrix, int row, int col) {
         int n = matrix.size();
         List<List<Double>> minor = new java.util.ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            if (i == row) continue;
+        for (int q = 0; q < n; q++) {
+            if (q == row) continue;
             List<Double> minorRow = new java.util.ArrayList<>();
-            for (int j = 0; j < n; j++) {
-                if (j == col) continue;
-                minorRow.add(matrix.get(i).get(j));
+            for (int w = 0; w < n; w++) {
+                if (w == col) continue;
+                minorRow.add(matrix.get(q).get(w));
             }
             minor.add(minorRow);
         }

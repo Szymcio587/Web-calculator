@@ -17,24 +17,43 @@
     <figcaption>Ilustracja interpolacji wielomianowej</figcaption>
 
     <div [innerHTML]="lagrangePolynomial"></div>
-    W celu zobaczenia działania metody w praktyce <div class="examples" (click)="showExample()">kliknij tutaj</div>
+    W celu zobaczenia działania metody w praktyce <div class="examples" (click)="showExample('Polynomial')">kliknij tutaj</div>
+  </section>
+
+  <section>
+    <h2>Interpolację trygonometryczną</h2>
+    <p>Interpolacja trygonometryczna to metoda stosowana głównie dla danych okresowych. Pozwala na odwzorowanie funkcji, które mają powtarzalny charakter,
+      takich jak sygnały w elektronice czy dane związane z ruchem harmonicznym. Metoda ta jest niezwykle skuteczna przy analizie sygnałów i obliczeniach
+      w dziedzinie częstotliwości</p>
+    <img src="../../../assets/images/trigonometric.png" alt="Przykład interpolacji wielomianowej" width="500px" height="300px">
+    <figcaption>Ilustracja interpolacji trygonometrycznej</figcaption>
+
+    <div [innerHTML]="trigonometricInterpolation"></div>
+    W celu zobaczenia działania metody w praktyce <div class="examples" (click)="showExample('Trigonometric')">kliknij tutaj</div>
+  </section>
+
+  <h1>Całkowanie</h1>
+  <section>
+    ogólne określenie wielu różnych, choć powiązanych ze sobą, pojęć analizy matematycznej. Najczęściej przez „całkę” rozumie się całkę oznaczoną lub
+    całkę nieoznaczoną, choć istnieje wiele innych odmian całki. W tym miejscu będziemy się zajmować konkretnie całkami Riemanna, czyli w prostych słowach
+    całek pozwalających na obliczenia pola pod wykresem wybranej funkcji na określonym przedziale <i>[a ,b]</i>. Aby dało się obliczyć całkę w sensie
+    Riemanna, funkcja ta na tym przedziale musi być ograniczona, czyli nie może dążyć do nieskończoności, oraz musi być ciągła na prawie całym analizowany
+    przedziale, przy czym na potrzeby tego kalkulatora rozpatrujemy wyłącznie funkcji całkowicie ciągłe. Całki mają bardzo szerokie zastosowanie w wielu
+    dziedzinach: fizyce, chemii i wielu innych. Jedno z podstawowych zastosowań całki to liczenie pól powierzchni, długości łuków czy objętości
+    kształtów nieregularnych czyli takich, które ciężko jest wyliczyć z podstawowych wzorów.
   </section>
 
 <section>
-  <h2>Interpolację trygonometryczna</h2>
-  <p>Interpolacja trygonometryczna to metoda stosowana głównie dla danych okresowych. Pozwala na odwzorowanie funkcji, które mają powtarzalny charakter, takich jak sygnały w elektronice czy dane związane z ruchem harmonicznym. Wzór interpolacyjny bazuje na funkcjach trygonometrycznych sinus i cosinus, co pozwala na dokładne opisanie właściwości danych:</p>
-  <img src="../../../assets/images/trigonometric.png" alt="Przykład interpolacji wielomianowej" width="500px" height="300px">
-  <p>Metoda ta jest niezwykle skuteczna przy analizie sygnałów i obliczeniach w dziedzinie częstotliwości, jednak wymaga znajomości współczynników Fourierowskich \(a_k\) i \(b_k\), które są obliczane na podstawie danych wejściowych.</p>
-  <p>Więcej informacji znajdziesz na stronie: <a href="https://pl.wikipedia.org/wiki/Trigonometric_interpolation" class="link">Interpolacja trygonometryczna - Wikipedia</a>.</p>
-</section>
-
-<section>
   <h2>Całkowanie metodą punktu środkowego</h2>
-  <p>Metoda punktu środkowego to jedna z najprostszych metod numerycznego całkowania. Zakłada, że wartość funkcji w środku przedziału jest reprezentatywna dla całej szerokości przedziału. Przy założeniu, że funkcja jest "gładka" i zmienia się w sposób przewidywalny, metoda ta daje zadowalające wyniki dla prostych przypadków. Jej wzór wygląda następująco:</p>
-
-  <p>Pomimo swojej prostoty, metoda ta może być mało dokładna w przypadku funkcji o znaczących zmianach w danym przedziale, dlatego jest często stosowana jako metoda porównawcza.</p>
+  <p>Metoda punktu środkowego to jedna z najprostszych metod numerycznego całkowania. Zakłada, że wartość funkcji w środku przedziału jest reprezentatywna
+    dla całej szerokości przedziału. Przy założeniu, że funkcja jest "gładka" i zmienia się w sposób przewidywalny, metoda ta daje zadowalające wyniki dla
+    prostych przypadków. Ze względu na swoją prostotę, metoda ta może być mało dokładna w przypadku funkcji o znaczących zmianach w danym przedziale,
+    dlatego jest często stosowana jako metoda porównawcza.</p>
   <img src="../../../assets/images/midpoint.png" alt="Przykład interpolacji wielomianowej" width="500px" height="300px">
-  <p>Więcej informacji znajdziesz na stronie: <a href="https://en.wikipedia.org/wiki/Midpoint_method" class="link">Całkowanie numeryczne - Wikipedia</a>.</p>
+  <figcaption>Ilustracja całkowania metodą punktu środkowego</figcaption>
+
+  <div [innerHTML]="midpointIntegration"></div>
+  W celu zobaczenia działania metody w praktyce <div class="examples" (click)="showExample('Midpoint')">kliknij tutaj</div>
 </section>
 
 <section>

@@ -3,7 +3,7 @@ import { BaseData, IntegrationData, InterpolationData, InterpolationRecord, Inte
 import { ResultDataService } from 'src/app/shared/services/result/result-data.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { INTEGRATION, INTEGRATION_DATA, INTERPOLATION, INTERPOLATION_DATA, SYSTEM_OF_EQUATIONS, SYSTEM_OF_EQUATIONS_DATA } from 'src/app/shared/data/data.constants';
+import { INTEGRATION, INTEGRATION_DATA, INTERPOLATION, INTERPOLATION_DATA, JAVA_URL, SYSTEM_OF_EQUATIONS, SYSTEM_OF_EQUATIONS_DATA } from 'src/app/shared/data/data.constants';
 
 @Component({
   selector: 'app-results-history',
@@ -44,7 +44,7 @@ export class ResultsHistoryComponent {
         isTest: false,
         username: tmp.username
       }
-      this.http.post<InterpolationResult>('http://localhost:8081/calculations/polynomial_interpolation',data).subscribe(
+      this.http.post<InterpolationResult>(JAVA_URL+'polynomial_interpolation',data).subscribe(
         (result: InterpolationResult) => {
           ResultDataService.SetInterpolationResult(result, data);
           ResultDataService.SetResultType(INTERPOLATION);
@@ -56,7 +56,7 @@ export class ResultsHistoryComponent {
       );
     }
     else if(record.dataType == INTEGRATION_DATA) {
-      this.http.post<number>('http://localhost:8081/calculations/midpoint_integration', record).subscribe(
+      this.http.post<number>(JAVA_URL+'midpoint_integration', record).subscribe(
         (result: number) => {
           ResultDataService.SetIntegrationResult(result, record);
           ResultDataService.SetResultType(INTEGRATION);
@@ -68,7 +68,7 @@ export class ResultsHistoryComponent {
       );
     }
     else if(record.dataType == SYSTEM_OF_EQUATIONS_DATA) {
-      this.http.post<SystemOfEquationsResponse>('http://localhost:8081/calculations/system_of_equations',record).subscribe(
+      this.http.post<SystemOfEquationsResponse>(JAVA_URL+'system_of_equations',record).subscribe(
         (result: SystemOfEquationsResponse) => {
           ResultDataService.SetSystemOfEquationsResult(result.solutions, record);
           ResultDataService.SetResultType(SYSTEM_OF_EQUATIONS);
@@ -102,8 +102,9 @@ export class ResultsHistoryComponent {
             content += `${tmp.coefficients[length - i - 1]}x^${length - i - 1} + `;
           }
         }
-
       }
+      content += `\n\n`;
+      content += record.explanation;
     } else if (type === INTEGRATION) {
       content = `Integracja:\nStopień wielomianu: ${record.degree}\nWspółczynniki: ${record.factors.join(', ')}\nLiczba przedziałów: ${record.sections}\nPunkt początkowy: ${record.Xp}\nPunkt końcowy: ${record.Xk}`;
     } else if (type === SYSTEM_OF_EQUATIONS) {

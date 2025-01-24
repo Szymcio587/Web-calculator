@@ -2,6 +2,7 @@ package com.example.projekt.calculations;
 
 import com.example.projekt.model.data.InterpolationData;
 import com.example.projekt.model.Point;
+import com.example.projekt.model.results.InterpolationResult;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.InjectMocks;
@@ -27,9 +28,11 @@ public class InterpolationCalculatorTest {
     @Test
     public void TestCalculateWithEmptyPoints() {
         interpolationData = null;
-        double result = interpolationCalculator.Calculate(interpolationData);
+        InterpolationResult interpolationResult = new InterpolationResult();
+        interpolationCalculator.Calculate(interpolationData, interpolationResult);
 
-        assertEquals(0.0, result, 0.0001);
+        System.out.println(interpolationResult.getExplanation());
+        assertEquals(0.0, interpolationResult.getResult(), 0.0001);
     }
 
     @Test
@@ -38,9 +41,11 @@ public class InterpolationCalculatorTest {
         points.add(new Point(2, 5));
         interpolationData = new InterpolationData(1, 2, points);
 
-        double result = interpolationCalculator.Calculate(interpolationData);
+        InterpolationResult interpolationResult = new InterpolationResult();
+        interpolationCalculator.Calculate(interpolationData, interpolationResult);
 
-        assertEquals(5.0, result, 0.0001);
+        System.out.println(interpolationResult.getExplanation());
+        assertEquals(5.0, interpolationResult.getResult(), 0.0001);
     }
 
     @Test
@@ -51,9 +56,11 @@ public class InterpolationCalculatorTest {
         points.add(new Point(5, 25));
         interpolationData = new InterpolationData(3, 3, points);
 
-        double result = interpolationCalculator.Calculate(interpolationData);
+        InterpolationResult interpolationResult = new InterpolationResult();
+        interpolationCalculator.Calculate(interpolationData, interpolationResult);
 
-        assertEquals(9.0, result, 0.0001);
+        System.out.println(interpolationResult.getExplanation());
+        assertEquals(9.0, interpolationResult.getResult(), 0.0001);
     }
 
     @Test

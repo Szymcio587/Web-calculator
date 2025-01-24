@@ -18,9 +18,12 @@ public class InterpolationRecord extends InterpolationData implements Savable {
 
     private double[] coefficients;
 
-    public InterpolationRecord(InterpolationData data, double result, double[] coefficients) {
+    private String explanation;
+
+    public InterpolationRecord(InterpolationData data, double result, double[] coefficients, String explanation) {
         super(data.getUsername(), data.getPointsNumber(), data.getSearchedValue(), data.getPoints());
         this.result = result;
         this.coefficients = coefficients;
+        this.explanation = explanation;
     }
 }

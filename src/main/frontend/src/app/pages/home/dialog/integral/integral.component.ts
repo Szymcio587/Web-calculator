@@ -6,7 +6,7 @@ import { ResultDataService } from 'src/app/shared/services/result/result-data.se
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserService } from 'src/app/shared/services/user/user.service';
-import { INTEGRATION, INTEGRATION_DATA } from 'src/app/shared/data/data.constants';
+import { INTEGRATION, INTEGRATION_DATA, JAVA_URL } from 'src/app/shared/data/data.constants';
 
 @Component({
   selector: 'app-integral',
@@ -56,7 +56,7 @@ export class IntegralComponent implements OnInit {
       Xp: this.data.Xp,
       Xk: this.data.Xk
     };
-    this.http.post<number>('http://localhost:8081/calculations/'+this.integralName+'_integration', data).subscribe(
+    this.http.post<number>(JAVA_URL+this.integralName+'_integration', data).subscribe(
       (result: number) => {
         ResultDataService.SetIntegrationResult(result, data);
         ResultDataService.SetResultType(INTEGRATION);

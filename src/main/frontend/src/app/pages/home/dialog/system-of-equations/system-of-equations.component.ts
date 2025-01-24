@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { SYSTEM_OF_EQUATIONS_DATA } from 'src/app/shared/data/data.constants';
+import { JAVA_URL, SYSTEM_OF_EQUATIONS_DATA } from 'src/app/shared/data/data.constants';
 import { SystemOfEquationsData, SystemOfEquationsResponse } from 'src/app/shared/data/data.interface';
 import { ResultDataService } from 'src/app/shared/services/result/result-data.service';
 import { UserService } from 'src/app/shared/services/user/user.service';
@@ -34,7 +34,7 @@ export class SystemOfEquationsComponent implements OnInit {
       coefficients: this.data.coefficients,
       constants: this.data.constants
     };
-    this.http.post<SystemOfEquationsResponse>('http://localhost:8081/calculations/system_of_equations', data).subscribe(
+    this.http.post<SystemOfEquationsResponse>(JAVA_URL+'system_of_equations', data).subscribe(
       (result: SystemOfEquationsResponse) => {
         ResultDataService.SetSystemOfEquationsResult(result.solutions, data)
         ResultDataService.SetResultType(result.name);

@@ -27,21 +27,24 @@ public class CalculationService {
     @Autowired
     private SimpsonsIntegrationCalculator simpsonsIntegrationCalculator;
     @Autowired
-    private SystemOfEquationsCalculator systemOfEquationsCalculator;
+    private GaussSystemOfEquationsCalculator gaussSystemOfEquationsCalculator;
 
     @Autowired
     private ChatService chatService;
 
     public InterpolationResult CalculateInterpolation(InterpolationData interpolationData) {
-        double result = UtilityService.Round(interpolationCalculator.Calculate(interpolationData), 3);
-        double[] coefficients = interpolationCalculator.GenerateCoefficients(interpolationData.getPoints());
-        String chatResponse = interpolationData.isTest() ? chatService.GeneratePolynomialInterpolationResponse(interpolationData, result) : "";
-        System.out.println(chatResponse);
-        return new InterpolationResult(result, coefficients, chatResponse);
+        InterpolationResult interpolationResult = new InterpolationResult();
+        interpolationCalculator.Calculate(interpolationData, interpolationResult);
+        interpolationResult.setCoefficients(interpolationCalculator.GenerateCoefficients(interpolationData.getPoints()));
+        interpolationResult.setPrompt(interpolationData.isTest() ? chatService.GeneratePolynomialInterpolationResponse(interpolationData, interpolationResult.getResult()) : "");
+        return interpolationResult;
     }
 
-    public double CalculateTrigonometricInterpolation(InterpolationData interpolationData) {
-        return trigonometricInterpolationCalculator.Calculate(interpolationData);
+    public InterpolationResult CalculateTrigonometricInterpolation(InterpolationData interpolationData) {
+        InterpolationResult interpolationResult = new InterpolationResult();
+        trigonometricInterpolationCalculator.Calculate(interpolationData, interpolationResult);
+        interpolationResult.setPrompt(interpolationData.isTest() ? chatService.GeneratePolynomialInterpolationResponse(interpolationData, interpolationResult.getResult()) : "");
+        return interpolationResult;
     }
 
     public double CalculateTrapezoidalIntegration(IntegrationData integrationData) {
@@ -57,6 +60,6 @@ public class CalculationService {
     }
 
     public SystemOfEquationsResult CalculateSystemOfEquations(SystemOfEquationsData data) {
-        return systemOfEquationsCalculator.calculate(data);
+        return gaussSystemOfEquationsCalculator.Calculate(data);
     }
 }

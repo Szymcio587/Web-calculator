@@ -15,10 +15,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
-public class SystemOfEquationsCalculatorTest {
+public class GaussSystemOfEquationsCalculatorTest {
 
     @InjectMocks
-    private SystemOfEquationsCalculator systemOfEquationsCalculator;
+    private GaussSystemOfEquationsCalculator gaussSystemOfEquationsCalculator;
 
     @Test
     public void TestCalculateUniqueSolution() {
@@ -29,7 +29,7 @@ public class SystemOfEquationsCalculatorTest {
         List<Double> constants = Arrays.asList(8.0, -2.0);
 
         SystemOfEquationsData data = new SystemOfEquationsData(coefficients, constants);
-        SystemOfEquationsResult result = systemOfEquationsCalculator.calculate(data);
+        SystemOfEquationsResult result = gaussSystemOfEquationsCalculator.Calculate(data);
 
         assertEquals(2.36363, result.getSolutions().get(0), 0.001);
         assertEquals(1.09090, result.getSolutions().get(1), 0.001);
@@ -46,7 +46,7 @@ public class SystemOfEquationsCalculatorTest {
         SystemOfEquationsData data = new SystemOfEquationsData(coefficients, constants);
 
         assertThrows(ArithmeticException.class, () -> {
-            systemOfEquationsCalculator.calculate(data);
+            gaussSystemOfEquationsCalculator.Calculate(data);
         });
     }
 
@@ -59,7 +59,7 @@ public class SystemOfEquationsCalculatorTest {
         List<Double> constants = Arrays.asList(-7.0, 4.0);
 
         SystemOfEquationsData data = new SystemOfEquationsData(coefficients, constants);
-        SystemOfEquationsResult result = systemOfEquationsCalculator.calculate(data);
+        SystemOfEquationsResult result = gaussSystemOfEquationsCalculator.Calculate(data);
 
         assertEquals(1.63636, result.getSolutions().get(0), 0.001);
         assertEquals(2.09090, result.getSolutions().get(1), 0.001);

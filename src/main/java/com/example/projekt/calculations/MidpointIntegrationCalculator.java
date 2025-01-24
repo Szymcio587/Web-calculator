@@ -17,7 +17,6 @@ public class MidpointIntegrationCalculator {
                 partial *= q;
             }
             result += partial;
-            partial = 1;
         }
         return result;
     }

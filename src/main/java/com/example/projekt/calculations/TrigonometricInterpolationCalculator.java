@@ -2,6 +2,7 @@ package com.example.projekt.calculations;
 
 import com.example.projekt.model.Point;
 import com.example.projekt.model.data.InterpolationData;
+import com.example.projekt.model.results.InterpolationResult;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
 @Component
 public class TrigonometricInterpolationCalculator {
 
-    public double Calculate(InterpolationData interpolationData) {
+    public double Calculate(InterpolationData interpolationData, InterpolationResult interpolationResult) {
         if (interpolationData == null)
             return 0;
 
@@ -37,22 +38,22 @@ public class TrigonometricInterpolationCalculator {
         double[] a = new double[n];
         double[] b = new double[n];
 
-        for (int k = 0; k < n; k++) {
+        for (int q = 0; q < n; q++) {
             for (Point point : transformedPoints) {
                 double x = point.getX();
                 double y = point.getY();
-                a[k] += y * Math.cos(k * x);
-                b[k] += y * Math.sin(k * x);
+                a[q] += y * Math.cos(q * x);
+                b[q] += y * Math.sin(q * x);
             }
-            a[k] /= n;
-            if (k > 0) {
-                b[k] /= n;
+            a[q] /= n;
+            if (q > 0) {
+                b[q] /= n;
             }
         }
 
         double result = a[0] / 2;
-        for (int k = 1; k < n; k++) {
-            result += a[k] * Math.cos(k * normalizedSearchedX) + b[k] * Math.sin(k * normalizedSearchedX);
+        for (int q = 1; q < n; q++) {
+            result += a[q] * Math.cos(q * normalizedSearchedX) + b[q] * Math.sin(q * normalizedSearchedX);
         }
 
         return result;
