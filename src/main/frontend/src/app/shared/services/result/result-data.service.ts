@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseData, IntegrationData, InterpolationData, InterpolationResult, SystemOfEquationsData } from '../../data/data.interface';
+import { BaseData, IntegrationData, IntegrationResult, InterpolationData, InterpolationResult, SystemOfEquationsData, SystemOfEquationsResult } from '../../data/data.interface';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -8,12 +8,13 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class ResultDataService {
 
 
-  private static result: any;
   private static resultType: String;
   private static interpolationData: InterpolationData;
   private static interpolationResult: InterpolationResult;
   private static integrationData: IntegrationData;
+  private static integrationResult: IntegrationResult;
   private static systemOfEquationsData: SystemOfEquationsData;
+  private static systemofEquationsResult: SystemOfEquationsResult;
   private static baseDataSubject: BehaviorSubject<BaseData[]> = new BehaviorSubject<BaseData[]>([]);
   public static baseData$: Observable<BaseData[]> = ResultDataService.baseDataSubject.asObservable();
 
@@ -24,18 +25,22 @@ export class ResultDataService {
     ResultDataService.interpolationData = data;
   }
 
-  public static SetIntegrationResult(result: number, data: IntegrationData): void {
-    ResultDataService.result = result;
+  public static SetIntegrationResult(result: IntegrationResult, data: IntegrationData): void {
+    ResultDataService.integrationResult = result;
     ResultDataService.integrationData = data;
   }
 
-  public static SetSystemOfEquationsResult(result: any, data: SystemOfEquationsData): void {
-    ResultDataService.result = result;
+  public static SetSystemOfEquationsResult(result: SystemOfEquationsResult, data: SystemOfEquationsData): void {
+    ResultDataService.systemofEquationsResult = result;
     ResultDataService.systemOfEquationsData = data;
   }
 
-  public static GetResult(): number {
-    return ResultDataService.result;
+  public static SetResultType(resultType: String) {
+    ResultDataService.resultType = resultType;
+  }
+
+  public static SetBaseData(data: BaseData[]): void {
+    ResultDataService.baseDataSubject.next(data);
   }
 
   public static GetInterpolationResult(): InterpolationResult {
@@ -46,6 +51,10 @@ export class ResultDataService {
     return ResultDataService.interpolationData;
   }
 
+  public static GetIntegrationResult(): IntegrationResult {
+    return ResultDataService.integrationResult;
+  }
+
   public static GetIntegrationData(): IntegrationData {
     return ResultDataService.integrationData;
   }
@@ -54,16 +63,12 @@ export class ResultDataService {
     return ResultDataService.systemOfEquationsData;
   }
 
+  public static GetSystemOfEquationsResult(): SystemOfEquationsResult {
+    return ResultDataService.systemofEquationsResult;
+  }
+
   public static GetResultType() : String {
     return this.resultType;
-  }
-
-  public static SetResultType(resultType: String) {
-    ResultDataService.resultType = resultType;
-  }
-
-  public static SetBaseData(data: BaseData[]): void {
-    ResultDataService.baseDataSubject.next(data);
   }
 
   public static GetBaseData(): BaseData[] {

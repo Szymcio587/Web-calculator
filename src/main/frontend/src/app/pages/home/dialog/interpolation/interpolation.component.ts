@@ -26,11 +26,13 @@ export class InterpolationComponent implements OnInit {
   };
 
   interpolationName = '';
+  isOutside: boolean;
 
   constructor(private http: HttpClient, private router: Router, public dialogRef: MatDialogRef<InterpolationComponent>,
     @Inject(MAT_DIALOG_DATA) public dialogData: { name: string }
   ) {
     this.interpolationName = dialogData.name;
+    this.isOutside = false;
   }
 
   ngOnInit(): void {
@@ -74,7 +76,7 @@ export class InterpolationComponent implements OnInit {
         throw new Error('Invalid file format');
       }
 
-      this.data.pointsNumber = parseInt(lines[0], 10);
+      this.data.pointsNumber = parseInt(lines[0]);
 
       this.data.searchedValue = parseFloat(lines[1]);
 
@@ -82,19 +84,28 @@ export class InterpolationComponent implements OnInit {
         const [x, y] = line.split(',').map((value) => parseFloat(value.trim()));
         return { x, y };
       });
+
+      this.CheckIsOutside();
     } catch (error) {
       console.error('Error parsing file:', error);
       alert('Błędy rodzaj pliku. Przeczytaj podpowiedź zamieszczoną w tooltipie i wprowadź zmieniony plik.');
     }
   }
 
+  CheckIsOutside() {
+    const lowestX = this.data.points.reduce((min, point) => (point.x < min.x ? point : min), this.data.points[0]);
+    const highestX = this.data.points.reduce((max, point) => (point.x > max.x ? point : max), this.data.points[0]);
+    if(this.data.searchedValue < lowestX.x || this.data.searchedValue > highestX.x)
+      this.isOutside = true;
+    else
+      this.isOutside = false;
+  }
+
   Submit() {
-    const points = this.data.points.map(point => ({
+    this.data.points = this.data.points.map(point => ({
       x: CalculationsService.parseInput(point.x),
       y: CalculationsService.parseInput(point.y)
     }));
-
-    this.data.points = points;
 
     const data: InterpolationData = {
       dataType: INTERPOLATION_DATA,

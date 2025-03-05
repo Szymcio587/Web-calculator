@@ -1,28 +1,18 @@
 package com.example.projekt.model.results;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class IntegrationResult {
 
     private double result;
-    private String name;
 
-    public IntegrationResult(double result, String name) {
-        this.result = result;
-        this.name = name;
-    }
+    private String prompt;
 
-    public double getResult() {
-        return result;
-    }
+    private String explanation;
 
-    public void setResult(double result) {
-        this.result = result;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

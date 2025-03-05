@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { BaseData, IntegrationData, InterpolationData, InterpolationRecord, InterpolationResult, SystemOfEquationsData, SystemOfEquationsResponse } from 'src/app/shared/data/data.interface';
+import { BaseData, IntegrationData, IntegrationRecord, IntegrationResult, InterpolationData, InterpolationRecord, InterpolationResult, SystemOfEquationsData, SystemOfEquationsRecord, SystemOfEquationsResult } from 'src/app/shared/data/data.interface';
 import { ResultDataService } from 'src/app/shared/services/result/result-data.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -56,9 +56,21 @@ export class ResultsHistoryComponent {
       );
     }
     else if(record.dataType == INTEGRATION_DATA) {
-      this.http.post<number>(JAVA_URL+'midpoint_integration', record).subscribe(
-        (result: number) => {
-          ResultDataService.SetIntegrationResult(result, record);
+      var tmp2 = record as IntegrationRecord
+      var data2: IntegrationData = {
+        dataType: '',
+        degree: tmp2.degree,
+        factors: tmp2.factors,
+        customFunction: tmp2.customFunction,
+        sections: tmp2.sections,
+        Xp: tmp2.Xp,
+        Xk: tmp2.Xk,
+        isTest: false,
+        username: tmp2.username
+      }
+      this.http.post<IntegrationResult>(JAVA_URL+'midpoint_integration', data2).subscribe(
+        (result: IntegrationResult) => {
+          ResultDataService.SetIntegrationResult(result, data2);
           ResultDataService.SetResultType(INTEGRATION);
           this.router.navigate(['/result']);
         },
@@ -68,9 +80,17 @@ export class ResultsHistoryComponent {
       );
     }
     else if(record.dataType == SYSTEM_OF_EQUATIONS_DATA) {
-      this.http.post<SystemOfEquationsResponse>(JAVA_URL+'system_of_equations',record).subscribe(
-        (result: SystemOfEquationsResponse) => {
-          ResultDataService.SetSystemOfEquationsResult(result.solutions, record);
+      var tmp3 = record as SystemOfEquationsRecord
+      var data3: SystemOfEquationsData = {
+        dataType: '',
+        username: tmp3.username,
+        coefficients: tmp3.coefficients,
+        constants: tmp3.constants,
+        isTest: false
+      }
+      this.http.post<SystemOfEquationsResult>(JAVA_URL+'cramer_system_of_equations',data3).subscribe(
+        (result: SystemOfEquationsResult) => {
+          ResultDataService.SetSystemOfEquationsResult(result, data3);
           ResultDataService.SetResultType(SYSTEM_OF_EQUATIONS);
           this.router.navigate(['/result']);
         },
@@ -85,33 +105,39 @@ export class ResultsHistoryComponent {
     let content = '';
 
     if (type === INTERPOLATION) {
-      var tmp = record as InterpolationRecord
       content = `Interpolacja:\nLiczba punktów: ${record.pointsNumber}\nPoszukiwana wartość: ${record.searchedValue}\nPunkty:\n`;
       record.points.forEach((point: any, index: number) => {
         content += `  Punkt ${index + 1}: X = ${point.x}, Y = ${point.y}\n`;
       });
-      content += `  Obliczony wynik: ${tmp.result}\n`;
+      content += `  Obliczony wynik: ${record.result}\n`;
       content += `  Wzór funkcji: f(x) = `;
-      var length = tmp.coefficients.length;
+      var length = record.coefficients.length;
       for(var i = 0; i < length; i++) {
-        if(tmp.coefficients[length - i - 1] != 0) {
+        if(record.coefficients[length - i - 1] != 0) {
           if(i = length - 1) {
-            content += `${tmp.coefficients[length - i - 1]}`;
+            content += `${record.coefficients[length - i - 1]}`;
           }
           else {
-            content += `${tmp.coefficients[length - i - 1]}x^${length - i - 1} + `;
+            content += `${record.coefficients[length - i - 1]}x^${length - i - 1} + `;
           }
         }
       }
       content += `\n\n`;
-      content += record.explanation;
+      if(record.customFunction != '')
+        content += record.explanation;
     } else if (type === INTEGRATION) {
-      content = `Integracja:\nStopień wielomianu: ${record.degree}\nWspółczynniki: ${record.factors.join(', ')}\nLiczba przedziałów: ${record.sections}\nPunkt początkowy: ${record.Xp}\nPunkt końcowy: ${record.Xk}`;
+      if(record.customFunction != '')
+        content = `Wzór funkcji: ${record.customFunction}\n`;
+      else
+        content = `Całkowanie:\nStopień wielomianu: ${record.degree}\nWspółczynniki: ${record.factors.join(', ')}\n`;
+      content += `Liczba przedziałów: ${record.sections}\nPunkt początkowy: ${record.Xp}\nPunkt końcowy: ${record.Xk}\n\n${record.explanation}`;
     } else if (type === SYSTEM_OF_EQUATIONS) {
       content = `Układ równań:\n`;
       record.coefficients.forEach((row: number[], index: number) => {
         content += row.map((coef, i) => `${coef}x${i + 1}`).join(' + ') + ` = ${record.constants[index]}\n`;
       });
+      if(record.customFunction != '')
+        content += `\n${record.explanation}`;
     }
 
     const blob = new Blob([content], { type: 'text/plain' });

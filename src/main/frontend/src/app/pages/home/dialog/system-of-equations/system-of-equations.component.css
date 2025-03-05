@@ -1,3 +1,29 @@
-#dialog-form {
-  margin-top: 15px;
+#dialog-menu {
+  margin: 20px;
+  padding: 20px;
+  width: 600px;
 }
+
+#dialog-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.equation-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.equation {
+  display: flex;
+  align-items: center;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+
+

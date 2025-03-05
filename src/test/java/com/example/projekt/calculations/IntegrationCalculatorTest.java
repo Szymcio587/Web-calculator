@@ -1,8 +1,10 @@
 package com.example.projekt.calculations;
 
 import com.example.projekt.model.data.IntegrationData;
+import com.example.projekt.model.results.IntegrationResult;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mariuszgromada.math.mxparser.License;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -58,53 +60,78 @@ class IntegrationCalculatorTest {
         when(integrationData3.getXp()).thenReturn(-3.0);
         when(integrationData3.getXk()).thenReturn(-1.0);
 
-        double trapezoidalResult1 = trapezoidalIntegrationCalculator.Calculate(integrationData1);
-        double trapezoidalResult2 = trapezoidalIntegrationCalculator.Calculate(integrationData2);
-        double trapezoidalResult3 = trapezoidalIntegrationCalculator.Calculate(integrationData3);
+        License.iConfirmNonCommercialUse("szymon.talar2882@gmail.com");
 
-        System.out.println(trapezoidalResult1);
-        System.out.println(trapezoidalResult2);
-        System.out.println(trapezoidalResult3);
+        IntegrationData integrationData4 = mock(IntegrationData.class);
+        when(integrationData4.getCustomFunction()).thenReturn("5 * sin(x)");
+        when(integrationData4.getSections()).thenReturn(10);
+        when(integrationData4.getXp()).thenReturn(0.0);
+        when(integrationData4.getXk()).thenReturn(Math.PI);
 
-        assertEquals(27.5, trapezoidalResult1, 1);
-        assertEquals(27.5, trapezoidalResult2, 0.1);
-        assertEquals(-61, trapezoidalResult3, 0.1);
+        IntegrationResult integrationResult1 = new IntegrationResult();
+        IntegrationResult integrationResult2 = new IntegrationResult();
+        IntegrationResult integrationResult3 = new IntegrationResult();
+        IntegrationResult integrationResult4 = new IntegrationResult();
 
-        double midpointResult1 = midpointIntegrationCalculator.Calculate(integrationData1);
-        double midpointResult2 = midpointIntegrationCalculator.Calculate(integrationData2);
-        double midpointResult3 = midpointIntegrationCalculator.Calculate(integrationData3);
+        trapezoidalIntegrationCalculator.Calculate(integrationData1, integrationResult1);
+        trapezoidalIntegrationCalculator.Calculate(integrationData2, integrationResult2);
+        trapezoidalIntegrationCalculator.Calculate(integrationData3, integrationResult3);
+        trapezoidalIntegrationCalculator.Calculate(integrationData4, integrationResult4);
 
-        System.out.println(midpointResult1);
-        System.out.println(midpointResult2);
-        System.out.println(midpointResult3);
+        System.out.println(integrationResult1.getResult());
+        System.out.println(integrationResult2.getResult());
+        System.out.println(integrationResult3.getResult());
+        System.out.println(integrationResult4.getResult());
 
-        assertEquals(27.5, midpointResult1, 1);
-        assertEquals(27.5, midpointResult2, 0.1);
-        assertEquals(-61, midpointResult3, 0.1);
+        assertEquals(27.5, integrationResult1.getResult(), 1);
+        assertEquals(27.5, integrationResult2.getResult(), 0.1);
+        assertEquals(-61, integrationResult3.getResult(), 0.1);
+        assertEquals(10, integrationResult4.getResult(), 1);
 
-        double simpsonsResult1 = simpsonsIntegrationCalculator.Calculate(integrationData1);
-        double simpsonsResult2 = simpsonsIntegrationCalculator.Calculate(integrationData2);
-        double simpsonsResult3 = simpsonsIntegrationCalculator.Calculate(integrationData3);
+        midpointIntegrationCalculator.Calculate(integrationData1, integrationResult1);
+        midpointIntegrationCalculator.Calculate(integrationData2, integrationResult2);
+        midpointIntegrationCalculator.Calculate(integrationData3, integrationResult3);
+        midpointIntegrationCalculator.Calculate(integrationData4, integrationResult4);
 
-        System.out.println(simpsonsResult1);
-        System.out.println(simpsonsResult2);
-        System.out.println(simpsonsResult3);
+        System.out.println(integrationResult1.getResult());
+        System.out.println(integrationResult2.getResult());
+        System.out.println(integrationResult3.getResult());
+        System.out.println(integrationResult4.getResult());
 
-        assertEquals(27.5, simpsonsResult1, 1);
-        assertEquals(27.5, simpsonsResult2, 0.1);
-        assertEquals(-61, simpsonsResult3, 0.1);
+        assertEquals(27.5, integrationResult1.getResult(), 1);
+        assertEquals(27.5, integrationResult2.getResult(), 0.1);
+        assertEquals(-61, integrationResult3.getResult(), 0.1);
+        assertEquals(10, integrationResult4.getResult(), 1);
 
-        double kronrodResult1 = gaussKronrodIntegrationCalculator.Calculate(integrationData1);
-        double kronrodResult2 = gaussKronrodIntegrationCalculator.Calculate(integrationData2);
-        double kronrodResult3 = gaussKronrodIntegrationCalculator.Calculate(integrationData3);
+        simpsonsIntegrationCalculator.Calculate(integrationData1, integrationResult1);
+        simpsonsIntegrationCalculator.Calculate(integrationData2, integrationResult2);
+        simpsonsIntegrationCalculator.Calculate(integrationData3, integrationResult3);
+        simpsonsIntegrationCalculator.Calculate(integrationData4, integrationResult4);
 
-        System.out.println(kronrodResult1);
-        System.out.println(kronrodResult2);
-        System.out.println(kronrodResult3);
+        System.out.println(integrationResult1.getResult());
+        System.out.println(integrationResult2.getResult());
+        System.out.println(integrationResult3.getResult());
+        System.out.println(integrationResult4.getResult());
 
-        assertEquals(27.5, kronrodResult1, 1);
-        assertEquals(27.5, kronrodResult2, 0.1);
-        assertEquals(-61, kronrodResult3, 500);
+        assertEquals(27.5, integrationResult1.getResult(), 1);
+        assertEquals(27.5, integrationResult2.getResult(), 0.1);
+        assertEquals(-61, integrationResult3.getResult(), 0.1);
+        assertEquals(10, integrationResult4.getResult(), 1);
+
+        gaussKronrodIntegrationCalculator.Calculate(integrationData1, integrationResult1);
+        gaussKronrodIntegrationCalculator.Calculate(integrationData2, integrationResult2);
+        gaussKronrodIntegrationCalculator.Calculate(integrationData3, integrationResult3);
+        gaussKronrodIntegrationCalculator.Calculate(integrationData4, integrationResult4);
+
+        System.out.println(integrationResult1.getResult());
+        System.out.println(integrationResult2.getResult());
+        System.out.println(integrationResult3.getResult());
+        System.out.println(integrationResult4.getResult());
+
+        assertEquals(27.5, integrationResult1.getResult(), 1);
+        assertEquals(27.5, integrationResult2.getResult(), 0.1);
+        assertEquals(-61, integrationResult3.getResult(), 0.1);
+        assertEquals(10, integrationResult4.getResult(), 1);
     }
 
     @Test
@@ -140,53 +167,57 @@ class IntegrationCalculatorTest {
         when(integrationData3.getXp()).thenReturn(-10.0);
         when(integrationData3.getXk()).thenReturn(7.0);
 
-        double trapezoidalResult1 = trapezoidalIntegrationCalculator.Calculate(integrationData1);
-        double trapezoidalResult2 = trapezoidalIntegrationCalculator.Calculate(integrationData2);
-        double trapezoidalResult3 = trapezoidalIntegrationCalculator.Calculate(integrationData3);
+        IntegrationResult integrationResult1 = new IntegrationResult();
+        IntegrationResult integrationResult2 = new IntegrationResult();
+        IntegrationResult integrationResult3 = new IntegrationResult();
 
-        System.out.println(trapezoidalResult1);
-        System.out.println(trapezoidalResult2);
-        System.out.println(trapezoidalResult3);
+        trapezoidalIntegrationCalculator.Calculate(integrationData1, integrationResult1);
+        trapezoidalIntegrationCalculator.Calculate(integrationData2, integrationResult2);
+        trapezoidalIntegrationCalculator.Calculate(integrationData3, integrationResult3);
 
-        assertEquals(-65.416, trapezoidalResult1, 1);
-        assertEquals(3.36, trapezoidalResult2, 0.1);
-        assertEquals(3310.183, trapezoidalResult3, 100);
+        System.out.println(integrationResult1.getResult());
+        System.out.println(integrationResult2.getResult());
+        System.out.println(integrationResult3.getResult());
 
-        double midpointResult1 = midpointIntegrationCalculator.Calculate(integrationData1);
-        double midpointResult2 = midpointIntegrationCalculator.Calculate(integrationData2);
-        double midpointResult3 = midpointIntegrationCalculator.Calculate(integrationData3);
+        assertEquals(-65.416, integrationResult1.getResult(), 1);
+        assertEquals(3.36, integrationResult2.getResult(), 0.1);
+        assertEquals(3310.183, integrationResult3.getResult(), 100);
 
-        System.out.println(midpointResult1);
-        System.out.println(midpointResult2);
-        System.out.println(midpointResult3);
+        midpointIntegrationCalculator.Calculate(integrationData1, integrationResult1);
+        midpointIntegrationCalculator.Calculate(integrationData2, integrationResult2);
+        midpointIntegrationCalculator.Calculate(integrationData3, integrationResult3);
 
-        assertEquals(-65.416, midpointResult1, 1);
-        assertEquals(3.36, midpointResult2, 0.1);
-        assertEquals(3310.183, midpointResult3, 1);
+        System.out.println(integrationResult1.getResult());
+        System.out.println(integrationResult2.getResult());
+        System.out.println(integrationResult3.getResult());
 
-        double simpsonsResult1 = simpsonsIntegrationCalculator.Calculate(integrationData1);
-        double simpsonsResult2 = simpsonsIntegrationCalculator.Calculate(integrationData2);
-        double simpsonsResult3 = simpsonsIntegrationCalculator.Calculate(integrationData3);
+        assertEquals(-65.416, integrationResult1.getResult(), 1); //-65.416
+        assertEquals(3.36, integrationResult2.getResult(), 0.1);
+        assertEquals(3310.183, integrationResult3.getResult(), 100);
 
-        System.out.println(simpsonsResult1);
-        System.out.println(simpsonsResult2);
-        System.out.println(simpsonsResult3);
+        simpsonsIntegrationCalculator.Calculate(integrationData1, integrationResult1);
+        simpsonsIntegrationCalculator.Calculate(integrationData2, integrationResult2);
+        simpsonsIntegrationCalculator.Calculate(integrationData3, integrationResult3);
 
-        assertEquals(-109.5, simpsonsResult1, 1); //-65.416...
-        assertEquals(3.36, simpsonsResult2, 0.1);
-        assertEquals(3310.183, simpsonsResult3, 1);
+        System.out.println(integrationResult1.getResult());
+        System.out.println(integrationResult2.getResult());
+        System.out.println(integrationResult3.getResult());
 
-        double kronrodResult1 = gaussKronrodIntegrationCalculator.Calculate(integrationData1);
-        double kronrodResult2 = gaussKronrodIntegrationCalculator.Calculate(integrationData2);
-        double kronrodResult3 = gaussKronrodIntegrationCalculator.Calculate(integrationData3);
+        assertEquals(-109.5, integrationResult1.getResult(), 1);
+        assertEquals(3.36, integrationResult2.getResult(), 0.1);
+        assertEquals(3310.183, integrationResult3.getResult(), 100);
 
-        System.out.println(kronrodResult1);
-        System.out.println(kronrodResult2);
-        System.out.println(kronrodResult3);
+        gaussKronrodIntegrationCalculator.Calculate(integrationData1, integrationResult1);
+        gaussKronrodIntegrationCalculator.Calculate(integrationData2, integrationResult2);
+        gaussKronrodIntegrationCalculator.Calculate(integrationData3, integrationResult3);
 
-        assertEquals(-65.416, kronrodResult1, 1);
-        assertEquals(3.36, kronrodResult2, 0.1);
-        assertEquals(3310.183, kronrodResult3, 1);
+        System.out.println(integrationResult1.getResult());
+        System.out.println(integrationResult2.getResult());
+        System.out.println(integrationResult3.getResult());
+
+        assertEquals(-65.416, integrationResult1.getResult(), 1);
+        assertEquals(3.36, integrationResult2.getResult(), 0.1);
+        assertEquals(3310.183, integrationResult3.getResult(), 100);
     }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef, ComponentFactoryResolver, Inject, Renderer2, ElementRef } from '@angular/core';
+import { Component, OnInit, Inject, Renderer2 } from '@angular/core';
 import {MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { InterpolationComponent } from './dialog/interpolation/interpolation.component';
 import { IntegralComponent } from './dialog/integral/integral.component';
@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
       panelClass: 'unique'
   };
 
-  constructor(private dialog: MatDialog, private renderer: Renderer2, private el: ElementRef) {
+  constructor(private dialog: MatDialog, private renderer: Renderer2) {
     this.isVisible = new Array(4).fill(false);
   }
 
@@ -42,21 +42,21 @@ export class HomeComponent implements OnInit {
     this.dialogInterpolation.addPanelClass('dialog');
   }
 
- OpenIntegral(name: string): void {
-  this.dialogIntegral = this.dialog.open(IntegralComponent,  {...this.config  , data: { name: name }});
-  this.dialogIntegral.addPanelClass('dialog');
- }
+  OpenIntegral(name: string): void {
+    this.dialogIntegral = this.dialog.open(IntegralComponent,  {...this.config  , data: { name: name }});
+    this.dialogIntegral.addPanelClass('dialog');
+  }
 
- OpenSystemOfEquations(): void {
-  this.dialogSystemOfEquations = this.dialog.open(SystemOfEquationsComponent, this.config);
-  this.dialogSystemOfEquations.addPanelClass('dialog');
- }
+  OpenSystemOfEquations(name: string): void {
+    this.dialogSystemOfEquations = this.dialog.open(SystemOfEquationsComponent, {...this.config  , data: { name: name }});
+    this.dialogSystemOfEquations.addPanelClass('dialog');
+  }
 
- toggleTooltip(option: string) {
-  this.visibleTooltip = this.visibleTooltip === option ? null : option;
-}
+  toggleTooltip(option: string) {
+    this.visibleTooltip = this.visibleTooltip === option ? null : option;
+  }
 
- Collapse(number: string): void {
+  Collapse(number: string): void {
     const divElements = document.getElementsByClassName(`option ${number}`);
     const space = document.getElementById(`space-taker-${number}`);
     Array.from(divElements).forEach((div) => {

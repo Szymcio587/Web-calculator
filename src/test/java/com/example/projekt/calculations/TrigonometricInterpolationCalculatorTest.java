@@ -2,6 +2,7 @@ package com.example.projekt.calculations;
 
 import com.example.projekt.model.Point;
 import com.example.projekt.model.data.InterpolationData;
+import com.example.projekt.model.results.InterpolationResult;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -22,14 +23,17 @@ class TrigonometricInterpolationCalculatorTest {
     @Mock
     private InterpolationData interpolationData;
 
+    @Mock
+    private InterpolationResult interpolationResult = new InterpolationResult();
+
     private List<Point> points;
 
     @Test
     public void TestCalculateWithEmptyPoints() {
         interpolationData = null;
-        double result = trigonometricInterpolationCalculator.Calculate(interpolationData);
+        trigonometricInterpolationCalculator.Calculate(interpolationData, interpolationResult);
 
-        assertEquals(0.0, result, 0.0001);
+        assertEquals(0.0, interpolationResult.getResult(), 0.0001);
     }
 
     @Test
@@ -38,9 +42,9 @@ class TrigonometricInterpolationCalculatorTest {
         points.add(new Point(2, 5));
         interpolationData = new InterpolationData(1, 2, points);
 
-        double result = trigonometricInterpolationCalculator.Calculate(interpolationData);
+        trigonometricInterpolationCalculator.Calculate(interpolationData, interpolationResult);
 
-        assertEquals(5, result, 0.0001);
+        assertEquals(5, interpolationResult.getResult(), 0.0001);
     }
 
     @Test
@@ -53,8 +57,8 @@ class TrigonometricInterpolationCalculatorTest {
         points.add(new Point(5, 1));
         interpolationData = new InterpolationData(3, 5, points);
 
-        double result = trigonometricInterpolationCalculator.Calculate(interpolationData);
+        trigonometricInterpolationCalculator.Calculate(interpolationData, interpolationResult);
 
-        assertEquals(3.6666666, result, 0.0001);
+        assertEquals(3.6666666, interpolationResult.getResult(), 0.0001);
     }
 }

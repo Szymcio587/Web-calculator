@@ -1,3 +1,14 @@
 #dialog-form {
   margin-top: 15px;
 }
+
+#dialog-menu {
+  overflow: scroll;
+}
+input {
+  width: 70px;
+}
+
+#customFunction {
+  width: 200px;
+}

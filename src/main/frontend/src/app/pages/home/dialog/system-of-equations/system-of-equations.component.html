@@ -1,23 +1,29 @@
 <div id="dialog-menu">
   <form (ngSubmit)="Submit()" id="dialog-form">
     <div id="dialog-points" class="dialog-input">
-      <input type="number" name="x0" [(ngModel)]="data.coefficients[0][0]"/>
-      <label class="dialog-label">x</label>
-      +
-      <input type="number" name="y0" [(ngModel)]="data.coefficients[0][1]"/>
-      <label class="dialog-label">y</label>
-      =
-      <input type="number" name="z0" [(ngModel)]="data.constants[0]"/>
+      <label class="dialog-label" for="pointsNumber">Liczba zmiennych</label>
+      <input type="number" id="pointsNumber" name="pointsNumber" [(ngModel)]="variablesNumber" (input)="UpdateVariablesNumber($event)" class="input-field"/>
     </div>
-    <div id="dialog-points" class="dialog-input">
-      <input type="number" name="x1" [(ngModel)]="data.coefficients[1][0]"/>
-      <label class="dialog-label">x</label>
-      +
-      <input type="number" name="y1" [(ngModel)]="data.coefficients[1][1]"/>
-      <label class="dialog-label">y</label>
-      =
-      <input type="number" name="z1" [(ngModel)]="data.constants[1]"/>
+    <div *ngFor="let row of [].constructor(variablesNumber); let q = index" class="equation-row">
+      <div class="dialog-input equation">
+        <ng-container *ngFor="let column of [].constructor(variablesNumber); let w = index">
+          <span>x{{ w }}</span>
+          <input type="text" [name]="'x' + q + '_' + w" [(ngModel)]="data.coefficients[q][w]" class="input-field term-input"/>
+          <span *ngIf="w < variablesNumber - 1" class="operator">+</span>
+        </ng-container>
+        <span class="operator">=</span>
+        <span>z{{ q }}</span>
+        <input  type="text" [name]="'z' + q" [(ngModel)]="data.constants[q]" class="input-field constant-input"/>
+      </div>
     </div>
-    <input type="submit" value="Oblicz"/>
+
+    <div id="dialog-file-upload" class="dialog-input">
+      <label class="dialog-label" for="fileUpload">Dodaj plik</label>
+      <input type="file" id="fileUpload" (change)="LoadDataFromFile($event)" accept=".txt" class="file-input"/>
+    </div>
+
+    <div class="dialog-submit">
+      <input type="submit" value="Oblicz" class="submit-button" />
+    </div>
   </form>
 </div>

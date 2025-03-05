@@ -4,16 +4,13 @@
       <div [ngClass]="{'minus': isVisible[0], 'plus': !isVisible[0]}" id="p1" (click)="Collapse('1')"></div>
       <div class="title" id="t1">Interpolacja</div>
       <i class="fa-solid fa-plus"></i>
-    </div>
-    <div class="option 1" id="polynomial">
-      <p (click)="OpenInterpolation('polynomial')">Wielomianowa</p>
       <div class="tooltip-container">
-        <i class="tooltip-icon" (click)="toggleTooltip('polynomial')">?</i>
-        <div class="tooltip-box" *ngIf="visibleTooltip === 'polynomial'">
-          Pozwala na interpolację dowolnego wielomianu. W danych wejściowych należy podać: liczbę węzłow, wartości tych węzłów oraz x dla którego
-          szukana jest wartość.<br> Umożliwia wpisanie w inpucie sqrt(n) dla pierwiastka kwadratowego oraz ln(n) dla logarytmu naturalnego, a także na
-          użycie stałych PI oraz e.<br>Pozwala również na obsługę plików w formacie:
-          <br>ilość punktów
+        <i class="tooltip-icon" (click)="toggleTooltip('Interpolation')">?</i>
+        <div class="tooltip-box" *ngIf="visibleTooltip === 'Interpolation'">
+          Pozwala na interpolację dowolnego wielomianu. W danych wejściowych należy podać: liczbę węzłow, wartości tych węzłów oraz x dla którego szukana jest wartość.
+          <br> Umożliwia wpisanie w inpucie sqrt(n) dla pierwiastka kwadratowego oraz ln(n) dla logarytmu naturalnego, a także na użycie stałych PI oraz e.
+          <br>Pozwala również na obsługę plików w formacie:
+          <br>liczba punktów
           <br>szukana wartość
           <br>x1 y1
           <br>x2 y2
@@ -21,8 +18,11 @@
         </div>
       </div>
     </div>
-    <div class="option 1" id="trigonometric" (click)="OpenInterpolation('trigonometric')">
-      <p>Trygonometryczna</p>
+    <div class="option 1" id="polynomial">
+      <p (click)="OpenInterpolation('polynomial')">Wielomianowa</p>
+    </div>
+    <div class="option 1" id="trigonometric">
+      <p (click)="OpenInterpolation('trigonometric')">Trygonometryczna</p>
     </div>
   </div>
 
@@ -33,9 +33,24 @@
       <div [ngClass]="{'minus': isVisible[1], 'plus': !isVisible[1]}" id="p2" (click)="Collapse('2')"></div>
       <div class="title" id="t2">Układ równań</div>
       <i class="fa-solid fa-plus"></i>
+      <div class="tooltip-container">
+        <i class="tooltip-icon" (click)="toggleTooltip('Integration')">?</i>
+        <div class="tooltip-box" *ngIf="visibleTooltip === 'Integration'">
+          Pozwala na rozwiązanie układu równań pierwszego stopnia. W danych wejściowych należy podać: liczbę zmiennych oraz wartości kolejnych współczynników.
+          <br> Umożliwia wpisanie w inpucie sqrt(n) dla pierwiastka kwadratowego oraz ln(n) dla logarytmu naturalnego, a także na użycie stałych PI oraz e.
+          <br>Pozwala również na obsługę plików w formacie:
+          <br>a_00 a_01 ... a_0n b_0
+          <br>a_10 a_11 ... a_1n b_1
+          <br>...
+          <br>a_n0 a_n1 ... a_nn b_n
+        </div>
+      </div>
     </div>
-    <div class="option 2" id="determinants" (click)="OpenSystemOfEquations()">
-      <p>Metoda wyznaczników</p>
+    <div class="option 2" id="cramer" (click)="OpenSystemOfEquations('cramer')">
+      <p>Wzorami Kramera</p>
+    </div>
+    <div class="option 2" id="multigrid" (click)="OpenSystemOfEquations('multigrid')">
+      <p>Metoda wielosiatkowa</p>
     </div>
   </div>
 
@@ -46,6 +61,20 @@
       <div [ngClass]="{'minus': isVisible[2], 'plus': !isVisible[2]}" id="p3" (click)="Collapse('3')"></div>
       <div class="title" id="t3">Całkowanie</div>
       <i class="fa-solid fa-plus"></i>
+      <div class="tooltip-container">
+        <i class="tooltip-icon" (click)="toggleTooltip('SystemOfEquations')">?</i>
+        <div class="tooltip-box" *ngIf="visibleTooltip === 'SystemOfEquations'">
+          Pozwala na obliczenie całki oznaczonej z wybranej funkcji. Dane wejściowe składają się z: granicy przedziału, liczby fragmentów na jakie ma zostać podzielona funkcja,
+          <br> a także wzoru funkcji który może zostać wprowadzony na 2 sposoby: poprzez podanie stopnia i współczynników wielomianu, bądź też podanie pełnego wzoru funkcji, przy czym wymagane jest uzupełnienie wyłącznie jednego z nich
+          <br> Umożliwia wpisanie w inpucie sqrt(n) dla pierwiastka kwadratowego oraz ln(n) dla logarytmu naturalnego, a także na użycie stałych PI oraz e.
+          <br>Pozwala również na obsługę plików w formacie:
+          <br>stopień wielomianu
+          <br>współczynniki (a0, a1, ..., an)
+          <br>liczba przedziałów
+          <br>początek granicy przedziału
+          <br>koniec granicy przedziału
+        </div>
+      </div>
     </div>
     <div class="option 3" id="trapezoidal" (click)="OpenIntegral('trapezoidal')">
       <p>Metoda trapezów</p>
@@ -55,6 +84,9 @@
     </div>
     <div class="option 3" id="simpson" (click)="OpenIntegral('simpson')">
       <p>Metoda Simpsona</p>
+    </div>
+    <div class="option 3" id="gaussKronrod" (click)="OpenIntegral('gauss_kronrod')">
+      <p>Metoda Gaussa-Kronroda</p>
     </div>
   </div>
 

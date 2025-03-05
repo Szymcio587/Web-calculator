@@ -1,6 +1,9 @@
 package com.example.projekt.calculations;
 
 import com.example.projekt.model.data.IntegrationData;
+import com.example.projekt.model.results.IntegrationResult;
+import com.example.projekt.service.UtilityService;
+import org.mariuszgromada.math.mxparser.Function;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -8,7 +11,9 @@ import java.util.List;
 @Component
 public class GaussKronrodIntegrationCalculator {
 
-    private final double[] weights = {
+    private static int counter;
+
+    private final double[] WEIGHTS = {
             0.022935322010529224963732008058970,
             0.063092092629978553290700663189204,
             0.104790010322250183839876322541518,
@@ -25,7 +30,7 @@ public class GaussKronrodIntegrationCalculator {
             0.063092092629978553290700663189204,
             0.022935322010529224963732008058970
     };
-    private final double[] points = {
+    private final double[] POINTS = {
             -0.991455371120812639206854697526329,
             -0.949107912342758524526189684047851,
             -0.864864423359769072789712788640926,
@@ -55,20 +60,68 @@ public class GaussKronrodIntegrationCalculator {
         return result;
     }
 
-    public double Calculate(IntegrationData integrationData) {
+    public void Calculate(IntegrationData integrationData, IntegrationResult integrationResult) {
+        counter = 0;
+        StringBuilder explanation = new StringBuilder();
+        explanation.append("Wyjaśnienie krok po kroku:\n\n");
         double a = integrationData.getXp();
         double b = integrationData.getXk();
 
         double midpoint = (a + b) / 2;
         double halfWidth = (b - a) / 2;
-
         double result = 0;
-        for (int q = 0; q < points.length; q++) {
-            double x = midpoint + halfWidth * points[q];
-            result += weights[q] * ValueInPoint(integrationData.getFactors(), x, integrationData.getDegree());
+
+        boolean isCustom = integrationData.getCustomFunction() != null && !integrationData.getCustomFunction().isEmpty();
+        double m = 0;
+        double m1 = 0;
+        double m2 = 0;
+
+        explanation.append("Krok 1: Zdefiniowanie stałych\n");
+        explanation.append("Aby skutecznie wykorzystać metodę Gaussa-Kronroda, należy najpierw zdefiniować zasadę 15 punktów Kronroda, dla których będą wyliczanie wartości po " +
+                "znormalizowaniu zakresu do przedziału [-1;1]\n");
+        explanation.append("Poniżej wypisane zostaną kolejno punkty oraz ich poszczególne wagi:\n");
+        explanation.append("Punkty: \n");
+        for(double point : POINTS) {
+            explanation.append(UtilityService.Round(point, 5)).append(" ");
         }
+        explanation.append("\n");
+        for(double weight : WEIGHTS) {
+            explanation.append(UtilityService.Round(weight, 5)).append(" ");
+        }
+        explanation.append("\n\nKrok 2: wyznaczenie połowy długości całego przedziału oraz punktu środkowego\n");
+        explanation.append("Można te wartości wyznaczyć za pomocą wzorów: h=(b-a)/2 oraz x_s=(a+b)/2, Gdzie h - połowa długości, x_s - punktu środkowy, [a,b] - granica całego przedziału\n");
+        explanation.append("W naszym przypadku: \nh = (").append(UtilityService.Round(integrationData.getXk(), 5)).append(" - ").append(UtilityService.Round(integrationData.getXp(), 5))
+                .append(")/").append(2).append(" = ").append(UtilityService.Round(halfWidth, 5)).append("\n");
+        explanation.append("x_s = (").append(UtilityService.Round(integrationData.getXk(), 5)).append(" + ").append(UtilityService.Round(integrationData.getXp(), 5))
+                .append(")/").append(2).append(" = ").append(UtilityService.Round(midpoint, 5)).append("\n\n");
+
+        explanation.append("Krok 3: Zsumowanie wszystkich wartości funkcji dla kolejnych punktów zbioru\n");
+        explanation.append("W tym celu, najpierw dostowujemy punkty ze stałego zakresu powyżej do punktów odpowiadających im dla naszego przedziału, korzystając ze wzoru " +
+                "x = h + x_s * p_n,\ngdzie p_n to wybrany punkty z listy.\n");
+        explanation.append("Następnie, obliczamy wartość funkcji w tak wybranym punkcie, i sumujemy ze sobą wszystkie 15 wartości wymnożone przez odpowiadające im wagi\n\n");
+
+        if (integrationData.getCustomFunction() != null && !integrationData.getCustomFunction().isEmpty()) {
+            String customFunction = integrationData.getCustomFunction();
+            Function function = new Function("f(x) = " + customFunction);
+            if (!function.checkSyntax()) {
+                throw new IllegalArgumentException("Invalid function syntax: " + function.getErrorMessage());
+            }
+
+            for (int q = 0; q < POINTS.length; q++) {
+                double x = midpoint + halfWidth * POINTS[q];
+                result += WEIGHTS[q] * function.calculate(x);
+            }
+        }
+        else {
+            for (int q = 0; q < POINTS.length; q++) {
+                double x = midpoint + halfWidth * POINTS[q];
+                result += WEIGHTS[q] * ValueInPoint(integrationData.getFactors(), x, integrationData.getDegree());
+            }
+        }
+        explanation.append("Po wykonaniu powyższych operacji uzyskujemy wynik: " + UtilityService.Round(result, 5));
 
         result *= halfWidth;
-        return result;
+        integrationResult.setExplanation(explanation.toString());
+        integrationResult.setResult(UtilityService.Round(result, 5));
     }
 }

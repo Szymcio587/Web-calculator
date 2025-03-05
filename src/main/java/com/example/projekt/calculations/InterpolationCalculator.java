@@ -27,7 +27,6 @@ public class InterpolationCalculator {
         explanation.append("Krok 1: Wyznaczenie wzoru ogólnego szukanej funkcji.\nf(x) = ");
         for (int q = 0; q < pointsNumber; q++) {
             weights[q] = 1;
-            if(q != 0);
             if(q != 0)
                 explanation.append(" + ");
             explanation.append("L").append(q + 1).append("(x)y").append(q + 1);
@@ -102,7 +101,7 @@ public class InterpolationCalculator {
         double[] coefficients = new double[n];
 
         for (int q = 0; q < n; q++) {
-            double[] basis = calculateBase(points, q);
+            double[] basis = CalculateBase(points, q);
 
             for (int w = 0; w < basis.length; w++) {
                 coefficients[w] += basis[w] * points.get(q).getY();
@@ -116,7 +115,7 @@ public class InterpolationCalculator {
         return coefficients;
     }
 
-    private double[] calculateBase(List<Point> points, int q) {
+    private double[] CalculateBase(List<Point> points, int q) {
         int n = points.size();
         double[] base = new double[n];
         base[0] = 1.0;

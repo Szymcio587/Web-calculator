@@ -4,6 +4,7 @@ import com.example.projekt.calculations.*;
 import com.example.projekt.model.data.IntegrationData;
 import com.example.projekt.model.data.InterpolationData;
 import com.example.projekt.model.data.SystemOfEquationsData;
+import com.example.projekt.model.results.IntegrationResult;
 import com.example.projekt.model.results.InterpolationResult;
 import com.example.projekt.model.results.SystemOfEquationsResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,13 @@ public class CalculationService {
     @Autowired
     private SimpsonsIntegrationCalculator simpsonsIntegrationCalculator;
     @Autowired
-    private GaussSystemOfEquationsCalculator gaussSystemOfEquationsCalculator;
+    private CramerSystemOfEquationsCalculator cramerSystemOfEquationsCalculator;
+
+    @Autowired
+    private GaussKronrodIntegrationCalculator gaussKronrodIntegrationCalculator;
+
+    @Autowired
+    private MultigridSystemOfEquationsCalculator multigridSystemOfEquationsCalculator;
 
     @Autowired
     private ChatService chatService;
@@ -43,23 +50,49 @@ public class CalculationService {
     public InterpolationResult CalculateTrigonometricInterpolation(InterpolationData interpolationData) {
         InterpolationResult interpolationResult = new InterpolationResult();
         trigonometricInterpolationCalculator.Calculate(interpolationData, interpolationResult);
-        interpolationResult.setPrompt(interpolationData.isTest() ? chatService.GeneratePolynomialInterpolationResponse(interpolationData, interpolationResult.getResult()) : "");
+        interpolationResult.setPrompt(interpolationData.isTest() ? chatService.GenerateTrigonometricInterpolationResponse(interpolationData, interpolationResult.getResult()) : "");
         return interpolationResult;
     }
 
-    public double CalculateTrapezoidalIntegration(IntegrationData integrationData) {
-        return trapezoidalIntegrationCalculator.Calculate(integrationData);
+    public IntegrationResult CalculateTrapezoidalIntegration(IntegrationData integrationData) {
+        IntegrationResult integrationResult = new IntegrationResult();
+        trapezoidalIntegrationCalculator.Calculate(integrationData, integrationResult);
+        integrationResult.setPrompt(integrationData.isTest() ? chatService.GenerateTrapezoidalIntegrationResponse(integrationData, integrationResult.getResult()) : "");
+        return integrationResult;
     }
 
-    public double CalculateMidpointIntegration(IntegrationData integrationData) {
-        return midpointIntegrationCalculator.Calculate(integrationData);
+    public IntegrationResult CalculateMidpointIntegration(IntegrationData integrationData) {
+        IntegrationResult integrationResult = new IntegrationResult();
+        midpointIntegrationCalculator.Calculate(integrationData, integrationResult);
+        integrationResult.setPrompt(integrationData.isTest() ? chatService.GenerateMidpointIntegrationResponse(integrationData, integrationResult.getResult()) : "");
+        return integrationResult;
     }
 
-    public double CalculateSimpsonsIntegration(IntegrationData integrationData) {
-        return simpsonsIntegrationCalculator.Calculate(integrationData);
+    public IntegrationResult CalculateSimpsonsIntegration(IntegrationData integrationData) {
+        IntegrationResult integrationResult = new IntegrationResult();
+        simpsonsIntegrationCalculator.Calculate(integrationData, integrationResult);
+        integrationResult.setPrompt(integrationData.isTest() ? chatService.GenerateSimpsonsIntegrationResponse(integrationData, integrationResult.getResult()) : "");
+        return integrationResult;
     }
 
-    public SystemOfEquationsResult CalculateSystemOfEquations(SystemOfEquationsData data) {
-        return gaussSystemOfEquationsCalculator.Calculate(data);
+    public IntegrationResult CalculateGaussKronrodIntegration(IntegrationData integrationData) {
+        IntegrationResult integrationResult = new IntegrationResult();
+        gaussKronrodIntegrationCalculator.Calculate(integrationData, integrationResult);
+        integrationResult.setPrompt(integrationData.isTest() ? chatService.GenerateGaussKronrodIntegrationResponse(integrationData, integrationResult.getResult()) : "");
+        return integrationResult;
+    }
+
+    public SystemOfEquationsResult CalculateCramerSystemOfEquations(SystemOfEquationsData systemOfEquationsData) {
+        SystemOfEquationsResult systemOfEquationsResult = new SystemOfEquationsResult();
+        cramerSystemOfEquationsCalculator.Calculate(systemOfEquationsData, systemOfEquationsResult);
+        systemOfEquationsResult.setPrompt(systemOfEquationsData.isTest() ? chatService.GenerateCramerSystemOfEquationsResponse(systemOfEquationsData, systemOfEquationsResult.getSolutions()) : "");
+        return systemOfEquationsResult;
+    }
+
+    public SystemOfEquationsResult CalculateMultigridSystemOfEquations(SystemOfEquationsData systemOfEquationsData) {
+        SystemOfEquationsResult systemOfEquationsResult = new SystemOfEquationsResult();
+        multigridSystemOfEquationsCalculator.Calculate(systemOfEquationsData, systemOfEquationsResult);
+        systemOfEquationsResult.setPrompt(systemOfEquationsData.isTest() ? chatService.GenerateMultigridSystemOfEquationsResponse(systemOfEquationsData, systemOfEquationsResult.getSolutions()) : "");
+        return systemOfEquationsResult;
     }
 }

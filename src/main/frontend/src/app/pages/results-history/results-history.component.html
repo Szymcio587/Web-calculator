@@ -16,7 +16,7 @@
     </div>
     <div *ngIf="isIntegration(record)">
       <form (ngSubmit)="recalculate(record)" class="box">
-        <h6>Integracja:</h6>
+        <h6>Całkowanie:</h6>
         <p>Stopień wielomianu: {{record.degree}}</p>
         <p>Wartości współczynników: {{record.factors}}</p>
         <p>Liczba przedziałów: {{record.sections}}</p>

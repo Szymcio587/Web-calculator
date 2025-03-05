@@ -4,13 +4,15 @@ import com.example.projekt.model.data.IntegrationData;
 import com.example.projekt.model.data.InterpolationData;
 import com.example.projekt.model.data.Savable;
 import com.example.projekt.model.data.SystemOfEquationsData;
+import com.example.projekt.model.database.IntegrationRecord;
 import com.example.projekt.model.database.InterpolationRecord;
+import com.example.projekt.model.database.SystemOfEquationsRecord;
+import com.example.projekt.model.results.IntegrationResult;
 import com.example.projekt.model.results.InterpolationResult;
+import com.example.projekt.model.results.SystemOfEquationsResult;
 import com.example.projekt.repositories.IntegrationDataRepository;
 import com.example.projekt.repositories.InterpolationDataRepository;
 import com.example.projekt.repositories.SystemOfEquationsRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -35,26 +37,28 @@ public class DataService {
         interpolationDataRepository.save(record);
     }
 
-    public void saveIntegrationData(IntegrationData integrationData) {
+    public void saveIntegrationData(IntegrationData integrationData, IntegrationResult integrationResult) {
         if(integrationData.getUsername() == null || integrationData.getUsername().isEmpty())
             return;
-        IntegrationData data = new IntegrationData(integrationData.getUsername(), integrationData.getDegree(), integrationData.getFactors(), integrationData.getSections(),
-                integrationData.getXp(), integrationData.getXk());
-        integrationDataRepository.save(data);
+        IntegrationRecord record = new IntegrationRecord(integrationData, integrationResult.getResult(), integrationResult.getExplanation());
+        integrationDataRepository.save(record);
     }
 
-    public void saveSystemOfEquationsData(SystemOfEquationsData systemOfEquationsData) {
+    public void saveSystemOfEquationsData(SystemOfEquationsData systemOfEquationsData, SystemOfEquationsResult systemOfEquationsResult) {
         if(systemOfEquationsData.getUsername() == null || systemOfEquationsData.getUsername().isEmpty())
             return;
-        SystemOfEquationsData data = new SystemOfEquationsData(systemOfEquationsData.getUsername(), systemOfEquationsData.getCoefficients(), systemOfEquationsData.getConstants());
-        systemOfEquationsRepository.save(data);
+        SystemOfEquationsRecord record = new SystemOfEquationsRecord(systemOfEquationsData, systemOfEquationsResult.getSolutions(), systemOfEquationsResult.getExplanation());
+        systemOfEquationsRepository.save(record);
     }
 
     public List<Savable> getDataByUserId(String username) {
         List<Savable> results = new ArrayList<>();
         results.addAll(interpolationDataRepository.findByUsername(username));
+        System.out.println(results);
         results.addAll(integrationDataRepository.findByUsername(username));
+        System.out.println(results);
         results.addAll(systemOfEquationsRepository.findByUsername(username));
+        System.out.println(results);
         return results;
     }
 }

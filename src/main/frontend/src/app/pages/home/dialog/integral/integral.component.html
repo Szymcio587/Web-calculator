@@ -6,19 +6,27 @@
     </div>
     <div class="dialog-input" *ngFor="let factor of FactorsArray()">
       <label class="dialog-label">Stopień: {{factor}}</label>
-      <input type="number" [(ngModel)]="data.factors[factor]" name="x{{factor}}"/>
+      <input type="text" [(ngModel)]="data.factors[factor]" name="x{{factor}}"/>
+    </div>
+    <div id="dialog-function" class="dialog-input">
+      <label class="dialog-label">Funkcja własna</label>
+      <input type="text" name="customFunction" id="customFunction" [(ngModel)]="data.customFunction"/>
     </div>
     <div id="dialog-sections" class="dialog-input">
-      <label class="dialog-label">Ilość podziałów przedziału</label>
-      <input type="number" name="searchedValue" [(ngModel)]="data.sections"/>
+      <label class="dialog-label">Liczba podziałów przedziału</label>
+      <input type="text" name="searchedValue" [(ngModel)]="data.sections"/>
     </div>
     <div id="dialog-section-start" class="dialog-input">
       <label class="dialog-label">Początek przedziału</label>
-      <input type="number" name="searchedValue" [(ngModel)]="data.Xp"/>
+      <input type="text" name="Xp" [(ngModel)]="data.Xp"/>
     </div>
     <div id="dialog-section-end" class="dialog-input">
       <label class="dialog-label">Koniec przedziału</label>
-      <input type="number" name="searchedValue" [(ngModel)]="data.Xk"/>
+      <input type="text" name="Xk" [(ngModel)]="data.Xk"/>
+    </div>
+    <div id="dialog-file-upload" class="dialog-input">
+      <label class="dialog-label">Dodaj plik</label>
+      <input type="file" (change)="LoadDataFromFile($event)" accept=".txt" style="width: 350px"/>
     </div>
     <input type="submit" value="Oblicz"/>
   </form>

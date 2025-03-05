@@ -1,23 +1,26 @@
 <div id="dialog-menu">
   <form (ngSubmit)="Submit()" id="dialog-form">
     <div id="dialog-points" class="dialog-input">
-      <label class="dialog-label">Ilość punktów</label>
+      <label class="dialog-label">Liczba punktów</label>
       <input type="number" name="pointsNumber" [(ngModel)]="data.pointsNumber" (input)="UpdatePoints($event)"/>
     </div>
     <div id="dialog-searched" class="dialog-input">
       <label class="dialog-label">Szukana wartość</label>
-      <input type="number" name="searchedValue" [(ngModel)]="data.searchedValue"/>
+      <input type="number" name="searchedValue" [(ngModel)]="data.searchedValue" (input)="CheckIsOutside()"/>
     </div>
     <div class="dialog-input" *ngFor="let point of PointsRange()">
       <label class="dialog-label">x{{point}}</label>
-      <input type="text" [(ngModel)]="data.points[point].x" name="x{{point}}"/>
+      <input type="text" [(ngModel)]="data.points[point].x" name="x{{point}}" (input)="CheckIsOutside()"/>
       <label class="dialog-label">y{{point}}</label>
       <input type="text" [(ngModel)]="data.points[point].y" name="y{{point}}"/>
     </div>
-    <input type="submit" value="Oblicz"/>
     <div id="dialog-file-upload" class="dialog-input">
       <label class="dialog-label">Dodaj plik</label>
       <input type="file" (change)="LoadDataFromFile($event)" accept=".txt" style="width: 350px"/>
+    </div>
+    <input type="submit" value="Oblicz"/>
+    <div id="warning" *ngIf="isOutside" style="color:red;">
+      Podana wartość szukana znajduje się poza granicami przedziału dla funkcji interpolującej, co oznacza rozwiązywanie problemu ekstrapolacji zamiast interpolacji.
     </div>
   </form>
 </div>

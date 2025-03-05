@@ -9,10 +9,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-@Document(collection = "integration_data")
 public class IntegrationData implements Savable{
-    @Id
-    private String id;
 
     private String dataType;
 
@@ -21,13 +18,27 @@ public class IntegrationData implements Savable{
     private List<Double> factors;
     private int sections;
 
+    @JsonProperty
     private boolean isTest;
     @JsonProperty("Xp")
     private double Xp;
     @JsonProperty("Xk")
     private double Xk;
 
-    public IntegrationData(String username, int degree, List<Double> factors, int sections, double xp, double xk) {
+    @JsonProperty
+    private String customFunction;
+
+    public IntegrationData(int degree, List<Double> factors, int sections, double xp, double xk, String customFunction) {
+        this.dataType = "IntegrationData";
+        this.degree = degree;
+        this.factors = factors;
+        this.sections = sections;
+        this.Xp = xp;
+        this.Xk = xk;
+        this.customFunction = customFunction;
+    }
+
+    public IntegrationData(String username, int degree, List<Double> factors, int sections, double xp, double xk, String customFunction) {
         this.dataType = "IntegrationData";
         this.username = username;
         this.degree = degree;
@@ -35,6 +46,7 @@ public class IntegrationData implements Savable{
         this.sections = sections;
         this.Xp = xp;
         this.Xk = xk;
+        this.customFunction = customFunction;
     }
 
     @Override
