@@ -14,6 +14,7 @@
         <button type="submit" class="login-button" (click)="buttonClicked = 'login'">Zaloguj się</button>
         <button type="button" class="register-button" routerLink="/register">Zarejestruj się</button>
         <button type="button" class="register-button" routerLink="/menu">Kontynuuj jako gość</button>
+        <button type="button" class="register-button" routerLink="/password-reset">Zresetuj hasło</button>
       </div>
     </form>
     <div *ngIf="errorMessage">{{ errorMessage }}</div>

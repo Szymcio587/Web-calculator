@@ -49,3 +49,13 @@ h2 {
   color:#555;
   cursor:pointer;
 }
+
+ul {
+  list-style: none;
+  padding: 0px;
+}
+
+ul > li {
+  cursor: pointer;
+  border:  1px solid black;
+}

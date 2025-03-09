@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { INTEGRATION, INTERPOLATION, JAVA_URL, SYSTEM_OF_EQUATIONS } from 'src/app/shared/data/data.constants';
 import { IntegrationData, IntegrationResult, InterpolationData, InterpolationResult, Point, SystemOfEquationsData, SystemOfEquationsResult } from 'src/app/shared/data/data.interface';
@@ -189,13 +189,64 @@ $$
 </ol>
 <p> Kroki występujące w punktach 2-6 należy wykonywać iteracyjnie, do momentu uzyskania zadowalającego przybliżenia. </p>`;
 
-isProcessing: boolean = false;
+  isProcessing: boolean = false;
+  sectionTitles: string[] = [];
+  filteredTitles: string[] = [];
+  filteredSections: string[] = [];
+  searchQuery: string = '';
 
-  ngAfterViewInit() {
+  sections = [
+    'Interpolacja wielomianowa',
+    'Interpolacja trygonometryczna',
+    'Całkowanie metodą punktu środkowego',
+    'Całkowanie metodą trapezów',
+    'Całkowanie metodą Simpsona',
+    'Całkowanie metodą Gaussa-Kronroda',
+    'Wzory Kramera',
+    'Metoda wielosiatkowa'
+  ];
+
+  @ViewChild('searchInput') searchInput!: ElementRef;
+
+  constructor(private elRef: ElementRef, private mathjaxService: MathjaxService, private http: HttpClient, private router: Router) {
+  }
+
+  ngAfterViewInit(): void {
     this.mathjaxService.renderMath();
   }
 
-  constructor(private mathjaxService: MathjaxService, private http: HttpClient, private router: Router){}
+  filterSections(): void {
+    const query = this.searchQuery.trim().toLowerCase();
+    if (query.length > 0) {
+      this.filteredSections = this.sections.filter(section =>
+        section.toLowerCase().includes(query)
+      );
+    } else {
+      this.filteredSections = [];
+    }
+  }
+
+  selectSection(section: string): void {
+    this.searchQuery = section;
+    this.filteredSections = [];
+    this.navigateToSection();
+  }
+
+  navigateToSection(): void {
+    const formattedQuery = this.searchQuery.trim().toLowerCase();
+    const matchingSection = this.sections.find(title => title.toLowerCase() === formattedQuery);
+
+    console.log(formattedQuery);
+    console.log(matchingSection);
+    if (matchingSection) {
+      const sectionElement = document.getElementById(matchingSection);
+
+      console.log(sectionElement);
+      if (sectionElement) {
+        sectionElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }
 
   async showExample(type: String) {
     if (this.isProcessing) {

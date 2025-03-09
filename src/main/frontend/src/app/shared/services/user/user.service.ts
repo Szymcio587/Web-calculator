@@ -25,6 +25,10 @@ export class UserService {
     return this.http.post<{ message: string }>(`${this.apiUrl}/register`, user);
   }
 
+  resetUserPassword(username: String, password: String): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(`${this.apiUrl}/reset`, {username, password});
+  }
+
   loginUser(username: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login`, { username, password }).pipe(
       tap((response) => {

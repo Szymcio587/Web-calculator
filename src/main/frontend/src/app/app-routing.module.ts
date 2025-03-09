@@ -7,6 +7,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { ResultsHistoryComponent } from './pages/results-history/results-history.component';
 import { TheoryComponent } from './pages/theory/theory.component';
 import { MenuComponent } from './pages/menu/menu.component';
+import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
 
 
 
@@ -17,7 +18,8 @@ const routes: Routes = [
    {path:"results-history", component:ResultsHistoryComponent},
    {path:"theory", component:TheoryComponent},
    {path:"register", component:RegisterComponent},
-   {path:"menu", component:MenuComponent}
+   {path:"menu", component:MenuComponent},
+   {path:"password-reset", component:PasswordResetComponent}
 ];
 
 @NgModule({

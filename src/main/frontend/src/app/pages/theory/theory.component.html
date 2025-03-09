@@ -1,5 +1,22 @@
 <div class="my-container">
 
+  <div class="search-container">
+    <input
+      type="text"
+      [(ngModel)]="searchQuery"
+      (input)="filterSections()"
+      (keydown.enter)="navigateToSection()"
+      placeholder="Wyszukaj sekcję..."
+    >
+    <button (click)="navigateToSection()">Szukaj</button>
+
+    <ul *ngIf="filteredSections.length > 0" class="autocomplete-list">
+      <li *ngFor="let suggestion of filteredSections" (click)="selectSection(suggestion)">
+        {{ suggestion }}
+      </li>
+    </ul>
+  </div>
+
   <h1>Interpolacja</h1>
   <section>
     Metoda numeryczna polegająca na wyznaczaniu w danym przedziale <i>[a ,b]</i> tzw.
@@ -10,7 +27,7 @@
   </section>
 
   <section>
-    <h2>Interpolację wielomianową</h2>
+    <h2 id="Interpolacja wielomianowa">Interpolacja wielomianowa</h2>
     <p>nazywana też interpolacją Lagrange’a – metoda numeryczna przybliżania funkcji tzw. wielomianem Lagrange’a stopnia <i>n</i> przyjmującą w <i>n + 1</i>
     punktach, zwanych węzłami interpolacji, wartości takie same jak przybliżana funkcja</p>
     <img src="../../../assets/images/p.png" alt="Ilustracja interpolacji wielomianowej" width="500px" height="300px">
@@ -21,7 +38,7 @@
   </section>
 
   <section>
-    <h2>Interpolację trygonometryczną</h2>
+    <h2 id="Interpolacja trygonometryczna">Interpolacja trygonometryczna</h2>
     <p>Interpolacja trygonometryczna to metoda stosowana głównie dla danych okresowych. Pozwala na odwzorowanie funkcji, które mają powtarzalny charakter,
       takich jak sygnały w elektronice czy dane związane z ruchem harmonicznym. Metoda ta jest niezwykle skuteczna przy analizie sygnałów i obliczeniach
       w dziedzinie częstotliwości</p>
@@ -44,7 +61,7 @@
   </section>
 
   <section>
-    <h2>Całkowanie metodą punktu środkowego</h2>
+    <h2 id="Całkowanie metodą punktu środkowego">Całkowanie metodą punktu środkowego</h2>
     <p>Metoda punktu środkowego to jedna z najprostszych metod numerycznego całkowania. Zakłada, że wartość funkcji w środku przedziału jest reprezentatywna
       dla całej szerokości przedziału. Przy założeniu, że funkcja jest "gładka" i zmienia się w sposób przewidywalny, metoda ta daje zadowalające wyniki dla
       prostych przypadków. Ze względu na swoją prostotę, metoda ta może być mało dokładna w przypadku funkcji o znaczących zmianach w danym przedziale,
@@ -57,7 +74,7 @@
   </section>
 
   <section>
-    <h2>Całkowanie metodą trapezów</h2>
+    <h2 id="Całkowanie metodą trapezów">Całkowanie metodą trapezów</h2>
     <p>Metoda trapezów to klasyczne podejście do numerycznego całkowania, w którym obszar pod wykresem funkcji jest aproksymowany za pomocą trapezów.
       Przy podziale przedziału całkowania na małe części metoda ta może osiągać wysoką dokładność. Podobnie jak metoda punktu środkowego, metoda
       trapezów jest szeroko stosowana ze względu na swoją prostotę i intuicyjność, a także na możliwość łatwego rozszerzenia jej na wiele podprzedziałów.</p>
@@ -69,7 +86,7 @@
   </section>
 
   <section>
-    <h2>Całkowanie metodą Simpsona</h2>
+    <h2 id="Całkowanie metodą Simpsona">Całkowanie metodą Simpsona</h2>
     <p>Metoda Simpsona to bardziej zaawansowana metoda numerycznego całkowania, która aproksymuje funkcję za pomocą paraboli. Podejście to znacząco zwiększa
        dokładność w porównaniu do prostszych metod, takich jak trapezy czy punkt środkowy. Szczególnie dobrze sprawdza się przy funkcjach "gładkich" i
        zmiennych w sposób ciągły. Metoda Simpsona dzieli obszar na podprzedziały, a następnie stosuje formułę paraboliczną do każdego z nich. Jest to jedna
@@ -82,13 +99,11 @@
   </section>
 
   <section>
-    <h2>Całkowanie metodą Gaussa-Kronroda</h2>
+    <h2 id="Całkowanie metodą Gaussa-Kronroda">Całkowanie metodą Gaussa-Kronroda</h2>
     <p>Metoda całkowania Gaussa-Kronroda stanowi rozszerzenie kwadratury Gaussa, poprzez dodanie dodatkowych punktów (węzłów) w celu
       zwiększenia dokładności oraz oszacowania błędu. Wykorzystuje strategicznie wybrane węzły i wagi, które są wyznaczane na podstawie wielomianów
       ortogonalnych (np. wielomianów Legendre’a). Metoda ta jest szczególnie skuteczna dla funkcji gładkich i stosowana w adaptacyjnych algorytmach
       całkowania.</p>
-    <img src="../../../assets/images/trapezoidal.png" alt="Ilustracja całkowania metodą Gaussa-Kronroda" width="500px" height="300px">
-    <figcaption>Ilustracja całkowania metodą Gaussa-Kronroda</figcaption>
 
     <div [innerHTML]="gaussKronrodIntegration"></div>
     W celu zobaczenia działania metody w praktyce <div class="examples" (click)="showExample('GaussKronrod')">kliknij tutaj</div>
@@ -104,7 +119,7 @@
   </section>
 
   <section>
-    <h2>Wzory Kramera</h2>
+    <h2 id="Wzory Kramera">Wzory Kramera</h2>
     <p>Wzory Kramera pomagają w rozwiązywaniu układów równań liniowych o <i>n</i> równaniach i <i>n</i> niewiadomych, w których wykorzystuje się wyznaczniki macierzy.
       Warunkiem stosowania tej metody jest, aby wyznacznik macierzy głównej układu (macierzy współczynników) był różny od zera.  W geometrii różniczkowej
       wykorzystuje się je (zwykle niejawnie), stosując twierdzenie o funkcji uwikłanej</p>
@@ -114,7 +129,7 @@
   </section>
 
   <section>
-    <h2>Metoda wielosiatkowa</h2>
+    <h2 id="Metoda wielosiatkowa">Metoda wielosiatkowa</h2>
     <p>Metoda wielosiatkowa to zaawansowana iteracyjna technika numeryczna stosowana do rozwiązywania układów równań liniowych i nieliniowych, szczególnie tych,
       które wynikają z dyskretyzacji równań różniczkowych cząstkowych. U swoich podstaw wykorzystuje metodę Gaussa-Seidla, wzbogacając ją o dodatkową
       redukcję błędu w każdej iteracji oraz możliwość uproszczenia macierzy, w celu redukcji kosztów obliczeniowych. Jej główną zaletą względem

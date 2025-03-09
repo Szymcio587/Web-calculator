@@ -26,11 +26,11 @@ public class UserController {
 
         Map<String, String> response = new HashMap<>();
         if(success) {
-            response.put("message", "Successfull registration");
+            response.put("message", "Udana rejestracja");
             return ResponseEntity.ok(response);
         }
         else {
-            response.put("message", "User already exists");
+            response.put("message", "Użytkownik już istnieje");
             return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
         }
     }
@@ -41,12 +41,25 @@ public class UserController {
         String password = credentials.get("password");
         Map<String, String> response = new HashMap<>();
         if (userService.authenticate(username, password)) {
-            response.put("message", "Login successful");
+            response.put("message", "Logowanie udane");
             response.put("status", "loggedIn");
             return ResponseEntity.ok(response);
         } else {
-            response.put("message", "Invalid credentials");
+            response.put("message", "Błędne dane logowania");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+        }
+    }
+
+    @PostMapping("/reset")
+    public ResponseEntity<?> reset(@RequestBody Map<String, String> credentials) {
+        Map<String, String> response = new HashMap<>();
+        if(userService.updatePassword(credentials.get("username"), credentials.get("password"))) {
+            response.put("message", "Hasło zostało zmienione");
+            return ResponseEntity.ok(response);
+        }
+        else {
+            response.put("message", "Podane hasło jest takie samo jak poprzednie");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
         }
     }
 }

@@ -26,6 +26,7 @@ import { IntegrationOptionsDialogComponent } from './pages/home/dialog/integrati
 import { ResultsHistoryComponent } from './pages/results-history/results-history.component';
 import { TheoryComponent } from './pages/theory/theory.component';
 import { MenuComponent } from './pages/menu/menu.component';
+import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { MenuComponent } from './pages/menu/menu.component';
     IntegrationOptionsDialogComponent,
     ResultsHistoryComponent,
     TheoryComponent,
-    MenuComponent
+    MenuComponent,
+    PasswordResetComponent
   ],
   imports: [
     BrowserModule,

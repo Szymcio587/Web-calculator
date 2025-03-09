@@ -26,40 +26,108 @@ public class MultigridSystemOfEquationsCalculator {
             throw new IllegalArgumentException("Invalid system of equations.");
         }
 
+        StringBuilder explanation = new StringBuilder();
+        explanation.append("Wyjaśnienie krok po kroku:\n\n");
+        explanation.append("Krok 1: Sprowadzenie macierzy układu równań do postaci diagonalnie-dominującej, tj. dla każdego wiersza wartość na przekątnej jest większa od sumy pozostałych" +
+                "wartości w wierszu.\n");
+        explanation.append("Odbywa się to poprzez sprawdzenie kolejnych wierszy pod kątem spełnienia tej zależności. W przypadku gdy pewien wiersz nie spełnia tej zależności, " +
+                "następuje zamiana tego konkretnego wiersza z wierszem posiadającym największą wartość w danym miejscu na przekątnej, tak aby otrzymać postać macierzy " +
+                "diagonalnie dominującej\n");
+
         List<Double> solution = new ArrayList<>(data.getCoefficients().size());
         for (int i = 0; i < data.getCoefficients().size(); i++) {
             solution.add(0.0);
         }
 
         SystemOfEquationsData cp = data;
-        data.setCoefficients(MakeDiagonallyDominant(data.getCoefficients(), data.getConstants()));
+        data.setCoefficients(MakeDiagonallyDominant(data.getCoefficients(), data.getConstants(), explanation));
 
-        solution = MultigridSolve(data.getCoefficients(), data.getConstants(), solution);
+        explanation.append("\nKrok 2: Przejście do obliczeń na poprawionej macierzy.\n");
+        explanation.append("Metoda wielosiatkowa do obliczeń stosuje tzw. algorytm V-cycle, który polega na iteracyjnym przeprowadzeniu następujących etapów:\n");
+
+        solution = MultigridSolve(data.getCoefficients(), data.getConstants(), solution, explanation);
+
+        explanation.append("\nPo wykonaniu wszystkich obliczeń, ostateczne wartości zmiennych wynoszą: ");
+        explanation.append(UtilityService.Round(solution, 5));
 
         result.setSolutions(UtilityService.Round(solution, 5));
+        result.setExplanation(explanation.toString());
+
+        //Zresetowanie danych pierwotnych dla zapisu do bazy danych
         data.setCoefficients(cp.getCoefficients());
         data.setConstants(cp.getConstants());
     }
 
-    private List<Double> MultigridSolve(List<List<Double>> A, List<Double> b, List<Double> x) {
+    private List<Double> MultigridSolve(List<List<Double>> A, List<Double> b, List<Double> x, StringBuilder explanation) {
         for (int iteration = 0; iteration < LOOP_ITERATIONS; iteration++) {
             x = Smooth(A, b, x);
+
+            if(iteration == 0) {
+                explanation.append("- Wygładzenie, czyli obliczenie wstępnego rozwiązania inną prostszą metodą iteracyjną na macierzy. W ramach tego przykładu została zastosowana" +
+                        " metoda Gaussa-Seidla\n");
+                explanation.append("W naszym przypadku, po pierwszej iteracji metody wielosiatkowej wstępne rozwiązania wynoszą: ");
+                for(int i = 0; i < x.size(); i++) {
+                    explanation.append(UtilityService.Round(x.get(i), 5));
+                    if(i != x.size() - 1)
+                        explanation.append(", ");
+                }
+            }
 
             List<Double> residual = CalculateResidual(A, b, x);
 
             double residualNorm = CalculateNorm(residual);
+
+            if(iteration == 0) {
+                explanation.append("\n- Obliczenie łącznej wartości błędu. W przypadku gdy uzyskany błąd obliczeniowy na tym etapie będzie mniejszy od wymaganej dokładności," +
+                        " która w tym przypadku wynosi " + TOLERANCE + " możemy zakończyć obliczenia. W przeciwnym wypadku, przechodzimy do dalszych kroków.\n");
+                explanation.append("Wartość błędu po pierwszej iteracji algorytmu: " + residualNorm);
+            }
+
             if (residualNorm < TOLERANCE) {
                 return x;
             }
 
             List<Double> coarseResidual = RestrictResidual(residual);
 
+            if(iteration == 0) {
+                explanation.append("\n- Restrykcja, czyli projekcja pierwotnej siatki rozwiązań. Kolejne wartości mniejszej siatki są obliczanie poprzez uśrednienie sąsiadujących wartości" +
+                        "elementów na siatce pierwotnej.\n");
+                explanation.append("Po wykonaniu tej operacji, wartości błędu na skurczonej siatce wynoszą: ");
+                for(int i = 0; i < coarseResidual.size(); i++) {
+                    explanation.append(UtilityService.Round(coarseResidual.get(i), 5));
+                    if(i != coarseResidual.size() - 1)
+                        explanation.append(", ");
+                }
+            }
+
             List<Double> coarseError = SolveCoarseGrid(coarseResidual);
+
+            if(iteration == 0) {
+                explanation.append("\n- Rozwiązanie problemu na mniejszej siatce. W tym celu możemy ponownie skorzystać z jakiejś prostszej metody numerycznej(np. Gaussa-Seidla).\n");
+                explanation.append("Po wykonaniu tej operacji, wartości na skurczonej siatce wynoszą: ");
+                for(int i = 0; i < coarseError.size(); i++) {
+                    explanation.append(UtilityService.Round(coarseError.get(i), 5));
+                    if(i != coarseError.size() - 1)
+                        explanation.append(", ");
+                }
+            }
 
             List<Double> fineError = ProlongateError(coarseError, A.size());
 
             for (int i = 0; i < A.size(); i++) {
                 x.set(i, x.get(i) + fineError.get(i));
+            }
+
+            if(iteration == 0) {
+                explanation.append("\n- Interpolacja rozwiązania na pierwotny problem. Po rozpatrzeniu mniejszej siatki błędów, poszerzamy ją do wymiarów problemu pierwotnego, " +
+                        "poprzez duplikację jej elementów.\nNastępnie, wykonujemy aktualizację wartości wstępnych roziązań dodając do nich wartość błędu ze skurczonej siatki.");
+                explanation.append("Zaktualizowane wartości rozwiązań po pierwszej iteracji algorytmu: ");
+                for(int i = 0; i < x.size(); i++) {
+                    explanation.append(UtilityService.Round(x.get(i), 5));
+                    if(i != x.size() - 1)
+                        explanation.append(", ");
+                }
+                explanation.append("\n\nZastosowanie iteracyjnie powyższych kroków pozwala na rozwiązanie układu równań.\n");
             }
         }
 
@@ -169,7 +237,7 @@ public class MultigridSystemOfEquationsCalculator {
         return Math.sqrt(sum);
     }
 
-    private List<List<Double>> MakeDiagonallyDominant(List<List<Double>> matrix, List<Double> constants) {
+    private List<List<Double>> MakeDiagonallyDominant(List<List<Double>> matrix, List<Double> constants, StringBuilder explanation) {
         for (int q = 0; q < matrix.size(); q++) {
             int maxIndex = q;
 
@@ -178,8 +246,17 @@ public class MultigridSystemOfEquationsCalculator {
                     maxIndex = w;
                 }
             }
-
+            if(q == 0) {
+                explanation.append("Dla tego przypadku, w pierwszym wierszu macierzy obecna wartość na przekątnej wynosi: " + matrix.get(q).get(q) + ", a najwyższa występująca " +
+                        "wartość wynosi: " + matrix.get(maxIndex).get(q) + ", tak więc obie te wartości są ");
+                if(maxIndex != q)
+                    explanation.append("różne.\n");
+                else
+                    explanation.append("równe.\n");
+            }
             if (maxIndex != q) {
+                if(q == 0)
+                    explanation.append("W związku z tym, dochodzi w tym momencie do zamiany wiersza " + (q + 1) + " z wierszem " + (maxIndex + 1) + "\n");
                 Collections.swap(matrix, q, maxIndex);
                 Collections.swap(constants, q, maxIndex);
             }
@@ -200,6 +277,20 @@ public class MultigridSystemOfEquationsCalculator {
                     }
                 }
                 constants.set(q, constants.get(q) * (rowSum + 1.0) / d);
+                if(q == 0) {
+                    explanation.append("\nPo ewentualnej zamianie wierszy, należy jeszcze przeskalować wartości znajdujące się w wierszu tak, aby spełniona była wyżej założona " +
+                            "nierówność, tj. aby wartość na przekątnej była większa od sumy wartości poza nią. W tym celu, do wartości na przekątnej dodajemy sumę pozostałych " +
+                            "wierszy + 1, natomiast resztę mnożymy przez tę właśnie wartość i dzielimy przez pierwotną wartość na przekątnej.\n");
+                }
+            }
+            if(q == 0) {
+                explanation.append("Po tej operacji, wartości w pierwszym rzędzie macierzy wyglądają następująco: ");
+                for(int i = 0; i < matrix.size(); i++) {
+                    explanation.append(matrix.get(0).get(i));
+                    explanation.append(", ");
+                }
+                explanation.append(constants.get(0));
+                explanation.append("\nW analogiczny sposób modyfikowane są wszystkie kolejne wiersze macierzy.\n");
             }
         }
 
