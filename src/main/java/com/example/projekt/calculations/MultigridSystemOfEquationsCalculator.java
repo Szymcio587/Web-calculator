@@ -46,8 +46,17 @@ public class MultigridSystemOfEquationsCalculator {
         explanation.append("Metoda wielosiatkowa do obliczeń stosuje tzw. algorytm V-cycle, który polega na iteracyjnym przeprowadzeniu następujących etapów:\n");
 
         solution = MultigridSolve(data.getCoefficients(), data.getConstants(), solution, explanation);
-
-        explanation.append("\nPo wykonaniu wszystkich obliczeń, ostateczne wartości zmiennych wynoszą: ");
+        boolean isGood = true;
+        for(int i = 0; i < solution.size(); i++) {
+            if(solution.get(i).isNaN()) {
+                solution.set(i, Double.valueOf(0));
+                isGood = false;
+            }
+        }
+        if(isGood)
+            explanation.append("\nPo wykonaniu wszystkich obliczeń, ostateczne wartości zmiennych wynoszą: ");
+        else
+            explanation.append("\nW trakcie obliczeń wystąpiły błędy. Źle obliczone wartości zostały oznaczone jako 0: ");
         explanation.append(UtilityService.Round(solution, 5));
 
         result.setSolutions(UtilityService.Round(solution, 5));

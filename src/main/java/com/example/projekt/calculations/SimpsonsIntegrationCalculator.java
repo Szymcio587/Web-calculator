@@ -33,6 +33,7 @@ public class SimpsonsIntegrationCalculator {
         double m = 0;
         double m1 = 0;
         double m2 = 0;
+        double m3 = 0;
         double value_tmp = 0;
 
         if(isCustom) {
@@ -43,10 +44,12 @@ public class SimpsonsIntegrationCalculator {
             }
             m1 = function.calculate(integrationData.getXp());
             m2 = function.calculate(integrationData.getXp() + width);
+            m3 = function.calculate(integrationData.getXp() + width * 2);
         }
         else {
             m1 = ValueInPoint(integrationData.getFactors(), integrationData.getXp(), integrationData.getDegree());
-            m1 = ValueInPoint(integrationData.getFactors(), integrationData.getXp() + width, integrationData.getDegree());
+            m2 = ValueInPoint(integrationData.getFactors(), integrationData.getXp() + width, integrationData.getDegree());
+            m3 = ValueInPoint(integrationData.getFactors(), integrationData.getXp() + width * 2, integrationData.getDegree());
         }
 
         StringBuilder explanation = new StringBuilder();
@@ -59,9 +62,9 @@ public class SimpsonsIntegrationCalculator {
         explanation.append("Korzystając ze wzoru: P = 1/3 * (f(x_{i}) + 4 * f(x_{i+1}) + f(x_{i+2})) jesteśmy w stanie obliczyć przybliżoną wartość całki na przedziale[x_{i};x_{i+2}]\n");
         explanation.append("Wartość i jest wartością iteratora dla kolejnych podzbiorów naszego zbioru głównego [a;b], gdzie i będzie przyjmowało wartości od 0 do n - 1\n");
         explanation.append("Przykładowo, dla pierwszej iteracji wzór ten będzie wyglądał następująco: P = 1/2 * (")
-                .append(UtilityService.Round(ValueInPoint(integrationData.getFactors(), integrationData.getXp(), integrationData.getDegree()), 5)).append(" + 4 * ")
-                .append(UtilityService.Round(ValueInPoint(integrationData.getFactors(), integrationData.getXp() + width, integrationData.getDegree()), 5))
-                .append(" * ").append(UtilityService.Round(ValueInPoint(integrationData.getFactors(), integrationData.getXp() + width * 2, integrationData.getDegree()), 5)).append(")").append("\n\n");
+                .append(UtilityService.Round(m1, 5)).append(" + 4 * ")
+                .append(UtilityService.Round(m2, 5))
+                .append(" * ").append(UtilityService.Round(m3, 5)).append(")").append("\n\n");
         explanation.append("Krok 3: Zsumowanie wszystkich wartości podprzedziałów dla całego przedziału\n");
         explanation.append("Wartość przybliżoną całki możemy wyznaczyć ze wzoru: F(x) = P_{0} + P_{1} + ... + P_{n-1}, gdzie F(x) stanowi szukaną wartość całki\n");
         explanation.append("W naszym przypadku F(x) = ");

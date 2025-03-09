@@ -46,7 +46,7 @@ public class TrapezoidalIntegrationCalculator {
         }
         else {
             m1 = UtilityService.Round(ValueInPoint(integrationData.getFactors(), integrationData.getXp() + (width / 2), integrationData.getDegree()), 5);
-            m1 = UtilityService.Round(ValueInPoint(integrationData.getFactors(), integrationData.getXp() + (width * 1.5), integrationData.getDegree()), 5);
+            m2 = UtilityService.Round(ValueInPoint(integrationData.getFactors(), integrationData.getXp() + (width * 1.5), integrationData.getDegree()), 5);
         }
 
         StringBuilder explanation = new StringBuilder();

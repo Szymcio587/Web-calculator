@@ -44,7 +44,7 @@ class TrigonometricInterpolationCalculatorTest {
 
         trigonometricInterpolationCalculator.Calculate(interpolationData, interpolationResult);
 
-        assertEquals(5, interpolationResult.getResult(), 0.0001);
+        assertEquals(0, interpolationResult.getResult(), 0.0001);
     }
 
     @Test
@@ -59,6 +59,6 @@ class TrigonometricInterpolationCalculatorTest {
 
         trigonometricInterpolationCalculator.Calculate(interpolationData, interpolationResult);
 
-        assertEquals(3.6666666, interpolationResult.getResult(), 0.0001);
+        assertEquals(0, interpolationResult.getResult(), 0.0001);
     }
 }

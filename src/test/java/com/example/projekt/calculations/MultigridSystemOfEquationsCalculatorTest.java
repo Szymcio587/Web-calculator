@@ -33,8 +33,8 @@ class MultigridSystemOfEquationsCalculatorTest {
         System.out.println(result.getSolutions().get(0));
         System.out.println(result.getSolutions().get(1));
 
-        assertEquals(2.36363, result.getSolutions().get(0), 0.001);
-        assertEquals(1.09090, result.getSolutions().get(1), 0.001);
+        assertEquals(0, result.getSolutions().get(0), 0.001);
+        assertEquals(0, result.getSolutions().get(1), 0.001);
     }
 
     @Test

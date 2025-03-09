@@ -71,11 +71,6 @@ public class GaussKronrodIntegrationCalculator {
         double halfWidth = (b - a) / 2;
         double result = 0;
 
-        boolean isCustom = integrationData.getCustomFunction() != null && !integrationData.getCustomFunction().isEmpty();
-        double m = 0;
-        double m1 = 0;
-        double m2 = 0;
-
         explanation.append("Krok 1: Zdefiniowanie stałych\n");
         explanation.append("Aby skutecznie wykorzystać metodę Gaussa-Kronroda, należy najpierw zdefiniować zasadę 15 punktów Kronroda, dla których będą wyliczanie wartości po " +
                 "znormalizowaniu zakresu do przedziału [-1;1]\n");
