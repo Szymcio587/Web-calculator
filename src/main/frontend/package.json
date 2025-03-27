@@ -26,7 +26,7 @@
     "echarts": "^5.4.3",
     "mathjax": "^3.2.2",
     "mathjs": "^14.1.0",
-    "ng2-charts": "^5.0.1",
+    "ng2-charts": "^4.1.1",
     "ngx-echarts": "^15.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
