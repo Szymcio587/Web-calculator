@@ -1,7 +1,15 @@
-version: '3.8'
-
 services:
-  app:
+  frontend:
+    build:
+      context: ./src/main/frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  backend:
     build: .
     ports:
       - "8081:8081"

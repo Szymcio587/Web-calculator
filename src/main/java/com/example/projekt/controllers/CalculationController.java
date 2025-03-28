@@ -35,7 +35,7 @@ public class CalculationController {
         InterpolationResult interpolationResult = calculationService.CalculateInterpolation(interpolationData);
         if(!interpolationData.isTest())
             //Do zapisu danych wymagane jest połączenie z bazą danych MongoDB
-            //dataService.saveInterpolation(interpolationData, interpolationResult);
+            dataService.saveInterpolation(interpolationData, interpolationResult);
         System.out.println("Calculated interpolation: " + interpolationResult.getResult());
         return ResponseEntity.ok(interpolationResult);
     }
@@ -45,7 +45,7 @@ public class CalculationController {
         System.out.println("Received InterpolationData: " + interpolationData);
         InterpolationResult interpolationResult = calculationService.CalculateTrigonometricInterpolation(interpolationData);
         if(!interpolationData.isTest())
-            //dataService.saveInterpolation(interpolationData, interpolationResult);
+            dataService.saveInterpolation(interpolationData, interpolationResult);
         System.out.println("Calculated interpolation: " + interpolationResult.getResult());
         return ResponseEntity.ok(interpolationResult);
     }
@@ -55,7 +55,7 @@ public class CalculationController {
         System.out.println("Received IntegrationData: " + integrationData);
         IntegrationResult integrationResult = calculationService.CalculateTrapezoidalIntegration(integrationData);
         if(!integrationData.isTest())
-            //dataService.saveIntegrationData(integrationData, integrationResult);
+            dataService.saveIntegrationData(integrationData, integrationResult);
         System.out.println("Calculated integration: " + integrationResult.getResult());
         return ResponseEntity.ok(integrationResult);
     }
@@ -65,7 +65,7 @@ public class CalculationController {
         System.out.println("Received IntegrationData: " + integrationData);
         IntegrationResult integrationResult = calculationService.CalculateMidpointIntegration(integrationData);
         if(!integrationData.isTest())
-            //dataService.saveIntegrationData(integrationData, integrationResult);
+            dataService.saveIntegrationData(integrationData, integrationResult);
         System.out.println("Calculated integration: " + integrationResult.getResult());
         return ResponseEntity.ok(integrationResult);
     }
@@ -75,7 +75,7 @@ public class CalculationController {
         System.out.println("Received IntegrationData: " + integrationData);
         IntegrationResult integrationResult = calculationService.CalculateSimpsonsIntegration(integrationData);
         if(!integrationData.isTest())
-            //dataService.saveIntegrationData(integrationData, integrationResult);
+            dataService.saveIntegrationData(integrationData, integrationResult);
         System.out.println("Calculated integration: " + integrationResult.getResult());
         return ResponseEntity.ok(integrationResult);
     }
@@ -85,7 +85,7 @@ public class CalculationController {
         System.out.println("Received IntegrationData: " + integrationData);
         IntegrationResult integrationResult = calculationService.CalculateGaussKronrodIntegration(integrationData);
         if(!integrationData.isTest())
-            //dataService.saveIntegrationData(integrationData, integrationResult);
+            dataService.saveIntegrationData(integrationData, integrationResult);
         System.out.println("Calculated integration: " + integrationResult.getResult());
         return ResponseEntity.ok(integrationResult);
     }
@@ -95,7 +95,7 @@ public class CalculationController {
         System.out.println("Received SystemOfEquationsData: " + systemOfEquationsData);
         SystemOfEquationsResult systemOfEquationsResult = calculationService.CalculateCramerSystemOfEquations(systemOfEquationsData);
         if(!systemOfEquationsData.isTest())
-            //dataService.saveSystemOfEquationsData(systemOfEquationsData, systemOfEquationsResult);
+            dataService.saveSystemOfEquationsData(systemOfEquationsData, systemOfEquationsResult);
         System.out.println("Calculated system of equations: " + systemOfEquationsResult.getSolutions());
         return ResponseEntity.ok(systemOfEquationsResult);
     }
@@ -105,7 +105,7 @@ public class CalculationController {
         System.out.println("Received SystemOfEquationsData: " + systemOfEquationsData);
         SystemOfEquationsResult systemOfEquationsResult = calculationService.CalculateMultigridSystemOfEquations(systemOfEquationsData);
         if(!systemOfEquationsData.isTest())
-            //dataService.saveSystemOfEquationsData(systemOfEquationsData, systemOfEquationsResult);
+            dataService.saveSystemOfEquationsData(systemOfEquationsData, systemOfEquationsResult);
         System.out.println("Calculated system of equations: " + systemOfEquationsResult.getSolutions());
         return ResponseEntity.ok(systemOfEquationsResult);
     }
