@@ -56,7 +56,7 @@ public class TrapezoidalIntegrationCalculator {
         explanation.append("W naszym przypadku: h = (").append(integrationData.getXk()).append(" - ").append(integrationData.getXp()).append(")/").append(integrationData.getSections())
                 .append(" = ").append(UtilityService.Round(width, 5)).append("\n\n");
         explanation.append("Krok 2: Obliczenie pola pojedyńczego trapezu\n");
-        explanation.append("Korzystając ze wzoru na pole trapezu: P = 1/2 * h * (x_{i} + x_{i+1}) jesteśmy w stanie obliczyć przybliżoną wartość całki na przedziale[x_{i};x_{i+1}]\n");
+        explanation.append("Korzystając ze wzoru na pole trapezu: P = 1/2 * h * (f(x_{i}) + f(x_{i+1})) jesteśmy w stanie obliczyć przybliżoną wartość całki na przedziale[x_{i};x_{i+1}]\n");
         explanation.append("Wartość i jest wartością iteratora dla kolejnych podzbiorów naszego zbioru głównego [a;b], gdzie i będzie przyjmowało wartości od 0 do n - 1\n");
         explanation.append("Przykładowo, dla pierwszej iteracji wzór ten będzie wyglądał następująco: P = 1/2 * ").append(UtilityService.Round(width, 5)).append(" * (")
                 .append(m1).append(" + ").append(m2).append(") = ").append(UtilityService.Round(width * (m1 + m2)/2, 5)).append("\n\n");

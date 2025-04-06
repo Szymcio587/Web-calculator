@@ -20,7 +20,7 @@ public class TrigonometricInterpolationCalculator {
 
         StringBuilder explanation = new StringBuilder();
         explanation.append("Wyjaśnienie krok po kroku:\n\n");
-        explanation.append("Krok 1: Normalizacja wartości X podanych punktów do zakresu [0;PI].\nJeżeli został podany tylko jeden punkt, algorytm zwróci po prostu wartość Y dla tego punktu," +
+        explanation.append("Krok 1: Normalizacja wartości X podanych punktów do zakresu [0;2PI].\nJeżeli został podany tylko jeden punkt, algorytm zwróci po prostu wartość Y dla tego punktu," +
                 " ponieważ nie ma wystarczającej liczby danych do wykonania interpolacji. Dla tego przypadku podano " + n + " punktów, więc ");
 
         if(n == 1) {
@@ -32,7 +32,8 @@ public class TrigonometricInterpolationCalculator {
             return;
         }
 
-        explanation.append("będziemy kontynuować normalizację wszystkich punktów.");
+        explanation.append("będziemy kontynuować normalizację wszystkich punktów. Ten krok ma na celu umożliwienie potraktowania podanych punktów jako punktów funkcji okresowej, " +
+                "co z kolei pozwoli na zastosowanie interpolacji trygonometrycznej.");
         explanation.append("\nBędzie się ona odbywała wedle wzoru: x_i = (x - minX)/rangeX * 2 * PI, gdzie:\nx_i - znormalizowana wartość x\nx - pierwotna wartość x\nminX - " +
                 "najmniejsza podana wartość x w danych wejściowych\nrangeX - różnica pomiędzy wartościami zakresu pierwotnego");
         explanation.append("\nWartości kolejnych znormalizowanych punktów dla tego przypadku: ( ");
@@ -54,8 +55,8 @@ public class TrigonometricInterpolationCalculator {
         double[] a = new double[n];
         double[] b = new double[n];
 
-        explanation.append("\n\nKrok 2: Obliczenie kolejnych wyznaczników dla szeregu Fouriera.\n");
-        explanation.append("Wyznaczniki te można obliczyć ze wzorów: a_i = (y_i * cos(x * (i+1))) / n, b_i = (y_i * sin(x * (i+1))) / n");
+        explanation.append(")\n\nKrok 2: Obliczenie kolejnych wyznaczników dla szeregu Fouriera.\n");
+        explanation.append("Wyznaczniki te można obliczyć ze wzorów: a_i = 2(y_i * cos(x * (i+1))) / n, b_i = 2(y_i * sin(x * (i+1))) / n");
 
         for (int q = 0; q < n; q++) {
             for (Point point : transformedPoints) {

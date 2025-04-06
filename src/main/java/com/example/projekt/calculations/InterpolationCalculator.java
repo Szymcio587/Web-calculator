@@ -72,7 +72,8 @@ public class InterpolationCalculator {
         StringBuilder formula = new StringBuilder("f(x) = ");
         StringBuilder answer = new StringBuilder("f(" + interpolationData.getSearchedValue() + ") = ");
 
-        explanation.append("\nKrok 3: Obliczanie interpolowanego wyniku poprzez sumowanie ważonych wartości y dla wszystkich punktów.\n");
+        explanation.append("\nKrok 3: Obliczanie interpolowanego wyniku poprzez sumowanie ważonych wartości y dla wszystkich punktów. Wartość ta jest równoznaczna z wartością" +
+                "wyznaczonego wielomianu interpolacyjnego dla szukanego punktu.\n");
         for (int q = 0; q < pointsNumber; q++) {
             double yValue = interpolationData.getPoints().get(q).getY();
             double term = yValue * weights[q];

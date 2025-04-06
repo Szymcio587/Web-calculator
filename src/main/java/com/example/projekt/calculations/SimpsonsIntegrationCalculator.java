@@ -59,9 +59,9 @@ public class SimpsonsIntegrationCalculator {
         explanation.append("W naszym przypadku: h = (").append(integrationData.getXk()).append(" - ").append(integrationData.getXp()).append(")/").append(integrationData.getSections())
                 .append(" = ").append(width).append("\n\n");
         explanation.append("Krok 2: Obliczenie pola pojedyńczego podprzedziału\n");
-        explanation.append("Korzystając ze wzoru: P = 1/3 * (f(x_{i}) + 4 * f(x_{i+1}) + f(x_{i+2})) jesteśmy w stanie obliczyć przybliżoną wartość całki na przedziale[x_{i};x_{i+2}]\n");
+        explanation.append("Korzystając ze wzoru: P = h/3 * (f(x_{i}) + 4 * f(x_{i+1}) + f(x_{i+2})) jesteśmy w stanie obliczyć przybliżoną wartość całki na przedziale[x_{i};x_{i+2}]\n");
         explanation.append("Wartość i jest wartością iteratora dla kolejnych podzbiorów naszego zbioru głównego [a;b], gdzie i będzie przyjmowało wartości od 0 do n - 1\n");
-        explanation.append("Przykładowo, dla pierwszej iteracji wzór ten będzie wyglądał następująco: P = 1/2 * (")
+        explanation.append("Przykładowo, dla pierwszej iteracji wzór ten będzie wyglądał następująco: P = h/3 * (")
                 .append(UtilityService.Round(m1, 5)).append(" + 4 * ")
                 .append(UtilityService.Round(m2, 5))
                 .append(" * ").append(UtilityService.Round(m3, 5)).append(")").append("\n\n");

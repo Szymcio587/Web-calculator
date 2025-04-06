@@ -49,7 +49,8 @@ public class CramerSystemOfEquationsCalculator {
                 for(int w = 0; w < size; w++) {
                     row.add(modifiedMatrix.get(w).get(0));
                 }
-                explanation.append("W zależności od tego którą zmienną analizujemy, naszym celem jest zamiana pewnej konkretnej kolumny w macierzy głównej na kolumnę zawierającą wyrazy wolne.\n");
+                explanation.append("W zależności od tego którą zmienną analizujemy, naszym celem jest zamiana pewnej konkretnej kolumny w macierzy głównej na kolumnę zawierającą wyrazy wolne." +
+                        " Wszystkie pozostałe kolumny pozostają wtedy bez zmian.\n");
                 explanation.append("Przykładowo, dla pierwszej zmiennej będziemy zamieniali kolumnę zawierającą wyrazy: ").append(UtilityService.Round(coefficients.get(q), 5))
                         .append(" na wektor wyrazów wolnych: ").append(row).append("\n\n");
                 explanation.append("Krok 3: Obliczenie wyznacznika macierzy zmodyfikowanej.\n");
@@ -61,6 +62,7 @@ public class CramerSystemOfEquationsCalculator {
             }
         }
 
+        explanation.append("\nProces ten powtarzamy dla każdej zmiennej.\n");
         explanation.append("Krok 5: Powtórzenie powyższych kroków 2-4 dla każdej kolejnej zmiennej w celu uzyskania pełnego wektora wyników\n");
 
         result.setExplanation(explanation.toString());

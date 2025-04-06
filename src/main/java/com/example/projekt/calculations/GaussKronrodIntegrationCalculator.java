@@ -73,13 +73,13 @@ public class GaussKronrodIntegrationCalculator {
 
         explanation.append("Krok 1: Zdefiniowanie stałych\n");
         explanation.append("Aby skutecznie wykorzystać metodę Gaussa-Kronroda, należy najpierw zdefiniować zasadę 15 punktów Kronroda, dla których będą wyliczanie wartości po " +
-                "znormalizowaniu zakresu do przedziału [-1;1]\n");
-        explanation.append("Poniżej wypisane zostaną kolejno punkty oraz ich poszczególne wagi:\n");
+                "znormalizowaniu zakresu do przedziału [-1;1]. Są to wartości predefiniowane, czyli narzucone odgórnie w ramach tej właśnie metody.\n");
+        explanation.append("Poniżej wypisane zostaną kolejno wartości punktów oraz ich poszczególne wagi:\n");
         explanation.append("Punkty: \n");
         for(double point : POINTS) {
             explanation.append(UtilityService.Round(point, 5)).append(" ");
         }
-        explanation.append("\n");
+        explanation.append("\nWagi: \n");
         for(double weight : WEIGHTS) {
             explanation.append(UtilityService.Round(weight, 5)).append(" ");
         }
@@ -92,7 +92,7 @@ public class GaussKronrodIntegrationCalculator {
 
         explanation.append("Krok 3: Zsumowanie wszystkich wartości funkcji dla kolejnych punktów zbioru\n");
         explanation.append("W tym celu, najpierw dostowujemy punkty ze stałego zakresu powyżej do punktów odpowiadających im dla naszego przedziału, korzystając ze wzoru " +
-                "x = h + x_s * p_n,\ngdzie p_n to wybrany punkty z listy.\n");
+                "x = x_s + h * p_n,\ngdzie p_n to wybrany punkty z listy.\n");
         explanation.append("Następnie, obliczamy wartość funkcji w tak wybranym punkcie, i sumujemy ze sobą wszystkie 15 wartości wymnożone przez odpowiadające im wagi\n\n");
 
         if (integrationData.getCustomFunction() != null && !integrationData.getCustomFunction().isEmpty()) {
