@@ -110,4 +110,14 @@ public class CalculationController {
         return ResponseEntity.ok(systemOfEquationsResult);
     }
 
+    @PostMapping("/lu_system_of_equations")
+    public ResponseEntity<SystemOfEquationsResult> TreatLUSystemOfEquations(@RequestBody SystemOfEquationsData systemOfEquationsData) {
+        System.out.println("Received SystemOfEquationsData: " + systemOfEquationsData);
+        SystemOfEquationsResult systemOfEquationsResult = calculationService.CalculateLUSystemOfEquations(systemOfEquationsData);
+        if(!systemOfEquationsData.isTest())
+            dataService.saveSystemOfEquationsData(systemOfEquationsData, systemOfEquationsResult);
+        System.out.println("Calculated system of equations: " + systemOfEquationsResult.getSolutions());
+        return ResponseEntity.ok(systemOfEquationsResult);
+    }
+
 }

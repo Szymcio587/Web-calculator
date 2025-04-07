@@ -37,6 +37,9 @@ public class CalculationService {
     private MultigridSystemOfEquationsCalculator multigridSystemOfEquationsCalculator;
 
     @Autowired
+    private LUSystemOfEquationsCalculator luSystemOfEquationsCalculator;
+
+    @Autowired
     private ChatService chatService;
 
     public InterpolationResult CalculateInterpolation(InterpolationData interpolationData) {
@@ -93,6 +96,13 @@ public class CalculationService {
         SystemOfEquationsResult systemOfEquationsResult = new SystemOfEquationsResult();
         multigridSystemOfEquationsCalculator.Calculate(systemOfEquationsData, systemOfEquationsResult);
         systemOfEquationsResult.setPrompt(systemOfEquationsData.isTest() ? chatService.GenerateMultigridSystemOfEquationsResponse(systemOfEquationsData, systemOfEquationsResult.getSolutions()) : "");
+        return systemOfEquationsResult;
+    }
+
+    public SystemOfEquationsResult CalculateLUSystemOfEquations(SystemOfEquationsData systemOfEquationsData) {
+        SystemOfEquationsResult systemOfEquationsResult = new SystemOfEquationsResult();
+        luSystemOfEquationsCalculator.Calculate(systemOfEquationsData, systemOfEquationsResult);
+        systemOfEquationsResult.setPrompt(systemOfEquationsData.isTest() ? chatService.GenerateLUSystemOfEquationsResponse(systemOfEquationsData, systemOfEquationsResult.getSolutions()) : "");
         return systemOfEquationsResult;
     }
 }

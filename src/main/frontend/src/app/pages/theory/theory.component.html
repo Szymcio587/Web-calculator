@@ -30,6 +30,22 @@
     <h2 id="Interpolacja wielomianowa">Interpolacja wielomianowa</h2>
     <p>nazywana też interpolacją Lagrange’a – metoda numeryczna przybliżania funkcji tzw. wielomianem Lagrange’a stopnia <i>n</i> przyjmującą w <i>n + 1</i>
     punktach, zwanych węzłami interpolacji, wartości takie same jak przybliżana funkcja</p>
+    <div>Złożoność obliczeniowa tej metody wynosi: O(n^2)
+      <div class="tooltip-container">
+        <i class="tooltip-icon" (click)="toggleTooltip()">?</i>
+        <div class="tooltip-box" *ngIf="visibleTooltip === 'pressed'">
+          Algorytmiczna złożoność obliczeniowa to sposób określenia, jak szybko rośnie liczba operacji potrzebnych do
+          <br>wykonania algorytmu w zależności od rozmiaru danych wejściowych (np. liczby punktów).
+          Przykładowo:
+          <ul>
+            <li>Złożoność O(n) oznacza, że czas działania rośnie liniowo z liczbą danych.</li>
+            <li>Złożoność O(n^2) oznacza, że liczba operacji rośnie proporcjonalnie do kwadratu liczby danych – algorytm staje się znacznie wolniejszy przy
+              dużych wejściach.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
     <img src="../../../assets/images/p.png" alt="Ilustracja interpolacji wielomianowej" width="500px" height="300px">
     <figcaption>Ilustracja interpolacji wielomianowej</figcaption>
 
@@ -42,6 +58,7 @@
     <p>Interpolacja trygonometryczna to metoda stosowana głównie dla danych okresowych. Pozwala na odwzorowanie funkcji, które mają powtarzalny charakter,
       takich jak sygnały w elektronice czy dane związane z ruchem harmonicznym. Metoda ta jest niezwykle skuteczna przy analizie sygnałów i obliczeniach
       w dziedzinie częstotliwości</p>
+    <p>Złożoność obliczeniowa tej metody wynosi: O(n^2)</p>
     <img src="../../../assets/images/trigonometric.png" alt="Ilustracja interpolacji trygonometrycznej" width="500px" height="300px">
     <figcaption>Ilustracja interpolacji trygonometrycznej</figcaption>
 
@@ -66,6 +83,7 @@
       dla całej szerokości przedziału. Przy założeniu, że funkcja jest "gładka" i zmienia się w sposób przewidywalny, metoda ta daje zadowalające wyniki dla
       prostych przypadków. Ze względu na swoją prostotę, metoda ta może być mało dokładna w przypadku funkcji o znaczących zmianach w danym przedziale,
       dlatego jest często stosowana jako metoda porównawcza.</p>
+      <p>Złożoność obliczeniowa tej metody wynosi: O(n)</p>
     <img src="../../../assets/images/midpoint.png" alt="Ilustracja całkowania metodą punktu środkowego" width="500px" height="300px">
     <figcaption>Ilustracja całkowania metodą punktu środkowego</figcaption>
 
@@ -78,6 +96,7 @@
     <p>Metoda trapezów to klasyczne podejście do numerycznego całkowania, w którym obszar pod wykresem funkcji jest aproksymowany za pomocą trapezów.
       Przy podziale przedziału całkowania na małe części metoda ta może osiągać wysoką dokładność. Podobnie jak metoda punktu środkowego, metoda
       trapezów jest szeroko stosowana ze względu na swoją prostotę i intuicyjność, a także na możliwość łatwego rozszerzenia jej na wiele podprzedziałów.</p>
+      <p>Złożoność obliczeniowa tej metody wynosi: O(n)</p>
     <img src="../../../assets/images/trapezoidal.png" alt="Ilustracja całkowania metodą trapezów" width="500px" height="300px">
     <figcaption>Ilustracja całkowania metodą trapezów</figcaption>
 
@@ -91,6 +110,7 @@
        dokładność w porównaniu do prostszych metod, takich jak trapezy czy punkt środkowy. Szczególnie dobrze sprawdza się przy funkcjach "gładkich" i
        zmiennych w sposób ciągły. Metoda Simpsona dzieli obszar na podprzedziały, a następnie stosuje formułę paraboliczną do każdego z nich. Jest to jedna
        z najpopularniejszych metod całkowania w inżynierii i naukach ścisłych.</p>
+       <p>Złożoność obliczeniowa tej metody wynosi: O(n)</p>
     <img src="../../../assets/images/simpson.png" alt="Ilustracja całkowania metodą Simpsona" width="500px" height="300px">
     <figcaption>Ilustracja całkowania metodą Simpsona</figcaption>
 
@@ -104,7 +124,7 @@
       zwiększenia dokładności oraz oszacowania błędu. Wykorzystuje strategicznie wybrane węzły i wagi, które są wyznaczane na podstawie wielomianów
       ortogonalnych (np. wielomianów Legendre’a). Metoda ta jest szczególnie skuteczna dla funkcji gładkich i stosowana w adaptacyjnych algorytmach
       całkowania.</p>
-
+    <p>Złożoność obliczeniowa tej metody wynosi: O(n)</p>
     <div [innerHTML]="gaussKronrodIntegration"></div>
     W celu zobaczenia działania metody w praktyce <div class="examples" (click)="showExample('GaussKronrod')">kliknij tutaj</div>
   </section>
@@ -123,7 +143,7 @@
     <p>Wzory Kramera pomagają w rozwiązywaniu układów równań liniowych o <i>n</i> równaniach i <i>n</i> niewiadomych, w których wykorzystuje się wyznaczniki macierzy.
       Warunkiem stosowania tej metody jest, aby wyznacznik macierzy głównej układu (macierzy współczynników) był różny od zera.  W geometrii różniczkowej
       wykorzystuje się je (zwykle niejawnie), stosując twierdzenie o funkcji uwikłanej</p>
-
+    <p>Złożoność obliczeniowa tej metody wynosi: O(n! * n)</p>
       <div [innerHTML]="cramerMethod"></div>
       W celu zobaczenia działania metody w praktyce <div class="examples" (click)="showExample('Kramer')">kliknij tutaj</div>
   </section>
@@ -135,6 +155,7 @@
       redukcję błędu w każdej iteracji oraz możliwość uproszczenia macierzy, w celu redukcji kosztów obliczeniowych. Jej główną zaletą względem
       innych metod jest efektywność i zdolność do przyspieszania procesu zbieżności wykorzystując różne poziomy rozdzielczości siatki, która uwydatnia się
       zwłaszcza przy rozwiązywaniu skomplikowanych układów równań o sporej liczbie niewiadomych. </p>
+      <p>Złożoność obliczeniowa tej metody wynosi: O(n)</p>
 
       <div [innerHTML]="multigridMethod"></div>
       W celu zobaczenia działania metody w praktyce <div class="examples" (click)="showExample('Multigrid')">kliknij tutaj</div>

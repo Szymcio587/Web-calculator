@@ -194,6 +194,7 @@ $$
   filteredTitles: string[] = [];
   filteredSections: string[] = [];
   searchQuery: string = '';
+  visibleTooltip: string | null = null;
 
   sections = [
     'Interpolacja wielomianowa',
@@ -398,5 +399,9 @@ $$
         console.error('Error:', error);
       }
     }
+  }
+
+  toggleTooltip() {
+    this.visibleTooltip = this.visibleTooltip === null ? 'pressed' : null;
   }
 }

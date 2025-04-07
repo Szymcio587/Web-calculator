@@ -11,7 +11,6 @@ import java.util.Collections;
 import java.util.List;
 
 @Component
-@AllArgsConstructor
 public class MultigridSystemOfEquationsCalculator {
 
     private final int LOOP_ITERATIONS = 200;

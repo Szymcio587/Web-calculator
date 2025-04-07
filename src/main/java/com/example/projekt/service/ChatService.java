@@ -85,6 +85,14 @@ public class ChatService {
         return GetChatGptResponse(prompt);
     }
 
+    public String GenerateLUSystemOfEquationsResponse(SystemOfEquationsData systemOfEquationsData, List<Double> result) {
+        String prompt = "Wytłumacz w szczegółowy sposób proces rozwiązywania układu równań metodą faktoryzacji LU, mając podane następujące dane wejściowe: "
+                + systemOfEquationsData + " oraz zakładając, że wyznaczone niewiadome wynoszą: " + result + ". W odpowiedzi nie opisuj samej metody faktoryzacji LU, tylko krok po kroku" +
+                "sposób wyznaczenia podanych zmiennych. Sformatuj tekst tak, aby był przystępny do przeczytania, a w szczególności pisz poszczególne podpunkty w jednej linii" +
+                " bez zbędnych wcięć w tekście";
+        return GetChatGptResponse(prompt);
+    }
+
     public String GetChatGptResponse(String prompt) {
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(120, TimeUnit.SECONDS)

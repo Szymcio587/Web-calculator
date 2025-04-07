@@ -1,0 +1,103 @@
+package com.example.projekt.calculations;
+
+import com.example.projekt.model.data.SystemOfEquationsData;
+import com.example.projekt.model.results.SystemOfEquationsResult;
+import com.example.projekt.service.UtilityService;
+import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Component
+public class LUSystemOfEquationsCalculator {
+
+    public void Calculate(SystemOfEquationsData data, SystemOfEquationsResult result) {
+        int n = data.getCoefficients().size();
+        List<List<Double>> A = data.getCoefficients();
+        List<Double> b = data.getConstants();
+
+        StringBuilder explanation = new StringBuilder("Wyjaśnienie krok po kroku:\n\n");
+        explanation.append("Krok 1: Faktoryzacja macierzy A do postaci A = L * U, gdzie L jest macierzą dolnotrójkątną (wartośni nad przekątną będą równe zero), natomiast" +
+                "U jest macierzą górnotrójkątną.\nPoniżej zostanie zaprezentowana wersja rozkładu Doolittle'a, co oznacza że dla macierzy L" +
+                "wartości na przekątnej zostaną zamienione na 1, natomiast dla macierzy U będą to dowolne wartości.");
+
+        double[][] L = new double[n][n];
+        double[][] U = new double[n][n];
+
+        double[][] matrixA = new double[n][n];
+        for (int i = 0; i < n; i++) {
+            List<Double> row = A.get(i);
+            for (int j = 0; j < n; j++) {
+                matrixA[i][j] = row.get(j);
+            }
+        }
+
+        for (int i = 0; i < n; i++) {
+            // U - górna trójkątna
+            for (int k = i; k < n; k++) {
+                double sum = 0;
+                for (int j = 0; j < i; j++) {
+                    sum += L[i][j] * U[j][k];
+                }
+                U[i][k] = matrixA[i][k] - sum;
+            }
+
+            for (int k = i; k < n; k++) {
+                if (i == k) {
+                    L[i][i] = 1; // diagonala L
+                } else {
+                    double sum = 0;
+                    for (int j = 0; j < i; j++) {
+                        sum += L[k][j] * U[j][i];
+                    }
+                    L[k][i] = (matrixA[k][i] - sum) / U[i][i];
+                }
+            }
+        }
+
+        explanation.append("Macierz L:\n");
+        for (int i = 0; i < n; i++) {
+            explanation.append(Arrays.toString(L[i])).append("\n");
+        }
+
+        explanation.append("\nMacierz U:\n");
+        for (int i = 0; i < n; i++) {
+            explanation.append(Arrays.toString(U[i])).append("\n");
+        }
+
+        explanation.append("\nKrok 2: Rozwiązanie równania pośredniego.\nRozwiązanie domyślne naszego układu równań ma postać: A * x = b, gdzie:\nA - macierz " +
+                "współczynników\nx - wektor niewiadomych\nb - wektor wyrazów wolnych\n\n" +
+                "Podstawiając pod powyższe równanie A = L * U oraz U * x = y, otrzymujemy równanie: L * y = b.\n Znając wartości L oraz b, możemy wyznaczyć kolejne wartości" +
+                "wektora y rozwiązując za każdym razem równania z 1 niewiadomą (Ponieważ L to macierz dolnotrójkątna). Po podstawieniach otrzymujemy:\n");
+        double[] y = new double[n];
+        for (int i = 0; i < n; i++) {
+            double sum = 0;
+            for (int j = 0; j < i; j++) {
+                sum += L[i][j] * y[j];
+            }
+            y[i] = b.get(i) - sum;
+            explanation.append("y[").append(i).append("] = ").append(y[i]).append("\n");
+        }
+
+        explanation.append("\nKrok 3: Powrót do równania U * x = y\n.Teraz, mając wartości y naszą jedyną niewiadomą jest x, dzięki czemu ponownie dostajemy szereg równań w " +
+                "którym każde z nich zawiera wyłącznie 1 niewiadomą (Ponieważ U to macierz górnotrójkątna). Po rozwiązaniu tych równań otrzymujemy:\n");
+        double[] x = new double[n];
+        for (int i = n - 1; i >= 0; i--) {
+            double sum = 0;
+            for (int j = i + 1; j < n; j++) {
+                sum += U[i][j] * x[j];
+            }
+            x[i] = (y[i] - sum) / U[i][i];
+            explanation.append("x[").append(i).append("] = ").append(x[i]).append("\n");
+        }
+
+        List<Double> solutionList = Arrays.stream(x)
+                .mapToObj(val -> UtilityService.Round(val, 5))
+                .collect(Collectors.toList());
+
+        result.setSolutions(solutionList);
+        result.setExplanation(explanation.toString());
+    }
+
+}
