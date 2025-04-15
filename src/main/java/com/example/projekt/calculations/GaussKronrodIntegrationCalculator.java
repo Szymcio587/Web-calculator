@@ -76,6 +76,13 @@ public class GaussKronrodIntegrationCalculator {
             return;
         }
 
+        if((integrationData.getDegree() <= 0 || integrationData.getFactors().isEmpty() || integrationData.getDegree() !=
+                integrationData.getFactors().size() - 1)) {
+            integrationResult.setResult(0);
+            explanation.append("Popełniono błąd podczas podawania stopnia wielomianu bądź też kolejnych współczynników.");
+            return;
+        }
+
         explanation.append("Wyjaśnienie krok po kroku:\n\n");
         explanation.append("Krok 1: Zdefiniowanie stałych\n");
         explanation.append("Aby skutecznie wykorzystać metodę Gaussa-Kronroda, należy najpierw zdefiniować zasadę 15 punktów Kronroda, dla których będą wyliczanie wartości po " +

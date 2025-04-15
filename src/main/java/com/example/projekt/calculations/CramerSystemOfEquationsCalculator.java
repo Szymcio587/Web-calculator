@@ -27,8 +27,18 @@ public class CramerSystemOfEquationsCalculator {
         explanation.append("Wyjaśnienie krok po kroku:\n\n");
         explanation.append("Krok 1: Obliczenie wyznacznika macierzy głównej. W przypadku gdy będzie różny od zera, układ będzie oznaczony, czyli będzie miał tylko jedno rozwiązanie\n");
 
-        if (coefficients.size() != size || constants.size() != size) {
-            throw new IllegalArgumentException("Invalid system of equations.");
+        if (constants.size() != size) {
+            result.setSolutions(new ArrayList<>(0));
+            result.setExplanation("Liczba zmiennych nie odpowiada rozmiarowi macierzy współczynników.");
+            return;
+        }
+
+        for (List<Double> row : coefficients) {
+            if (row.size() != size) {
+                result.setSolutions(new ArrayList<>(0));
+                result.setExplanation("W pewnym rzędzie znalazła się nieprawidłowa liczba współczynników.");
+                return;
+            }
         }
 
         double determinant = CalculateDeterminant(coefficients);
@@ -36,7 +46,9 @@ public class CramerSystemOfEquationsCalculator {
         explanation.append("Krok 2: Utworzenie macierzy dla wybranej zmiennej.\n");
 
         if (Math.abs(determinant) < 1e-9) {
-            throw new ArithmeticException("The system has no unique solution (determinant is zero).");
+            result.setSolutions(new ArrayList<>(0));
+            result.setExplanation("Ten układ równań nie jest układem oznaczonym.");
+            return;
         }
 
         List<Double> solutions = new java.util.ArrayList<>(size);
