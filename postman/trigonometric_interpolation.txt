@@ -1,0 +1,146 @@
+{
+  "info": {
+    "name": "InterpolacjaTrygonometryczna - Testy",
+    "_postman_id": "interpolacja-testy-uuid-002",
+    "description": "Zestaw testów dla funkcji interpolacji trygonometrycznej",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Test 1 - Pusty zbiór punktów",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"pointsNumber\": 0,\n  \"searchedValue\": 2.5,\n  \"points\": []\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8081/calculations/trigonometric_interpolation",
+          "host": ["localhost"],
+          "port": "8081",
+          "path": ["calculations", "trigonometric_interpolation"]
+        }
+      }
+    },
+    {
+      "name": "Test 2 - Jeden punkt",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"pointsNumber\": 1,\n  \"searchedValue\": 10.0,\n  \"points\": [\n    { \"x\": 10.0, \"y\": 42.0 }\n  ]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8081/calculations/trigonometric_interpolation",
+          "host": ["localhost"],
+          "port": "8081",
+          "path": ["calculations", "trigonometric_interpolation"]
+        }
+      }
+    },
+    {
+      "name": "Test 3 - Duplikaty X",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"pointsNumber\": 4,\n  \"searchedValue\": 2.0,\n  \"points\": [\n    { \"x\": 1.0, \"y\": 3.0 },\n    { \"x\": 2.0, \"y\": 5.0 },\n    { \"x\": 1.0, \"y\": 9.0 },\n    { \"x\": 3.0, \"y\": 7.0 }\n  ]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8081/calculations/trigonometric_interpolation",
+          "host": ["localhost"],
+          "port": "8081",
+          "path": ["calculations", "trigonometric_interpolation"]
+        }
+      }
+    },
+    {
+      "name": "Test 4 - Szukany X istnieje w zbiorze",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"pointsNumber\": 3,\n  \"searchedValue\": 2.0,\n  \"points\": [\n    { \"x\": 1.0, \"y\": 4.0 },\n    { \"x\": 2.0, \"y\": 6.0 },\n    { \"x\": 3.0, \"y\": 8.0 }\n  ]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8081/calculations/trigonometric_interpolation",
+          "host": ["localhost"],
+          "port": "8081",
+          "path": ["calculations", "trigonometric_interpolation"]
+        }
+      }
+    },
+    {
+      "name": "Test 5 - Typowa interpolacja",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"pointsNumber\": 3,\n  \"searchedValue\": 2.5,\n  \"points\": [\n    { \"x\": 1.0, \"y\": 2.0 },\n    { \"x\": 2.0, \"y\": 4.0 },\n    { \"x\": 3.0, \"y\": 8.0 }\n  ]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8081/calculations/trigonometric_interpolation",
+          "host": ["localhost"],
+          "port": "8081",
+          "path": ["calculations", "trigonometric_interpolation"]
+        }
+      }
+    },
+    {
+      "name": "Test 6 - Duplikaty powodujące dzielenie przez 0",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"pointsNumber\": 3,\n  \"searchedValue\": 1.5,\n  \"points\": [\n    { \"x\": 1.0, \"y\": 2.0 },\n    { \"x\": 1.0, \"y\": 3.0 },\n    { \"x\": 2.0, \"y\": 6.0 }\n  ]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8081/calculations/trigonometric_interpolation",
+          "host": ["localhost"],
+          "port": "8081",
+          "path": ["calculations", "trigonometric_interpolation"]
+        }
+      }
+    },
+    {
+      "name": "Test 7 - Ekstrapolacja",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"pointsNumber\": 3,\n  \"searchedValue\": 10.0,\n  \"points\": [\n    { \"x\": 1.0, \"y\": 2.0 },\n    { \"x\": 2.0, \"y\": 4.0 },\n    { \"x\": 3.0, \"y\": 6.0 }\n  ]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8081/calculations/trigonometric_interpolation",
+          "host": ["localhost"],
+          "port": "8081",
+          "path": ["calculations", "trigonometric_interpolation"]
+        }
+      }
+    },
+    {
+      "name": "Test 8 - Punkt z null jako x",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"pointsNumber\": 3,\n  \"searchedValue\": 2.0,\n  \"points\": [\n    { \"x\": 1.0, \"y\": 2.0 },\n    { \"x\": null, \"y\": 4.0 },\n    { \"x\": 3.0, \"y\": 6.0 }\n  ]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8081/calculations/trigonometric_interpolation",
+          "host": ["localhost"],
+          "port": "8081",
+          "path": ["calculations", "trigonometric_interpolation"]
+        }
+      }
+    }
+  ]
+}

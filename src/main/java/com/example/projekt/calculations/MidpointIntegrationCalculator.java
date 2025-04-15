@@ -28,15 +28,14 @@ public class MidpointIntegrationCalculator {
 
     public void Calculate(IntegrationData integrationData, IntegrationResult integrationResult) {
         counter = 0;
-        StringBuilder explanation = new StringBuilder();
-        explanation.append("Wyjaśnienie krok po kroku:\n\n");
-
-        double width = (integrationData.getXk() - integrationData.getXp()) / integrationData.getSections();
+        double width = integrationData.getXp() >= integrationData.getXk() || integrationData.getSections() <= 0 ? 0
+                : (integrationData.getXk() - integrationData.getXp()) / integrationData.getSections();
         double result = 0;
         boolean isCustom = integrationData.getCustomFunction() != null && !integrationData.getCustomFunction().isEmpty();
         double m = 0;
         double m1 = 0;
         double m2 = 0;
+        StringBuilder explanation = new StringBuilder();
 
         if(isCustom) {
             String customFunction = integrationData.getCustomFunction();
@@ -48,10 +47,22 @@ public class MidpointIntegrationCalculator {
             m2 = UtilityService.Round(function.calculate(integrationData.getXp() + (width * 1.5)), 5);
         }
         else {
+            if(width == 0) {
+                integrationResult.setResult(0);
+                explanation.append("Szerokość podprzedziału została ustalona jako 0, w związku z czym nie udało się wykonać dalszych obliczeń.");
+                return;
+            }
+            if((integrationData.getDegree() <= 0 || integrationData.getFactors().isEmpty() || integrationData.getDegree() !=
+                    integrationData.getFactors().size() - 1)) {
+                integrationResult.setResult(0);
+                explanation.append("Popełniono błąd podczas podawania stopnia wielomianu bądź też kolejnych współczynników.");
+                return;
+            }
             m1 = UtilityService.Round(ValueInPoint(integrationData.getFactors(), integrationData.getXp() + (width / 2), integrationData.getDegree()), 5);
             m2 = UtilityService.Round(ValueInPoint(integrationData.getFactors(), integrationData.getXp() + (width * 1.5), integrationData.getDegree()), 5);
         }
 
+        explanation.append("Wyjaśnienie krok po kroku:\n\n");
         explanation.append("Krok 1: Wyznaczenie szerokości podprzedziałów\n");
         explanation.append("Można go wyznaczyć za pomocą wzoru: h=(b-a)/n, Gdzie h - szerokość jednego podprzedziału, [a,b] - granica całego przedziału, n - podana liczba podprzedziałów\n");
         explanation.append("W naszym przypadku: h = (").append(UtilityService.Round(integrationData.getXk(), 5)).append(" - ").append(UtilityService.Round(integrationData.getXp(), 5))

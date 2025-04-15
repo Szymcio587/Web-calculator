@@ -7,23 +7,44 @@ import com.example.projekt.service.UtilityService;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 @Component
 public class InterpolationCalculator {
 
     public void Calculate(InterpolationData interpolationData, InterpolationResult interpolationResult) {
-        if (interpolationData == null) {
+        if (interpolationData == null || interpolationData.getPoints() == null || interpolationData.getPoints().isEmpty()) {
+            interpolationResult.setResult(0);
+            interpolationResult.setExplanation("Nie podano żadnego punktu do interpolacji.");
             return;
         }
 
         StringBuilder explanation = new StringBuilder();
-        explanation.append("Wyjaśnienie krok po kroku:\n\n");
+
+        interpolationData.setPoints(removeDuplicateXPoints(interpolationData.getPoints()));
+        if(interpolationData.getPoints().size() != interpolationData.getPointsNumber()) {
+            explanation.append("UWAGA: z powodu duplikujących się punktów, usunięto ")
+                    .append(interpolationData.getPointsNumber() - interpolationData.getPoints().size())
+                    .append(" z nich.\n\n");
+            interpolationData.setPointsNumber(interpolationData.getPoints().size());
+        }
+
+
+        if (interpolationData.getPoints().size() == 1) {
+            interpolationResult.setResult(UtilityService.Round(interpolationData.getPoints().get(0).getY(), 3));
+            interpolationResult.setExplanation("Został podany wyłącznie 1 punkt, więc wartość interpolacji jest równa wartości dla tego" +
+                    "punktu.");
+            return;
+        }
 
         int pointsNumber = interpolationData.getPointsNumber();
         double[] weights = new double[pointsNumber];
         double result = 0;
 
+        explanation.append("Wyjaśnienie krok po kroku:\n\n");
         explanation.append("Krok 1: Wyznaczenie wzoru ogólnego szukanej funkcji.\nf(x) = ");
         for (int q = 0; q < pointsNumber; q++) {
             weights[q] = 1;
@@ -95,6 +116,25 @@ public class InterpolationCalculator {
 
         interpolationResult.setResult(UtilityService.Round(result, 3));
         interpolationResult.setExplanation(explanation.toString());
+    }
+
+    public static List<Point> removeDuplicateXPoints(List<Point> points) {
+        if (points == null || points.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        Set<Double> seenX = new HashSet<>();
+        List<Point> filteredPoints = new ArrayList<>();
+
+        for (Point point : points) {
+            if (point == null) continue;
+            if (!seenX.contains(point.getX())) {
+                seenX.add(point.getX());
+                filteredPoints.add(point);
+            }
+        }
+
+        return filteredPoints;
     }
 
     public double[] GenerateCoefficients(List<Point> points) {

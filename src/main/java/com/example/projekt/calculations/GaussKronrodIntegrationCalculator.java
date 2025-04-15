@@ -63,14 +63,20 @@ public class GaussKronrodIntegrationCalculator {
     public void Calculate(IntegrationData integrationData, IntegrationResult integrationResult) {
         counter = 0;
         StringBuilder explanation = new StringBuilder();
-        explanation.append("Wyjaśnienie krok po kroku:\n\n");
+
         double a = integrationData.getXp();
         double b = integrationData.getXk();
-
         double midpoint = (a + b) / 2;
         double halfWidth = (b - a) / 2;
         double result = 0;
 
+        if(a >= b) {
+            integrationResult.setResult(0);
+            explanation.append("Punkt początkowy znajduje się dalej niż punkt końcowy, w związku z czym nie udało się wykonać dalszych obliczeń.");
+            return;
+        }
+
+        explanation.append("Wyjaśnienie krok po kroku:\n\n");
         explanation.append("Krok 1: Zdefiniowanie stałych\n");
         explanation.append("Aby skutecznie wykorzystać metodę Gaussa-Kronroda, należy najpierw zdefiniować zasadę 15 punktów Kronroda, dla których będą wyliczanie wartości po " +
                 "znormalizowaniu zakresu do przedziału [-1;1]. Są to wartości predefiniowane, czyli narzucone odgórnie w ramach tej właśnie metody.\n");

@@ -1,0 +1,290 @@
+{
+  "info": {
+    "name": "Ca\u0142kowanieGaussKronrod - Testy",
+    "_postman_id": "427109d4-64b8-4db8-9277-294309c673f6",
+    "description": "Test cases for trapezoidal integration endpoint",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Polynomial x^2 - 2x + 1",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"dataType\": \"polynomial\",\n  \"username\": \"test_user\",\n  \"degree\": 2,\n  \"factors\": [\n    1.0,\n    -2.0,\n    1.0\n  ],\n  \"sections\": 4,\n  \"isTest\": true,\n  \"Xp\": 0.0,\n  \"Xk\": 2.0,\n  \"customFunction\": \"\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8081/calculations/gauss_kronrod_integration",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "calculations",
+            "gauss_kronrod_integration"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Function sin(x)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"dataType\": \"function\",\n  \"username\": \"test_user\",\n  \"degree\": 0,\n  \"factors\": [],\n  \"sections\": 4,\n  \"isTest\": true,\n  \"Xp\": 0.0,\n  \"Xk\": 2.0,\n  \"customFunction\": \"sin(x)\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8081/calculations/gauss_kronrod_integration",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "calculations",
+            "gauss_kronrod_integration"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Function cos(x) - Pi range",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"dataType\": \"function\",\n  \"username\": \"test_user\",\n  \"degree\": 0,\n  \"factors\": [],\n  \"sections\": 100,\n  \"isTest\": true,\n  \"Xp\": 0.0,\n  \"Xk\": 3.14159,\n  \"customFunction\": \"cos(x)\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8081/calculations/gauss_kronrod_integration",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "calculations",
+            "gauss_kronrod_integration"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Polynomial -x^3 + x",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"dataType\": \"polynomial\",\n  \"username\": \"test_user\",\n  \"degree\": 3,\n  \"factors\": [\n    0,\n    1,\n    0,\n    -1\n  ],\n  \"sections\": 10,\n  \"isTest\": true,\n  \"Xp\": -1,\n  \"Xk\": 1,\n  \"customFunction\": \"\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8081/calculations/gauss_kronrod_integration",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "calculations",
+            "gauss_kronrod_integration"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Zero-width interval exp(x)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"dataType\": \"function\",\n  \"username\": \"test_user\",\n  \"degree\": 0,\n  \"factors\": [],\n  \"sections\": 5,\n  \"isTest\": true,\n  \"Xp\": 2.0,\n  \"Xk\": 2.0,\n  \"customFunction\": \"exp(x)\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8081/calculations/gauss_kronrod_integration",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "calculations",
+            "gauss_kronrod_integration"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Reversed interval log(x)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"dataType\": \"function\",\n  \"username\": \"test_user\",\n  \"degree\": 0,\n  \"factors\": [],\n  \"sections\": 5,\n  \"isTest\": true,\n  \"Xp\": 2.0,\n  \"Xk\": 1.0,\n  \"customFunction\": \"log(x)\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8081/calculations/gauss_kronrod_integration",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "calculations",
+            "gauss_kronrod_integration"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Zero sections (error)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"dataType\": \"polynomial\",\n  \"username\": \"test_user\",\n  \"degree\": 2,\n  \"factors\": [\n    1,\n    1,\n    1\n  ],\n  \"sections\": 0,\n  \"isTest\": true,\n  \"Xp\": 0.0,\n  \"Xk\": 1.0,\n  \"customFunction\": \"\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8081/calculations/gauss_kronrod_integration",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "calculations",
+            "gauss_kronrod_integration"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Too few coefficients (error)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"dataType\": \"polynomial\",\n  \"username\": \"test_user\",\n  \"degree\": 3,\n  \"factors\": [\n    1,\n    2\n  ],\n  \"sections\": 4,\n  \"isTest\": true,\n  \"Xp\": 0.0,\n  \"Xk\": 1.0,\n  \"customFunction\": \"\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8081/calculations/gauss_kronrod_integration",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "calculations",
+            "gauss_kronrod_integration"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Function with potential NaN",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"dataType\": \"function\",\n  \"username\": \"test_user\",\n  \"degree\": 0,\n  \"factors\": [],\n  \"sections\": 3,\n  \"isTest\": true,\n  \"Xp\": 0.0,\n  \"Xk\": 1.0,\n  \"customFunction\": \"1 / (x - 0.5)\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8081/calculations/gauss_kronrod_integration",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "calculations",
+            "gauss_kronrod_integration"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Function with syntax error",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"dataType\": \"function\",\n  \"username\": \"test_user\",\n  \"degree\": 0,\n  \"factors\": [],\n  \"sections\": 3,\n  \"isTest\": true,\n  \"Xp\": 0.0,\n  \"Xk\": 1.0,\n  \"customFunction\": \"2*x^2 +\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8081/calculations/gauss_kronrod_integration",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "calculations",
+            "gauss_kronrod_integration"
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -78,8 +78,8 @@ public class ChatService {
     }
 
     public String GenerateMultigridSystemOfEquationsResponse(SystemOfEquationsData systemOfEquationsData, List<Double> result) {
-        String prompt = "Wytłumacz w szczegółowy sposób proces rozwiązywania układu równań metodą gradientu sprzężonego, mając podane następujące dane wejściowe: "
-                + systemOfEquationsData + " oraz zakładając, że wyznaczone niewiadome wynoszą: " + result + ". W odpowiedzi nie opisuj samej metody gradientu sprzężonego, tylko krok po kroku" +
+        String prompt = "Wytłumacz w szczegółowy sposób proces rozwiązywania układu równań metodą wielosiatkową, mając podane następujące dane wejściowe: "
+                + systemOfEquationsData + " oraz zakładając, że wyznaczone niewiadome wynoszą: " + result + ". W odpowiedzi nie opisuj samej metody wielosiatkowej, tylko krok po kroku" +
                 "sposób wyznaczenia podanych zmiennych. Sformatuj tekst tak, aby był przystępny do przeczytania, a w szczególności pisz poszczególne podpunkty w jednej linii" +
                 " bez zbędnych wcięć w tekście";
         return GetChatGptResponse(prompt);
